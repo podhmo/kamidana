@@ -14,12 +14,8 @@ def main():
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--data", action="append", help="support yaml, json, toml", default=[])
-    parser.add_argument(
-        "--driver", default="kamidana.driver:Driver", help="default: kamidana.driver:Driver"
-    )
-    parser.add_argument(
-        "--data-loader", default="kamidana.cmd:load_data", help="default: kamidana.cmd:load_data"
-    )
+    parser.add_argument("--driver", default="kamidana.driver:Driver")
+    parser.add_argument("--data-loader", default="kamidana.cmd:load_data")
     parser.add_argument("--input-format", default=None)
     parser.add_argument("--output-format", default="raw")
     parser.add_argument("template")
