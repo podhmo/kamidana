@@ -1,11 +1,14 @@
 # -*- coding:utf-8 -*-
 from collections import defaultdict
-TAG = "_kamidana_marker"
+
+MARKER_TAG = "_kamidana_marker"
+IS_GENERATOR_TAG = "_kamidana_is_generator"
 
 
-def create_marker(name):
+def create_marker(name, is_generator=False):
     def decorator(fn):
-        setattr(fn, TAG, name)
+        setattr(fn, MARKER_TAG, name)
+        setattr(fn, IS_GENERATOR_TAG, is_generator)
         return fn
 
     return decorator
@@ -14,12 +17,16 @@ def create_marker(name):
 as_filter = create_marker("filters")
 as_global = create_marker("globals")
 as_test = create_marker("tests")
+as_globals_generator = create_marker("globals", is_generator=True)
 
 
 def collect_marked_items(module):
     marked = defaultdict(dict)
     for v in module.__dict__.values():
-        name = getattr(v, TAG, None)
+        name = getattr(v, MARKER_TAG, None)
         if name is not None:
-            marked[name][v.__name__] = v
+            if getattr(v, IS_GENERATOR_TAG, False):
+                marked[name].update(v())
+            else:
+                marked[name][v.__name__] = v
     return marked
