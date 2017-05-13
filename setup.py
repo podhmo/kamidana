@@ -18,6 +18,7 @@ except IOError:
 
 install_requires = [
     'jinja2',
+    'dictknife'
 ]
 
 
@@ -38,10 +39,10 @@ setup(name='kamidana',
           "Programming Language :: Python",
           "Programming Language :: Python :: Implementation :: CPython",
       ],
-      keywords='',
-      author="",
-      author_email="",
-      url="",
+      keywords='jinja2, cli, commandline',
+      author="podhmo",
+      author_email="ababjam61+github@gmail.com",
+      url="https://github.com/podhmo/kamidana",
       packages=find_packages(exclude=["kamidana.tests"]),
       include_package_data=True,
       zip_safe=False,
@@ -53,5 +54,6 @@ setup(name='kamidana',
       tests_require=tests_require,
       test_suite="kamidana.tests",
       entry_points="""
+      [console_scripts]
+      kamidana=kamidana.cmd:main
 """)
-
