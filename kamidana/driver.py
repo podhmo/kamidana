@@ -8,18 +8,26 @@ def _load_template(filename, encoding="utf-8"):
         return rf.read()  # python3.x only
 
 
+def _make_environment(load, additionals):
+    env = jinja2.Environment(
+        loader=jinja2.FunctionLoader(load),
+        undefined=jinja2.StrictUndefined,
+    )
+    for name, defs in additionals.items():
+        getattr(env, name).update(defs)
+    return env
+
+
 class Driver:
-    def __init__(self, data, format, load_template=_load_template):
+    def __init__(self, data, format, load_template=_load_template, additionals=None):
         self.data = data
         self.format = format
         self.load_template = load_template
+        self.additionals = additionals or {}
 
     @reify
     def environment(self):
-        return jinja2.Environment(
-            loader=jinja2.FunctionLoader(self.load_template),
-            undefined=jinja2.StrictUndefined,
-        )
+        return _make_environment(self.load_template, additionals=self.additionals)
 
     def transform(self, t):
         return t.render(**self.data)
