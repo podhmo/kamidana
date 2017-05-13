@@ -7,6 +7,21 @@ kamidana
 example
 ----------------------------------------
 
+
+.. code-block:: bash
+
+  $ kamidana examples/readme/nginx.jinja2 --data examples/readme/data.json
+  server {
+    listen 80;
+    server_name localhost;
+  
+    root /var/www/project;
+    index index.htm;
+  
+    access_log /var/log/nginx/http.access.log combined;
+    error_log  /var/log/nginx/http.error.log;
+  }
+
 nginx.jinja2
 
 .. code-block:: jinja2
@@ -32,20 +47,5 @@ data.json
       "webroot": "/var/www/project",
       "logdir": "/var/log/nginx"
     }
-  }
-
-
-.. code-block:: bash
-
-  $ kamidana examples/readme/nginx.jinja2 --data examples/readme/data.json
-  server {
-    listen 80;
-    server_name localhost;
-  
-    root /var/www/project;
-    index index.htm;
-  
-    access_log /var/log/nginx/http.access.log combined;
-    error_log  /var/log/nginx/http.error.log;
   }
 
