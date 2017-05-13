@@ -57,24 +57,44 @@ example2 (--additionals)
 .. code-block:: bash
 
   $ kamidana --additionals=./examples/readme2/additionals.py --data=./examples/readme2/data.yaml ./examples/readme2/hello.jinja2
-  hello, world!!
+  
+    bye, world!!
+  
 
 hello.jinja2
 
 .. code-block:: jinja2
 
-  hello, {{name|surprised}}
+  {% if 19 is night %}
+    {{night}}, {{name|surprised}}
+  {% else %}
+    {{daytime}}, {{name|surprised}}
+  {% endif %}
 
 additionals.py
 
 .. code-block:: python
 
-  from kamidana import as_filter
+  from kamidana import (
+      as_filter,
+      as_globals_generator,
+      as_test,
+  )
   
   
   @as_filter
   def surprised(v):
       return "{}!!".format(v)
+  
+  
+  @as_globals_generator
+  def generate_globals():
+      return {"daytime": "hello", "night": "bye"}
+  
+  
+  @as_test
+  def night(hour):
+      return 19 <= hour or hour < 3
 
 data.yaml
 
