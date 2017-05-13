@@ -1,0 +1,7 @@
+{
+  "nginx": {
+    "hostname": "localhost",
+    "webroot": "/var/www/project",
+    "logdir": "/var/log/nginx"
+  }
+}
