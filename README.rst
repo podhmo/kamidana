@@ -49,3 +49,37 @@ data.json
     }
   }
 
+
+example2 (--additionals)
+----------------------------------------
+
+
+.. code-block:: bash
+
+  $ kamidana --additionals=./examples/readme2/additionals.py --data=./examples/readme2/data.yaml ./examples/readme2/hello.jinja2
+  hello, world!!
+
+hello.jinja2
+
+.. code-block:: jinja2
+
+  hello, {{name|surprised}}
+
+additionals.py
+
+.. code-block:: python
+
+  from kamidana import as_filter
+  
+  
+  @as_filter
+  def surprised(v):
+      return "{}!!".format(v)
+
+data.yaml
+
+.. code-block:: yaml
+
+  name: world
+  
+
