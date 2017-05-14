@@ -18,7 +18,8 @@ except IOError:
 
 install_requires = [
     'jinja2',
-    'dictknife'
+    'dictknife',
+    'magicalimport',
 ]
 
 
@@ -32,7 +33,7 @@ testing_extras = tests_require + [
 ]
 
 setup(name='kamidana',
-      version='0.1.0',
+      version='0.1.1',
       description='command line jinja2 template (yet another j2cli)',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
