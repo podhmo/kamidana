@@ -57,7 +57,6 @@ example2 (--additionals)
 .. code-block:: bash
 
   $ kamidana --additionals=./examples/readme2/additionals.py --data=./examples/readme2/data.yaml ./examples/readme2/hello.jinja2
-  
     bye, world!!
   
 

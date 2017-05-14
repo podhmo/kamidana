@@ -12,6 +12,8 @@ def _make_environment(load, additionals):
     env = jinja2.Environment(
         loader=jinja2.FunctionLoader(load),
         undefined=jinja2.StrictUndefined,
+        trim_blocks=True,
+        lstrip_blocks=True,
     )
     for name, defs in additionals.items():
         getattr(env, name).update(defs)
