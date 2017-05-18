@@ -15,7 +15,7 @@ def main():
         "--loader",
         default="kamidana.loader:TemplateLoader",
         help="default: kamidana.loader:TemplateLoader",
-    )  # NOQA
+    )
     parser.add_argument("--additionals", default=None)
     parser.add_argument("--input-format", default=None)
     parser.add_argument("--output-format", default="raw")
