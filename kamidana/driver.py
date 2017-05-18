@@ -1,6 +1,7 @@
 import jinja2
 from dictknife import loading
 from dictknife.langhelpers import reify
+from .interfaces import IDriver
 
 
 def _load_template(filename, encoding="utf-8"):
@@ -20,7 +21,7 @@ def _make_environment(load, additionals):
     return env
 
 
-class Driver:
+class Driver(IDriver):
     def __init__(self, data, format, load_template=_load_template, additionals=None):
         self.data = data
         self.format = format
