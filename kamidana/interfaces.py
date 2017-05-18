@@ -1,7 +1,7 @@
 import abc
 
 
-class ILoader(metaclass=abc.ABCMeta):
+class ITemplateLoader(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def load(self, filename):
         pass

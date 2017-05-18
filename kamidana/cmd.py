@@ -6,8 +6,16 @@ def main():
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--data", action="append", help="support yaml, json, toml", default=[])
-    parser.add_argument("--driver", default="kamidana.driver:Driver", help="default: kamidana.driver:Driver")
-    parser.add_argument("--loader", default="kamidana.loader:Loader", help="default: kamidana.loader:Loader")
+    parser.add_argument(
+        "--driver",
+        default="kamidana.driver:Driver",
+        help="default: kamidana.driver:Driver",
+    )
+    parser.add_argument(
+        "--loader",
+        default="kamidana.loader:TemplateLoader",
+        help="default: kamidana.loader:TemplateLoader",
+    )  # NOQA
     parser.add_argument("--additionals", default=None)
     parser.add_argument("--input-format", default=None)
     parser.add_argument("--output-format", default="raw")
