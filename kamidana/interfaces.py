@@ -1,9 +1,17 @@
 import abc
 
 
-class IProcessor(metaclass=abc.ABCMeta):
+class ILoader(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def process(self, create_function):
+    def load(self, filename):
+        pass
+
+    @abc.abstractproperty
+    def data(self):
+        pass
+
+    @abc.abstractmethod
+    def additionals(self):
         pass
 
 

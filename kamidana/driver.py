@@ -4,11 +4,6 @@ from dictknife.langhelpers import reify
 from .interfaces import IDriver
 
 
-def _load_template(filename, encoding="utf-8"):
-    with open(filename) as rf:
-        return rf.read()  # python3.x only
-
-
 def _make_environment(load, additionals):
     env = jinja2.Environment(
         loader=jinja2.FunctionLoader(load),
@@ -22,18 +17,16 @@ def _make_environment(load, additionals):
 
 
 class Driver(IDriver):
-    def __init__(self, data, format, load_template=_load_template, additionals=None):
-        self.data = data
+    def __init__(self, loader, format):
+        self.loader = loader
         self.format = format
-        self.load_template = load_template
-        self.additionals = additionals or {}
 
     @reify
     def environment(self):
-        return _make_environment(self.load_template, additionals=self.additionals)
+        return _make_environment(self.loader.load, self.loader.additionals)
 
     def transform(self, t):
-        return t.render(**self.data)
+        return t.render(**self.loader.data)
 
     def load(self, template_file):
         return self.environment.get_or_select_template(template_file)
