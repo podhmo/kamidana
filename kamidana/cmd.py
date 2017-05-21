@@ -19,6 +19,7 @@ def main():
     parser.add_argument("--additionals", default=None)
     parser.add_argument("--input-format", default=None)
     parser.add_argument("--output-format", default="raw")
+    parser.add_argument("--dump-context", action="store_true")
     parser.add_argument("template")
     parser.add_argument("--dst", default=None)
 
@@ -28,6 +29,9 @@ def main():
     loader_cls = import_symbol(args.loader, ns="kamidana.loader")
     loader = loader_cls(args.data, args.additionals, args.input_format)
 
-    driver_cls = import_symbol(args.driver, ns="kamidana.driver")
+    if args.dump_context:
+        driver_cls = import_symbol("ContextDumpDriver", ns="kamidana.driver")
+    else:
+        driver_cls = import_symbol(args.driver, ns="kamidana.driver")
     driver = driver_cls(loader, format=args.output_format)
     driver.run(args.template, args.dst)
