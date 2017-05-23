@@ -1,4 +1,5 @@
 import jinja2
+import jinja2.ext as ext
 from dictknife import loading
 from dictknife.langhelpers import reify
 from .interfaces import IDriver
@@ -10,6 +11,7 @@ def _make_environment(load, additionals):
         undefined=jinja2.StrictUndefined,
         trim_blocks=True,
         lstrip_blocks=True,
+        extensions=(ext.with_, )
     )
     for name, defs in additionals.items():
         getattr(env, name).update(defs)
