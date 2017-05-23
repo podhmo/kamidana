@@ -8,7 +8,7 @@ example
 ----------------------------------------
 
 
-.. code-block:: bash
+.. code-block:: console
 
   $ kamidana examples/readme/nginx.jinja2 --data examples/readme/data.json
   server {
@@ -53,12 +53,10 @@ data.json
 example2 (--additionals)
 ----------------------------------------
 
-
-.. code-block:: bash
+.. code-block:: console
 
   $ kamidana --additionals=./examples/readme2/additionals.py --data=./examples/readme2/data.yaml ./examples/readme2/hello.jinja2
     bye, world!!
-  
 
 hello.jinja2
 
@@ -101,4 +99,3 @@ data.yaml
 
   name: world
   
-

@@ -1,0 +1,67 @@
+kamidana
+========================================
+
+.. image:: https://travis-ci.org/podhmo/kamidana.svg?branch=master
+    :target: https://travis-ci.org/podhmo/kamidana
+
+example
+----------------------------------------
+
+
+.. code-block:: console
+
+{% with cmd="kamidana examples/readme/nginx.jinja2 --data examples/readme/data.json" %}
+  $ {{cmd}}
+  {{cmd|spawn|indent(2)}}
+{% endwith %}
+
+{% with name="nginx.jinja2" %}
+{{name}}
+
+.. code-block:: jinja2
+
+  {{"./examples/readme/%s"|format(name)|read|indent(2)}}
+{% endwith %}
+
+{% with name="data.json" %}
+{{name}}
+
+.. code-block:: json
+
+  {{"./examples/readme/%s"|format(name)|read|indent(2)}}
+{% endwith %}
+
+
+example2 (--additionals)
+----------------------------------------
+
+.. code-block:: console
+
+{% with cmd="kamidana --additionals=./examples/readme2/additionals.py --data=./examples/readme2/data.yaml ./examples/readme2/hello.jinja2" %}
+  $ {{cmd}}
+  {{cmd|spawn|indent(2)}}
+{% endwith %}
+
+{% with name="hello.jinja2" %}
+{{name}}
+
+.. code-block:: jinja2
+
+  {{"./examples/readme2/%s"|format(name)|read|indent(2)}}
+{% endwith %}
+
+{% with name="additionals.py" %}
+{{name}}
+
+.. code-block:: python
+
+  {{"./examples/readme2/%s"|format(name)|read|indent(2)}}
+{% endwith %}
+
+{% with name="data.yaml" %}
+{{name}}
+
+.. code-block:: yaml
+
+  {{"./examples/readme2/%s"|format(name)|read|indent(2)}}
+{% endwith %}
