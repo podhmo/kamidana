@@ -8,9 +8,9 @@ from .interfaces import ITemplateLoader
 
 
 class TemplateLoader(ITemplateLoader):
-    def __init__(self, data_path_list, additional_path, extensions, format=None):
+    def __init__(self, data_path_list, additional_path_list, extensions, format=None):
         self.data_path_list = data_path_list
-        self.additional_path = additional_path
+        self.additional_path_list = additional_path_list
         self.extensions = extensions
         self.format = format
 
@@ -27,7 +27,8 @@ class TemplateLoader(ITemplateLoader):
 
     @reify
     def additionals(self):
-        if self.additional_path is None:
-            return {}
-        m = import_module(self.additional_path)
-        return collect_marked_items(m)
+        d = {}
+        for path in self.additional_path_list:
+            m = import_module(path)
+            d.update(collect_marked_items(m))
+        return d

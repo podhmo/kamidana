@@ -16,7 +16,7 @@ def main():
         default="kamidana.loader:TemplateLoader",
         help="default: kamidana.loader:TemplateLoader",
     )
-    parser.add_argument("--additionals", default=None)
+    parser.add_argument("--additionals", action="append", default=[])
     parser.add_argument("-e", "--extension", action="append", default=[])
     parser.add_argument("--input-format", default=None)
     parser.add_argument("--output-format", default="raw")
