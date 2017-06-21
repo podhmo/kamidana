@@ -35,7 +35,10 @@ class Driver(IDriver):
         return self.environment.get_or_select_template(template_file)
 
     def dump(self, d, dst):
-        return loading.dumpfile(d, dst, format=self.format)
+        fmt = self.format
+        if fmt != "raw":
+            d = loading.loads(d, format=fmt)
+        return loading.dumpfile(d, format=fmt)
 
     def run(self, src, dst):
         data = self.load(src)
@@ -54,12 +57,10 @@ class ContextDumpDriver(IDriver):
     def dump(self, src, dst):
         d = self.loader.data.copy()
         d["template_filename"] = src
-        return loading.dumpfile(d, format=self._detect_output_format())
+        fmt = self.format
+        if fmt == "raw":
+            fmt = "json"
+        return loading.dumpfile(d, format=fmt)
 
     def run(self, src, dst):
         return self.dump(self.load(src), dst)
-
-    def _detect_output_format(self):
-        if self.format == "raw":
-            return "json"
-        return self.format
