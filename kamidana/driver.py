@@ -5,13 +5,14 @@ from dictknife.langhelpers import reify
 from .interfaces import IDriver
 
 
-def _make_environment(load, additionals):
+def _make_environment(load, additionals, extensions):
+    extensions.append(ext.with_)
     env = jinja2.Environment(
         loader=jinja2.FunctionLoader(load),
         undefined=jinja2.StrictUndefined,
         trim_blocks=True,
         lstrip_blocks=True,
-        extensions=(ext.with_, )
+        extensions=extensions,
     )
     for name, defs in additionals.items():
         getattr(env, name).update(defs)
@@ -25,7 +26,7 @@ class Driver(IDriver):
 
     @reify
     def environment(self):
-        return _make_environment(self.loader.load, self.loader.additionals)
+        return _make_environment(self.loader.load, self.loader.additionals, self.loader.extensions)
 
     def transform(self, t):
         return t.render(**self.loader.data)

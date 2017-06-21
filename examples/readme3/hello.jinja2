@@ -1,0 +1,26 @@
+{# with with. with_ extension is used. #}
+{% with msg = "hello"%}
+{{msg}}
+{% with msg = "world"%}
+  {{msg}}
+{% endwith %}
+{{msg}}
+{% endwith %}
+
+## counting
+{# with break and continue. loopcontrolls extension is used. #}
+
+{% for i in range(10) %}
+{% if i % 3 == 0 %}{% continue %} {% endif %}
+{% if i == 5 %}{% break %} {% endif %}
+- {{i}}
+{% endfor %}
+
+## do
+
+{% set xs = [] %}
+{% for i in range(10) %}
+{% do xs.append(i) %}
+{% endfor %}
+{{xs}}
+

@@ -17,6 +17,7 @@ def main():
         help="default: kamidana.loader:TemplateLoader",
     )
     parser.add_argument("--additionals", default=None)
+    parser.add_argument("-e", "--extension", action="append", default=[])
     parser.add_argument("--input-format", default=None)
     parser.add_argument("--output-format", default="raw")
     parser.add_argument("--dump-context", action="store_true")
@@ -27,7 +28,8 @@ def main():
     loading.setup()
 
     loader_cls = import_symbol(args.loader, ns="kamidana.loader")
-    loader = loader_cls(args.data, args.additionals, args.input_format)
+    extensions = [("jinja2.ext.{}".format(ext) if "." not in ext else ext) for ext in args.extension]
+    loader = loader_cls(args.data, args.additionals, extensions, format=args.input_format)
 
     if args.dump_context:
         driver_cls = import_symbol("ContextDumpDriver", ns="kamidana.driver")

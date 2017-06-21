@@ -8,9 +8,10 @@ from .interfaces import ITemplateLoader
 
 
 class TemplateLoader(ITemplateLoader):
-    def __init__(self, data_path_list, additional_path, format=None):
+    def __init__(self, data_path_list, additional_path, extensions, format=None):
         self.data_path_list = data_path_list
         self.additional_path = additional_path
+        self.extensions = extensions
         self.format = format
 
     def load(self, filename):
