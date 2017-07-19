@@ -12,7 +12,7 @@ example
 
 {% with cmd="kamidana examples/readme/nginx.jinja2 --data examples/readme/data.json" %}
   $ {{cmd}}
-  {{cmd|spawn|indent(2)}}
+  {{cmd|read_from_command|indent(2)}}
 {% endwith %}
 
 {% with name="nginx.jinja2" %}
@@ -20,7 +20,7 @@ example
 
 .. code-block:: jinja2
 
-  {{"./examples/readme/%s"|format(name)|read|indent(2)}}
+  {{"./examples/readme/%s"|format(name)|read_from_file|indent(2)}}
 {% endwith %}
 
 {% with name="data.json" %}
@@ -28,7 +28,7 @@ example
 
 .. code-block:: json
 
-  {{"./examples/readme/%s"|format(name)|read|indent(2)}}
+  {{"./examples/readme/%s"|format(name)|read_from_file|indent(2)}}
 {% endwith %}
 
 
@@ -39,7 +39,7 @@ example2 (--additionals)
 
 {% with cmd="kamidana --additionals=./examples/readme2/additionals.py --data=./examples/readme2/data.yaml ./examples/readme2/hello.jinja2" %}
   $ {{cmd}}
-  {{cmd|spawn|indent(2)}}
+  {{cmd|read_from_command|indent(2)}}
 {% endwith %}
 
 {% with name="hello.jinja2" %}
@@ -47,7 +47,7 @@ example2 (--additionals)
 
 .. code-block:: jinja2
 
-  {{"./examples/readme2/%s"|format(name)|read|indent(2)}}
+  {{"./examples/readme2/%s"|format(name)|read_from_file|indent(2)}}
 {% endwith %}
 
 {% with name="additionals.py" %}
@@ -55,7 +55,7 @@ example2 (--additionals)
 
 .. code-block:: python
 
-  {{"./examples/readme2/%s"|format(name)|read|indent(2)}}
+  {{"./examples/readme2/%s"|format(name)|read_from_file|indent(2)}}
 {% endwith %}
 
 {% with name="data.yaml" %}
@@ -63,5 +63,5 @@ example2 (--additionals)
 
 .. code-block:: yaml
 
-  {{"./examples/readme2/%s"|format(name)|read|indent(2)}}
+  {{"./examples/readme2/%s"|format(name)|read_from_file|indent(2)}}
 {% endwith %}

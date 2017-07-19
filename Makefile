@@ -1,7 +1,7 @@
 default: readme docs
 
 readme:
-	kamidana misc/readme.rst.jinja2 --additionals misc/additionals.py > README.rst
+	kamidana misc/readme.rst.jinja2 --additionals kamidana.additionals.reader > README.rst
 
 docs:
 	$(MAKE) html -C docs
