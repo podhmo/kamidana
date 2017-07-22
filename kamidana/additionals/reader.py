@@ -9,11 +9,11 @@ def read_from_file(filename):
 
 
 @as_filter
-def read_from_command(cmd, encoding="utf-8"):
+def read_from_command(cmd, *, shell=True, check=True, encoding="utf-8"):
     p = subprocess.run(
         cmd,
-        shell=True,
-        check=True,
+        shell=shell,
+        check=check,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
     )
