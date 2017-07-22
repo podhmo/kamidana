@@ -1,3 +1,7 @@
+0.4.0
+
+- add kamidana.additionals.reader
+
 0.3.0
 
 - add `--extension` option
