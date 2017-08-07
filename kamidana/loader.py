@@ -20,7 +20,7 @@ class TemplateLoader(ITemplateLoader):
 
     @reify
     def data(self):
-        data = deepmerge(*[loading.loadfile(d) for d in self.data_path_list], override=True)
+        data = deepmerge(* [loading.loadfile(d) for d in self.data_path_list], override=True)
         if self.format is not None:
             data = deepmerge(data, loading.load(sys.stdin, format=self.format), override=True)
         return data
@@ -30,5 +30,5 @@ class TemplateLoader(ITemplateLoader):
         d = {}
         for path in self.additional_path_list:
             m = import_module(path)
-            d.update(collect_marked_items(m))
+            d = deepmerge(d, collect_marked_items(m))
         return d
