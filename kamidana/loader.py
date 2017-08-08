@@ -1,10 +1,12 @@
 import sys
+import logging
 from dictknife import deepmerge
 from dictknife import loading
 from dictknife.langhelpers import reify
 from magicalimport import import_module
 from . import collect_marked_items
 from .interfaces import ITemplateLoader
+logger = logging.getLogger(__name__)
 
 
 class TemplateLoader(ITemplateLoader):
@@ -15,6 +17,7 @@ class TemplateLoader(ITemplateLoader):
         self.format = format
 
     def load(self, filename):
+        logger.debug("load: %s", filename)
         with open(filename) as rf:
             return rf.read()
 
