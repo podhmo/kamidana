@@ -1,3 +1,4 @@
+import logging
 from magicalimport import import_symbol
 from dictknife import loading
 from dictknife.langhelpers import traceback_shortly
@@ -19,6 +20,7 @@ def main():
     parser.add_argument(
         "-d", "--data", action="append", help="support yaml, json, toml", default=[]
     )
+    parser.add_argument("--logging", choices=list(logging._nameToLevel.keys()), default="INFO")
     parser.add_argument("-a", "--additionals", action="append", default=[])
     parser.add_argument("-e", "--extension", action="append", default=[])
     parser.add_argument("-i", "--input-format", default=None)
@@ -29,7 +31,7 @@ def main():
     parser.add_argument("--dst", default=None)
 
     args = parser.parse_args()
-    loading.setup()
+    logging.basicConfig(level=getattr(logging, args.logging))
     with traceback_shortly(args.debug):
         loader_cls = import_symbol(args.loader, ns="kamidana.loader")
         extensions = [
