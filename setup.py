@@ -55,6 +55,6 @@ setup(
     test_suite="kamidana.tests",
     entry_points="""
       [console_scripts]
-      kamidana=kamidana.cmd:main
+      kamidana=kamidana.__main__:main
 """
 )
