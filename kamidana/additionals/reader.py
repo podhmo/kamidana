@@ -1,17 +1,30 @@
+import os.path
 import subprocess
 from kamidana import as_filter
+from jinja2.filters import contextfilter
 
 
 @as_filter
-def read_from_file(filename):
-    with open(filename) as rf:
+@contextfilter
+def read_from_file(ctx, filename, *, relative_self=True):
+    if relative_self:
+        dirname = os.path.dirname(os.path.abspath(ctx.name))
+        filepath = os.path.normpath(os.path.join(dirname, filename))
+    else:
+        filepath = filename
+    with open(filepath) as rf:
         return rf.read()
 
 
 @as_filter
-def read_from_command(cmd, *, shell=True, check=True, encoding="utf-8"):
+@contextfilter
+def read_from_command(ctx, cmd, *, shell=True, check=True, encoding="utf-8", relative_self=True):
+    if relative_self:
+        script = "cd {}; {}".format(os.path.dirname(ctx.name), cmd)
+    else:
+        script = cmd
     p = subprocess.run(
-        cmd,
+        script,
         shell=shell,
         check=check,
         stdout=subprocess.PIPE,

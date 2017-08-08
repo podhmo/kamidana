@@ -10,7 +10,7 @@ example
 
 .. code-block:: console
 
-  $ kamidana examples/readme/nginx.jinja2 --data examples/readme/data.json
+  $ kamidana ../examples/readme/nginx.jinja2 --data ../examples/readme/data.json
   server {
     listen 80;
     server_name localhost;
@@ -55,7 +55,7 @@ example2 (--additionals)
 
 .. code-block:: console
 
-  $ kamidana --additionals=./examples/readme2/additionals.py --data=./examples/readme2/data.yaml ./examples/readme2/hello.jinja2
+  $ kamidana --additionals=../examples/readme2/additionals.py --data=../examples/readme2/data.yaml ../examples/readme2/hello.jinja2
     bye, world!!
 
 hello.jinja2
