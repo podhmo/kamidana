@@ -6,7 +6,6 @@ from dictknife.langhelpers import traceback_shortly
 def main():
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument("--data", action="append", help="support yaml, json, toml", default=[])
     parser.add_argument(
         "--driver",
         default="kamidana.driver:Driver",
@@ -16,6 +15,9 @@ def main():
         "--loader",
         default="kamidana.loader:TemplateLoader",
         help="default: kamidana.loader:TemplateLoader",
+    )
+    parser.add_argument(
+        "-d", "--data", action="append", help="support yaml, json, toml", default=[]
     )
     parser.add_argument("-a", "--additionals", action="append", default=[])
     parser.add_argument("-e", "--extension", action="append", default=[])
