@@ -54,7 +54,7 @@ setup(
     tests_require=tests_require,
     test_suite="kamidana.tests",
     entry_points="""
-      [console_scripts]
-      kamidana=kamidana.__main__:main
+      [console_scripts]      kamidana=kamidana.commands.onefile:main
+      kamidana-batch=kamidana.commands.manyfiles:main
 """
 )
