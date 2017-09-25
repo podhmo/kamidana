@@ -70,11 +70,6 @@ class ContextDumpDriver(IDriver):
     def run(self, src, dst):
         return self.dump(self.load(src), dst)
 
-    def _detect_output_format(self):
-        if self.format == "raw":
-            return "json"
-        return self.format
-
 
 class BatchCommandDriver(IDriver):
     def __init__(self, loader, format):
