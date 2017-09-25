@@ -15,11 +15,17 @@ class TemplateLoader(ITemplateLoader):
         self.additional_path_list = additional_path_list
         self.extensions = extensions
         self.format = format
+        self._cache = {}
 
     def load(self, filename):
-        logger.debug("load: %s", filename)
+        data = self._cache.get(filename)
+        if data is not None:
+            return data
+
         with open(filename) as rf:
-            return rf.read()
+            logger.debug("load: %s", filename)
+            data = self._cache[filename] = rf.read()
+        return data
 
     @reify
     def data(self):

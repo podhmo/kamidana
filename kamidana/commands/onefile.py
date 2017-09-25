@@ -1,9 +1,8 @@
+import argparse
 from magicalimport import import_symbol
-from dictknife import loading
 
 
 def main():
-    import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--data", action="append", help="support yaml, json, toml", default=[])
     parser.add_argument(
@@ -17,14 +16,13 @@ def main():
         help="default: kamidana.loader:TemplateLoader",
     )
     parser.add_argument("--additionals", default=None)
-    parser.add_argument("--input-format", default=None)
-    parser.add_argument("--output-format", default="raw")
+    parser.add_argument("-i", "--input-format", default=None)
+    parser.add_argument("-o", "--output-format", default="raw")
     parser.add_argument("--dump-context", action="store_true")
     parser.add_argument("template")
     parser.add_argument("--dst", default=None)
 
     args = parser.parse_args()
-    loading.setup()
 
     loader_cls = import_symbol(args.loader, ns="kamidana.loader")
     loader = loader_cls(args.data, args.additionals, args.input_format)
