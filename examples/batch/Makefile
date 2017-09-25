@@ -13,5 +13,9 @@ default:
 01:
 	kamidana-batch 01batch.json --outdir=01out
 
+# batch
+02:
+	kamidana-batch 02batch.json --outdir=02out
+
 clean:
 	rm -rf 00out 01out

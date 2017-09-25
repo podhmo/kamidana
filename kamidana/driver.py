@@ -125,7 +125,10 @@ class BatchCommandDriver(IDriver):
             result = t.render(**data)
             outpath = os.path.join(outdir, cmd["dst"])
             logger.info("out: %s", outpath)
-            loading.dumpfile(result, outpath, format=self.format)
+            fmt = cmd.get("format") or self.format or "raw"
+            if fmt != "raw":
+                result = loading.loads(result, format=fmt)
+            loading.dumpfile(result, outpath, format=fmt)
 
     def run(self, batch_file, outdir):
         return self.dump(self.load(batch_file), outdir)
