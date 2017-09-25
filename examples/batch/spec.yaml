@@ -5,7 +5,7 @@ definitions:
       template:
         type: string
         example: template.j2
-      outfile:
+      dst:
         type: string
         example: ''
       format:

@@ -90,8 +90,8 @@ class BatchCommandDriver(IDriver):
         cache = {}
         r = []
         for cmd in commands:
-            # require: template, outfile
-            for name in ["template", "outfile"]:
+            # require: template, dst
+            for name in ["template", "dst"]:
                 if name not in cmd:
                     raise RuntimeError(
                         "{} is missing. this is required field. (passed command={})".
@@ -123,7 +123,7 @@ class BatchCommandDriver(IDriver):
         outdir = outdir or "."
         for t, cmd, data in commands:
             result = t.render(**data)
-            outpath = os.path.join(outdir, cmd["outfile"])
+            outpath = os.path.join(outdir, cmd["dst"])
             logger.info("out: %s", outpath)
             loading.dumpfile(result, outpath, format=self.format)
 
