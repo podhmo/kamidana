@@ -1,11 +1,10 @@
+import argparse
 import logging
 from magicalimport import import_symbol
-from dictknife import loading
 from dictknife.langhelpers import traceback_shortly
 
 
 def main():
-    import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--driver",
@@ -32,6 +31,7 @@ def main():
 
     args = parser.parse_args()
     logging.basicConfig(level=getattr(logging, args.logging))
+
     with traceback_shortly(args.debug):
         loader_cls = import_symbol(args.loader, ns="kamidana.loader")
         extensions = [

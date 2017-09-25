@@ -84,7 +84,7 @@ class BatchCommandDriver(IDriver):
 
     @reify
     def environment(self):
-        return _make_environment(self.loader.load, self.loader.additionals)
+        return _make_environment(self.loader.load, self.loader.additionals, self.loader.extensions)
 
     def load(self, batch_file):
         commands = loading.loadfile(batch_file)
