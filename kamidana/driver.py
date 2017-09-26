@@ -124,7 +124,7 @@ class BatchCommandDriver(IDriver):
         for t, cmd, data in commands:
             result = t.render(**data)
             outpath = os.path.join(outdir, cmd["dst"])
-            logger.info("out: %s", outpath)
+            logger.info("rendering %s (template=%s)", outpath, t.name)
             fmt = cmd.get("format") or self.format or "raw"
             if fmt != "raw":
                 result = loading.loads(result, format=fmt)
