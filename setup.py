@@ -30,7 +30,7 @@ testing_extras = tests_require + []
 
 setup(
     name='kamidana',
-    version='0.4.1',
+    version='0.5.0',
     description='command line jinja2 template (yet another j2cli)',
     long_description=README + '\n\n' + CHANGES,
     classifiers=[

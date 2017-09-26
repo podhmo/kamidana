@@ -1,3 +1,8 @@
+0.5.0
+
+- new kamidana-batch command
+- changing addtionals.reader's current working directory path
+
 0.4.1
 
 - fix bug (multi -a option)
