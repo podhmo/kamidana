@@ -1,0 +1,5 @@
+[
+  {"template": "./hello.j2", "data": {"name": "foo"}, "dst": "foo.hello"},
+  {"template": "./hello.j2", "data": [{"name": "bar"}], "dst": "bar.hello"},
+  {"template": "./hello.j2", "data": "me.json", "dst": "me.hello"}
+]

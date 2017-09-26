@@ -1,5 +1,3 @@
-# -*- coding:utf-8 -*-
-
 import os
 import sys
 import fastentrypoints
@@ -55,6 +53,7 @@ setup(
     test_suite="kamidana.tests",
     entry_points="""
       [console_scripts]
-      kamidana=kamidana.__main__:main
+      kamidana=kamidana.commands.onefile:main
+      kamidana-batch=kamidana.commands.manyfiles:main
 """
 )

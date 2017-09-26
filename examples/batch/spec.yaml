@@ -1,0 +1,29 @@
+definitions:
+  command:
+    type: object
+    properties:
+      template:
+        type: string
+        example: template.j2
+      dst:
+        type: string
+        example: ''
+      format:
+        type: string
+        enum:
+          - raw
+          - json
+          - yaml
+        default: raw
+      data:
+        oneOf:
+          - type: string
+            example: data.json
+          - type: object
+          - type: array
+            items: anyOf: [{type: string}, {type: object}]
+    required:
+    - template
+type: array
+items:
+  $ref: "#/definitions/command"
