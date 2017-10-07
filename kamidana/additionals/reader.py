@@ -20,7 +20,7 @@ def read_from_file(ctx, filename, *, relative_self=True):
 @contextfilter
 def read_from_command(ctx, cmd, *, shell=True, check=True, encoding="utf-8", relative_self=True):
     if relative_self:
-        script = "cd {}; {}".format(os.path.dirname(ctx.name), cmd)
+        script = "cd {}; {}".format(os.path.dirname(ctx.name) or ".", cmd)
     else:
         script = cmd
     p = subprocess.run(
