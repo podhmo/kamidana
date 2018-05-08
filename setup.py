@@ -16,6 +16,7 @@ install_requires = [
     'jinja2',
     'dictknife',
     'magicalimport',
+    'inflection',
 ]
 
 docs_extras = [
