@@ -1,15 +1,12 @@
-from functools import partial
 import re
 import inflection
 from kamidana import as_filter
-from jinja2.filters import contextfilter
 
-pluralize = as_filter(contextfilter(inflection.pluralize))
-singularize = as_filter(contextfilter(inflection.singularize))
+pluralize = as_filter(inflection.pluralize)
+singularize = as_filter(inflection.singularize)
 
 
 @as_filter
-@contextfilter
 def snakecase(
     name, rx0=re.compile('(.)([A-Z][a-z]+)'), rx1=re.compile('([a-z0-9])([A-Z])'), separator="_"
 ):
@@ -17,24 +14,27 @@ def snakecase(
     return rx1.sub(pattern, rx0.sub(pattern, name)).lower()
 
 
-lispcase = as_filter(contextfilter(partial(snakecase, separator="-")))
-kebabcase = as_filter(contextfilter(partial(snakecase, separator="-")))
+@as_filter
+def kebabcase(name):
+    return snakecase(name, separator="-")
 
 
 @as_filter
-@contextfilter
+def lispcase(name):  # alias
+    return snakecase(name, separator="-")
+
+
+@as_filter
 def camelcase(name):
     return untitleize(pascalcase(name))
 
 
 @as_filter
-@contextfilter
 def pascalcase(name, rx=re.compile("[\-_ ]")):
     return "".join(titleize(x) for x in rx.split(name))
 
 
 @as_filter
-@contextfilter
 def titleize(name):
     if not name:
         return name
@@ -43,7 +43,6 @@ def titleize(name):
 
 
 @as_filter
-@contextfilter
 def untitleize(name):
     if not name:
         return name
