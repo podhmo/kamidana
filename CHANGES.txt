@@ -1,3 +1,7 @@
+0.6.0
+
+- kamidana.additionals.naming
+
 0.5.0
 
 - new kamidana-batch command
