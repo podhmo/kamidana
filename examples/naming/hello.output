@@ -8,8 +8,8 @@ camelCase,snakecase,kebabcase
 
 singular, plurals
 
-- days|singularize
-- day|pluralize
+- days|singularize -> day
+- day|pluralize -> days
 
-- categories|singularize
-- category|pluralize
+- categories|singularize -> category
+- category|pluralize -> categories
