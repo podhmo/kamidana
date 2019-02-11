@@ -1,3 +1,8 @@
+0.6.1
+
+- kamidana, fix: --dst option is ignored
+- kamidana-batch, fix: kamidana-batch ignore --logging option
+
 0.6.0
 
 - kamidana.additionals.naming
