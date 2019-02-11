@@ -22,7 +22,7 @@ def main():
     parser.add_argument("--outdir", default=None)
 
     args = parser.parse_args()
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(level=getattr(logging, args.logging))
     with traceback_shortly(args.debug):
         loader_cls = import_symbol(args.loader, ns="kamidana.loader")
         extensions = [
