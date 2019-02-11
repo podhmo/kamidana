@@ -10,7 +10,7 @@ example
 
 .. code-block:: console
 
-  $ kamidana ../examples/readme/nginx.jinja2 --data ../examples/readme/data.json
+  $ kamidana ../examples/readme/src/nginx.jinja2 --data ../examples/readme/data.json
   server {
     listen 80;
     server_name localhost;
@@ -22,7 +22,7 @@ example
     error_log  /var/log/nginx/http.error.log;
   }
 
-nginx.jinja2
+src/nginx.jinja2
 
 .. code-block:: jinja2
 
@@ -57,11 +57,11 @@ example2 (--additionals)
 
 .. code-block:: console
 
-  $ kamidana --additionals=../examples/readme2/additionals.py --data=../examples/readme2/data.yaml ../examples/readme2/hello.jinja2
+  $ kamidana --additionals=../examples/readme2/additionals.py --data=../examples/readme2/data.yaml ../examples/readme2/src/hello.jinja2
     bye, world!!
 
 
-hello.jinja2
+src/hello.jinja2
 
 .. code-block:: jinja2
 
