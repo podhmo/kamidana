@@ -1,0 +1,6 @@
+[
+  {"template": "src/02person.json.j2", "data": {"name": "foo"}, "dst": "foo.json"},
+  {"template": "src/02person.json.j2", "data": [{"name": "bar"}], "dst": "bar.json", "format": "json"},
+  {"template": "src/02person.json.j2", "data": "me.json", "dst": "me.yaml", "format": "yaml"}
+]
+

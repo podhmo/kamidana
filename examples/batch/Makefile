@@ -1,21 +1,24 @@
-default:
-	$(MAKE) 00
-	$(MAKE) 01
-	diff -ur 00out 01out
+OPTS ?= --logging=DEBUG
+default: 00 01 02
+	diff -ur dst/00 dst/01
+
+dst:
+	# xxx:
+	mkdir -p dst/00 dst/01 dst/02
 
 # onefile
-00:
-	echo '{"name": "foo"}' | kamidana -i json hello.j2 --dst 00out/foo.hello
-	echo '{"name": "bar"}' | kamidana -i json hello.j2 --dst 00out/bar.hello
-	kamidana hello.j2 --data me.json --dst 00out/me.hello
+00: dst
+	echo '{"name": "foo"}' | kamidana ${OPTS} -i json src/00hello.j2 --dst dst/00/foo.hello
+	echo '{"name": "bar"}' | kamidana ${OPTS} -i json src/00hello.j2 --dst dst/00/bar.hello
+	kamidana ${OPTS} src/00hello.j2 --data me.json --dst dst/00/me.hello
 
 # batch
-01:
-	kamidana-batch 01batch.json --outdir=01out
+01: dst
+	kamidana-batch ${OPTS} src/01batch.json --outdir=dst/01
 
 # batch
-02:
-	kamidana-batch 02batch.json --outdir=02out
+02: dst
+	kamidana-batch ${OPTS} src/02batch.json --outdir=dst/02
 
 clean:
-	rm -rf 00out 01out
+	rm -rf dst/00 dst/01

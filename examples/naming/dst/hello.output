@@ -1,0 +1,15 @@
+camelCase,snakecase,kebabcase
+
+- fooBarBoo -> fooBarBoo
+- fooBarBoo|snakecase -> foo_bar_boo
+- fooBarBoo|kebabcase -> foo-bar-boo
+
+- csv_reader|camelcase -> csvReader
+
+singular, plurals
+
+- days|singularize -> day
+- day|pluralize -> days
+
+- categories|singularize -> category
+- category|pluralize -> categories
