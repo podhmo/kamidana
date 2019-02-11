@@ -43,7 +43,7 @@ class Driver(IDriver):
         fmt = self.format
         if fmt != "raw":
             d = loading.loads(d, format=fmt)
-        return loading.dumpfile(d, format=fmt)
+        return loading.dumpfile(d, dst, format=fmt)
 
     def run(self, src, dst):
         template = self.load(src)
@@ -65,7 +65,7 @@ class ContextDumpDriver(IDriver):
         fmt = self.format
         if fmt == "raw":
             fmt = "json"
-        return loading.dumpfile(d, format=fmt)
+        return loading.dumpfile(d, dst, format=fmt)
 
     def run(self, src, dst):
         return self.dump(self.load(src), dst)
