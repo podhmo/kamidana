@@ -14,10 +14,10 @@ example
   server {
     listen 80;
     server_name localhost;
-  
+
     root /var/www/project;
     index index.htm;
-  
+
     access_log /var/log/nginx/http.access.log combined;
     error_log  /var/log/nginx/http.error.log;
   }
@@ -29,13 +29,14 @@ nginx.jinja2
   server {
     listen 80;
     server_name {{ nginx.hostname }};
-  
+
     root {{ nginx.webroot }};
     index index.htm;
-  
+
     access_log {{ nginx.logdir }}/http.access.log combined;
     error_log  {{ nginx.logdir }}/http.error.log;
   }
+
 
 data.json
 
@@ -50,6 +51,7 @@ data.json
   }
 
 
+
 example2 (--additionals)
 ----------------------------------------
 
@@ -57,6 +59,7 @@ example2 (--additionals)
 
   $ kamidana --additionals=../examples/readme2/additionals.py --data=../examples/readme2/data.yaml ../examples/readme2/hello.jinja2
     bye, world!!
+
 
 hello.jinja2
 
@@ -77,25 +80,27 @@ additionals.py
       as_globals_generator,
       as_test,
   )
-  
-  
+
+
   @as_filter
   def surprised(v):
       return "{}!!".format(v)
-  
-  
+
+
   @as_globals_generator
   def generate_globals():
       return {"daytime": "hello", "night": "bye"}
-  
-  
+
+
   @as_test
   def night(hour):
       return 19 <= hour or hour < 3
+
 
 data.yaml
 
 .. code-block:: yaml
 
   name: world
-  
+
+
