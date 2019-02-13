@@ -43,6 +43,9 @@ class TemplateLoader(ITemplateLoader):
     def additionals(self):
         d = {}
         for path in self.additional_path_list:
-            m = import_module(path)
+            try:
+                m = import_module(path)
+            except ImportError:
+                m = import_module("kamidana.additionals.{}".format(path))
             d = deepmerge(d, collect_marked_items(m))
         return d

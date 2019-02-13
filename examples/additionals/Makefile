@@ -1,7 +1,7 @@
 OPTS ?= --logging=DEBUG
 TEE ?= | tee
 
-default: 00 01
+default: 00 01 02 03
 
 dst:
 	mkdir -p dst
@@ -16,3 +16,7 @@ dst:
 02: dst
 	kamidana ${OPTS} -a kamidana.additionals.reader src/02*.jinja2 ${TEE} dst/02.output
 
+# shortcuts
+03: dst 02
+	kamidana ${OPTS} -a reader src/02*.jinja2 ${TEE} dst/03.output
+	test -z `diff -u dst/02.output dst/03.output`
