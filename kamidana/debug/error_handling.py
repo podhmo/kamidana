@@ -20,10 +20,8 @@ class GentleOutputRenderer:
         n: int,
         full: bool = False,
         formatter=None,
-        title: str = "Error Report",
         colorful: bool = False,
     ):
-        self.title = title
         self.n = n
         self.full = full  # todo: handling (currently, ignored)
         self.formatter = formatter or self._format
@@ -33,22 +31,21 @@ class GentleOutputRenderer:
         d = defaultdict(lambda: None, d)
         fmt = textwrap.dedent(
             """
-            {title}
             ------------------------------------------------------------
             exception: {d[exception_class]}
             message: {d[exception_message]}
             where: {d[name]}
             ------------------------------------------------------------
-            """
+            """.lstrip("\n")
         )
         fmt2 = textwrap.dedent(
             """
             {d[output]}
-            """
+            """.strip("\n")
         )
         if "output" in d:
-            fmt += fmt2.strip("\n")
-        return fmt.format(d=d, title=self.title)
+            fmt += fmt2
+        return fmt.format(d=d)
 
     def render(self, exc: Exception) -> str:
         return self.formatter(self.get_information(exc))
