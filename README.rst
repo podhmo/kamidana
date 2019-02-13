@@ -284,13 +284,13 @@ and be able to merge two files.
 
 .. code-block:: console
 
-  $ kamidana --dump-context --data=examples/readme/src/10/data.yaml --data=examples/readme/src/10/data.yaml
+  $ kamidana --dump-context --data=examples/readme/src/10/data.yaml --data=examples/readme/src/10/data2.yaml
   {
     "name": "foo",
-    "age": 20,
+    "age": 21,
     "friends": [
       "bar",
-      "boo"
+      "baz"
     ],
     "template_filename": null
   }
