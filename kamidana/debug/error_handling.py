@@ -44,7 +44,7 @@ class GentleOutputRenderer:
         )
         if "output" in d:
             fmt += fmt2
-        return fmt.format(d=d)
+        return fmt.format(d=d).rstrip()
 
     def render(self, exc: Exception) -> str:
         return self.formatter(self.get_information(exc))
