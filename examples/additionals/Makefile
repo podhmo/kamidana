@@ -11,3 +11,8 @@ dst:
 	kamidana ${OPTS} -a kamidana.additionals.naming src/00*.jinja2 ${TEE} dst/00.output
 01: dst
 	kamidana ${OPTS} -a kamidana.additionals.naming src/01*.jinja2 ${TEE} dst/01.output
+
+# reader
+02: dst
+	kamidana ${OPTS} -a kamidana.additionals.reader src/02*.jinja2 ${TEE} dst/02.output
+
