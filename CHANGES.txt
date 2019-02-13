@@ -1,3 +1,9 @@
+0.6.2
+
+- template is not passed, act as --dump-context (#21)
+- same behaviour `-a kamidana.additonals.reader` and `-a reader` (shortcuts) (#18)
+- update readme.rst
+
 0.6.1
 
 - kamidana, fix: --dst option is ignored
