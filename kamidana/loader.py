@@ -6,6 +6,7 @@ from dictknife.langhelpers import reify
 from magicalimport import import_module
 from . import collect_marked_items
 from .interfaces import ITemplateLoader
+
 logger = logging.getLogger(__name__)
 
 
@@ -29,9 +30,13 @@ class TemplateLoader(ITemplateLoader):
 
     @reify
     def data(self):
-        data = deepmerge(* [loading.loadfile(d) for d in self.data_path_list], override=True)
+        data = deepmerge(
+            *[loading.loadfile(d) for d in self.data_path_list], override=True
+        )
         if self.format is not None:
-            data = deepmerge(data, loading.load(sys.stdin, format=self.format), override=True)
+            data = deepmerge(
+                data, loading.load(sys.stdin, format=self.format), override=True
+            )
         return data
 
     @reify
