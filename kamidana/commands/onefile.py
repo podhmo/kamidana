@@ -48,7 +48,7 @@ def main():
             args.data, args.additionals, extensions, format=args.input_format
         )
 
-        if args.template is None:
+        if args.template is None and not args.dump_context:
             logger.info("template is not passed, running as --dump-context")
             args.dump_context = True
         if args.dump_context:

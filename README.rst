@@ -270,7 +270,6 @@ dump context
 .. code-block:: console
 
   $ kamidana --dump-context --data=examples/readme/src/10/data.yaml
-  INFO:kamidana.commands.onefile:template is not passed, running as --dump-context
   {
     "name": "foo",
     "age": 20,
@@ -286,7 +285,6 @@ and be able to merge two files.
 .. code-block:: console
 
   $ kamidana --dump-context --data=examples/readme/src/10/data.yaml --data=examples/readme/src/10/data.yaml
-  INFO:kamidana.commands.onefile:template is not passed, running as --dump-context
   {
     "name": "foo",
     "age": 20,
