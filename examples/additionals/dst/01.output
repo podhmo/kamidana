@@ -1,0 +1,10 @@
+singular, plurals
+
+- days|singularize -> day
+- day|pluralize -> days
+
+- categories|singularize -> category
+- category|pluralize -> categories
+
+- people|singularize -> person
+- person|pluralize -> people
