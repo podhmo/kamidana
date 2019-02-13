@@ -7,4 +7,5 @@ dst:
 	mkdir -p dst
 
 00: dst
-	kamidana --data data.json src/nginx.jinja2 ${TEE} dst/00nginx.conf
+	mkdir -p dst/00
+	kamidana --data src/00/data.json src/00/nginx.jinja2 ${TEE} dst/00/nginx.conf
