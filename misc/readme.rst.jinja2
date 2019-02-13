@@ -54,13 +54,36 @@ example (basic)
 example2 (--additionals)
 ----------------------------------------
 
+builtin addtional modules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: console
+
+{% with cmd="kamidana --additionals=kamidana.additionals.naming examples/readme/src/01/use-naming.jinja2" %}
+  $ {{cmd}}
+  {{cmd|read_from_command(relative_self=False)|indent(2)}}
+{% endwith %}
+
+
+{% with name="examples/readme/src/01/use-naming.jinja2" %}
+{{name}}
+
+.. code-block:: jinja2
+
+  {{name|read_from_file(relative_self=False)|indent(2)}}
+{% endwith %}
+
+or `kamidana -a naming` is also OK (shortcut).
+
+individual additional modules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 .. code-block:: console
 
 {% with cmd="kamidana --additionals=examples/readme/src/01/additionals.py --data=examples/readme/src/01/data.yaml examples/readme/src/01/hello.jinja2" %}
   $ {{cmd}}
   {{cmd|read_from_command(relative_self=False)|indent(2)}}
 {% endwith %}
-
 
 {% with name="examples/readme/src/01/hello.jinja2" %}
 {{name}}

@@ -97,11 +97,61 @@ examples/readme/src/00/data.json
 example2 (--additionals)
 ----------------------------------------
 
+builtin addtional modules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: console
+
+  $ kamidana --additionals=kamidana.additionals.naming examples/readme/src/01/use-naming.jinja2
+  singular, plurals
+
+  - days|singularize -> day
+  - day|pluralize -> days
+
+  - people|singularize -> person
+  - person|pluralize -> people
+
+  to {snake_case, kebab-case, camelCase}
+
+  - fooBarBoo|snakecase -> foo_bar_boo
+  - fooBarBoo|kebabcase -> foo-bar-boo
+  - foo_bar_boo|camelcase -> fooBarBoo
+
+
+  more information: see kamidana.additionals.naming module
+
+
+examples/readme/src/01/use-naming.jinja2
+
+.. code-block:: jinja2
+
+  singular, plurals
+
+  - days|singularize -> {{"days"|singularize}}
+  - day|pluralize -> {{"day"|pluralize}}
+
+  - people|singularize -> {{"people"|singularize}}
+  - person|pluralize -> {{"person"|pluralize}}
+
+  to {snake_case, kebab-case, camelCase}
+
+  - fooBarBoo|snakecase -> {{"fooBarBoo"|snakecase}}
+  - fooBarBoo|kebabcase -> {{"fooBarBoo"|kebabcase}}
+  - foo_bar_boo|camelcase -> {{"foo_bar_boo"|camelcase}}
+
+
+  more information: see kamidana.additionals.naming module
+
+
+or `kamidana -a naming` is also OK (shortcut).
+
+individual additional modules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 .. code-block:: console
 
   $ kamidana --additionals=examples/readme/src/01/additionals.py --data=examples/readme/src/01/data.yaml examples/readme/src/01/hello.jinja2
     bye, world!!
-
 
 
 examples/readme/src/01/hello.jinja2

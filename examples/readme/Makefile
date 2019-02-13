@@ -13,6 +13,7 @@ dst:
 01: dst
 	mkdir -p dst/01
 	kamidana ${OPTS} --additionals=src/01/additionals.py --data=src/01/data.yaml src/01/hello.jinja2 ${TEE} dst/01/hello.output
+	kamidana ${OPTS} --additionals=kamidana.additionals.naming src/01/use-naming.jinja2 ${TEE} dst/01/use-naming.output
 
 02: dst
 	mkdir -p dst/02

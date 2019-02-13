@@ -1,0 +1,16 @@
+singular, plurals
+
+- days|singularize -> day
+- day|pluralize -> days
+
+- people|singularize -> person
+- person|pluralize -> people
+
+to {snake_case, kebab-case, camelCase}
+
+- fooBarBoo|snakecase -> foo_bar_boo
+- fooBarBoo|kebabcase -> foo-bar-boo
+- foo_bar_boo|camelcase -> fooBarBoo
+
+
+more information: see kamidana.additionals.naming module
