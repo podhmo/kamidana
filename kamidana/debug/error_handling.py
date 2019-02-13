@@ -1,8 +1,9 @@
-import jinja2
 import textwrap
 import traceback
 from collections import defaultdict
 from io import StringIO
+import jinja2
+from .color import highlight
 
 
 def _get_jinja2_exception_info(exc: jinja2.TemplateError):
@@ -14,12 +15,19 @@ def _get_jinja2_exception_info(exc: jinja2.TemplateError):
 
 class GentleOutputRenderer:
     def __init__(
-        self, *, n: int, full: bool = False, formatter=None, title="Error Report"
+        self,
+        *,
+        n: int,
+        full: bool = False,
+        formatter=None,
+        title: str = "Error Report",
+        colorful: bool = False,
     ):
         self.title = title
         self.n = n
         self.full = full  # todo: handling (currently, ignored)
         self.formatter = formatter or self._format
+        self.colorful = colorful
 
     def _format(self, d):
         d = defaultdict(lambda: None, d)
@@ -29,7 +37,7 @@ class GentleOutputRenderer:
             ------------------------------------------------------------
             exception: {d[exception_class]}
             message: {d[exception_message]}
-            where: {d[filename]}
+            where: {d[name]}
             ------------------------------------------------------------
             """
         )
@@ -56,11 +64,10 @@ class GentleOutputRenderer:
     def on_template_error(self, exc: jinja2.TemplateError) -> dict:
         d = vars(exc).copy()
         d.update(_get_jinja2_exception_info(exc))
-        d["output"] = traceback.format_exc()
+        d["output"] = traceback.format_exc(limit=3)
         return d
 
     def on_syntax_error(self, exc: jinja2.TemplateSyntaxError) -> dict:
-        # todo: bold
         d = vars(exc).copy()
         lineno = exc.lineno  # int
         # name = exc.name  # Optional[str]
@@ -76,14 +83,12 @@ class GentleOutputRenderer:
         for i, line in enumerate(
             lines[start_position:end_position], start_position + 1
         ):
-            if i == lineno:
-                cursor = "->"
-            else:
-                cursor = "  "
-
             size = len(str(lineno + self.n))
-            fmt = "{cursor} {lineno: %d}: {line}" % (size)
-            print(fmt.format(cursor=cursor, lineno=i, line=line), file=buf)
+            text = ("{lineno: %d}: {line}" % (size)).format(lineno=i, line=line)
+            if i == lineno:
+                print(highlight("-> {}".format(text), colorful=self.colorful), file=buf)
+            else:
+                print("   {}".format(text), file=buf)
 
         d["output"] = buf.getvalue()
         d.update(_get_jinja2_exception_info(exc))
@@ -91,6 +96,11 @@ class GentleOutputRenderer:
 
 
 def get_gentle_output_from_exception(
-    exc: jinja2.TemplateError, *, renderer=GentleOutputRenderer, full=False, n=3
+    exc: jinja2.TemplateError,
+    *,
+    renderer=GentleOutputRenderer,
+    full=False,
+    n=3,
+    colorful=None,
 ) -> str:
-    return renderer(full=full, n=n).render(exc)
+    return renderer(full=full, n=n, colorful=colorful).render(exc)
