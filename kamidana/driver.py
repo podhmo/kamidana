@@ -7,7 +7,15 @@ from dictknife import deepmerge
 from dictknife import loading
 from dictknife.langhelpers import reify
 from .interfaces import IDriver
+
 logger = logging.getLogger(__name__)
+
+
+def _render_with_newline(t, data):
+    r = t.render(**data)
+    if r.endswith("\n"):
+        return r
+    return r + "\n"
 
 
 def _make_environment(load, additionals, extensions):
@@ -31,10 +39,12 @@ class Driver(IDriver):
 
     @reify
     def environment(self):
-        return _make_environment(self.loader.load, self.loader.additionals, self.loader.extensions)
+        return _make_environment(
+            self.loader.load, self.loader.additionals, self.loader.extensions
+        )
 
     def transform(self, t):
-        return t.render(**self.loader.data)
+        return _render_with_newline(t, self.loader.data)
 
     def load(self, template_file):
         return self.environment.get_or_select_template(template_file)
@@ -79,7 +89,9 @@ class BatchCommandDriver(IDriver):
 
     @reify
     def environment(self):
-        return _make_environment(self.loader.load, self.loader.additionals, self.loader.extensions)
+        return _make_environment(
+            self.loader.load, self.loader.additionals, self.loader.extensions
+        )
 
     def load(self, batch_file):
         commands = loading.loadfile(batch_file)
@@ -94,8 +106,9 @@ class BatchCommandDriver(IDriver):
             for name in ["template", "dst"]:
                 if name not in cmd:
                     raise RuntimeError(
-                        "{} is missing. this is required field. (passed command={})".
-                        format(name, json.dumps(cmd, ensure_ascii=False))
+                        "{} is missing. this is required field. (passed command={})".format(
+                            name, json.dumps(cmd, ensure_ascii=False)
+                        )
                     )
 
             data = self._load_data(cmd.get("data"), cache=cache)
@@ -122,7 +135,7 @@ class BatchCommandDriver(IDriver):
     def dump(self, commands, outdir):
         outdir = outdir or "."
         for t, cmd, data in commands:
-            result = t.render(**data)
+            result = _render_with_newline(t, data)
             outpath = os.path.join(outdir, cmd["dst"])
             logger.info("rendering %s (template=%s)", outpath, t.name)
             fmt = cmd.get("format") or self.format or "raw"
