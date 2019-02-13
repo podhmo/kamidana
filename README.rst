@@ -66,7 +66,7 @@ example (basic)
 
 examples/readme/src/00/nginx.jinja2
 
-.. code-block:: jinja2
+.. code-block::
 
   server {
     listen 80;
@@ -95,7 +95,7 @@ examples/readme/src/00/data.json
 
 
 example2 (--additionals)
-----------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 builtin addtional modules
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -123,7 +123,7 @@ builtin addtional modules
 
 examples/readme/src/01/use-naming.jinja2
 
-.. code-block:: jinja2
+.. code-block::
 
   singular, plurals
 
@@ -156,7 +156,7 @@ individual additional modules
 
 examples/readme/src/01/hello.jinja2
 
-.. code-block:: jinja2
+.. code-block::
 
   {% if 19 is night %}
     {{night}}, {{name|surprised}}
@@ -222,7 +222,7 @@ example3 (using jinja2 extensions)
 
 examples/readme/src/02/use-extension.jinja2
 
-.. code-block:: jinja2
+.. code-block::
 
   {# with with. with_ extension is used. #}
   {% with msg = "hello"%}
@@ -301,7 +301,7 @@ then
 
 examples/readme/src/10/data.yaml
 
-.. code-block:: jinja2
+.. code-block:: yaml
 
   name: foo
   age: 20
@@ -312,7 +312,7 @@ examples/readme/src/10/data.yaml
 
 examples/readme/src/10/data2.yaml
 
-.. code-block:: jinja2
+.. code-block:: yaml
 
   age: 21
   friends:

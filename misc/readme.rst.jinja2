@@ -37,7 +37,7 @@ example (basic)
 {% with name="examples/readme/src/00/nginx.jinja2" %}
 {{name}}
 
-.. code-block:: jinja2
+.. code-block::
 
   {{name|read_from_file(relative_self=False)|indent(2)}}
 {% endwith %}
@@ -52,7 +52,7 @@ example (basic)
 
 
 example2 (--additionals)
-----------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 builtin addtional modules
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -68,7 +68,7 @@ builtin addtional modules
 {% with name="examples/readme/src/01/use-naming.jinja2" %}
 {{name}}
 
-.. code-block:: jinja2
+.. code-block::
 
   {{name|read_from_file(relative_self=False)|indent(2)}}
 {% endwith %}
@@ -88,7 +88,7 @@ individual additional modules
 {% with name="examples/readme/src/01/hello.jinja2" %}
 {{name}}
 
-.. code-block:: jinja2
+.. code-block::
 
   {{name|read_from_file(relative_self=False)|indent(2)}}
 {% endwith %}
@@ -123,7 +123,7 @@ example3 (using jinja2 extensions)
 {% with name="examples/readme/src/02/use-extension.jinja2" %}
 {{name}}
 
-.. code-block:: jinja2
+.. code-block::
 
   {{name|read_from_file(relative_self=False)|indent(2)}}
 {% endwith %}
@@ -164,7 +164,7 @@ then
 {% with name="examples/readme/src/10/data.yaml" %}
 {{name}}
 
-.. code-block:: jinja2
+.. code-block:: yaml
 
   {{name|read_from_file(relative_self=False)|indent(2)}}
 {% endwith %}
@@ -172,7 +172,7 @@ then
 {% with name="examples/readme/src/10/data2.yaml" %}
 {{name}}
 
-.. code-block:: jinja2
+.. code-block:: yaml
 
   {{name|read_from_file(relative_self=False)|indent(2)}}
 {% endwith %}
