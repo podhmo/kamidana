@@ -97,6 +97,6 @@ def get_gentle_output_from_exception(
     renderer=GentleOutputRenderer,
     full=False,
     n=3,
-    colorful=False,
+    colorful=False
 ) -> str:
     return renderer(full=full, n=n, colorful=colorful).render(exc)
