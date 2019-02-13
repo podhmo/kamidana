@@ -22,4 +22,4 @@ dst:
 
 10: dst
 	mkdir -p dst/10
-	kamidana ${OPTS} --data src/10/data.yaml --data src/10/data2.yaml --dump-context
+	kamidana ${OPTS} --data src/10/data.yaml --data src/10/data2.yaml --dump-context ${TEE} dst/10/dump-context.output
