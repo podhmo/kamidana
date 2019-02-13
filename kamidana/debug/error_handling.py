@@ -43,9 +43,9 @@ class GentleOutputRenderer:
         return fmt.format(d=d, title=self.title)
 
     def render(self, exc: Exception) -> str:
-        return self.formatter(self.get_output(exc))
+        return self.formatter(self.get_information(exc))
 
-    def get_output(self, exc: Exception) -> str:
+    def get_information(self, exc: Exception) -> str:
         if isinstance(exc, jinja2.TemplateSyntaxError):
             return self.on_syntax_error(exc)
         elif isinstance(exc, jinja2.TemplateError):
