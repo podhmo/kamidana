@@ -24,7 +24,7 @@ usage
                   [-a ADDITIONALS] [-e EXTENSION]
                   [-i {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}]
                   [-o OUTPUT_FORMAT] [--dump-context] [--debug] [--dst DST]
-                  template
+                  [template]
 
   positional arguments:
     template
@@ -217,11 +217,55 @@ debugging
 dump context
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. code-block:: console
+
+  $ kamidana --dump-context --data=examples/readme/src/10/data.yaml
+  INFO:kamidana.commands.onefile:template is not passed, running as --dump-context
+  {
+    "name": "foo",
+    "age": 20,
+    "friends": [
+      "bar",
+      "boo"
+    ],
+    "template_filename": null
+  }
+
+and be able to merge two files.
 
 .. code-block:: console
 
-  $ kamidana --dump-context --data=examples/readme/src/01/data.yaml examples/readme/src/01/hello.jinja2
+  $ kamidana --dump-context --data=examples/readme/src/10/data.yaml --data=examples/readme/src/10/data.yaml
+  INFO:kamidana.commands.onefile:template is not passed, running as --dump-context
   {
-    "name": "world",
-    "template_filename": "examples/readme/src/01/hello.jinja2"
+    "name": "foo",
+    "age": 20,
+    "friends": [
+      "bar",
+      "boo"
+    ],
+    "template_filename": null
   }
+
+then
+
+examples/readme/src/10/data.yaml
+
+.. code-block:: jinja2
+
+  name: foo
+  age: 20
+  friends:
+    - bar
+    - boo
+
+
+examples/readme/src/10/data2.yaml
+
+.. code-block:: jinja2
+
+  age: 21
+  friends:
+    - bar
+    - baz
+

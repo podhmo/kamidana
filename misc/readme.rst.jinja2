@@ -120,10 +120,36 @@ debugging
 dump context
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. code-block:: console
+
+{% with cmd="kamidana --dump-context --data=examples/readme/src/10/data.yaml"%}
+  $ {{cmd}}
+  {{cmd|read_from_command(relative_self=False)|indent(2)}}
+{% endwith %}
+
+and be able to merge two files.
 
 .. code-block:: console
 
-{% with cmd="kamidana --dump-context --data=examples/readme/src/01/data.yaml examples/readme/src/01/hello.jinja2"%}
+{% with cmd="kamidana --dump-context --data=examples/readme/src/10/data.yaml --data=examples/readme/src/10/data.yaml" %}
   $ {{cmd}}
   {{cmd|read_from_command(relative_self=False)|indent(2)}}
+{% endwith %}
+
+then
+
+{% with name="examples/readme/src/10/data.yaml" %}
+{{name}}
+
+.. code-block:: jinja2
+
+  {{name|read_from_file(relative_self=False)|indent(2)}}
+{% endwith %}
+
+{% with name="examples/readme/src/10/data2.yaml" %}
+{{name}}
+
+.. code-block:: jinja2
+
+  {{name|read_from_file(relative_self=False)|indent(2)}}
 {% endwith %}

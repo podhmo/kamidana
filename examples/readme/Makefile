@@ -1,7 +1,7 @@
 OPTS ?= --logging=DEBUG
 TEE ?= | tee
 
-default: 00 01 02
+default: 00 01 02 10
 
 dst:
 	mkdir -p dst
@@ -17,3 +17,7 @@ dst:
 02: dst
 	mkdir -p dst/02
 	kamidana ${OPTS} -e with_ -e do -e loopcontrols src/02/use-extension.jinja2 ${TEE} dst/02/use-extension.output
+
+10: dst
+	mkdir -p dst/10
+	kamidana ${OPTS} --data src/10/data.yaml --data src/10/data2.yaml --dump-context
