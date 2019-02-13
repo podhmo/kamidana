@@ -10,7 +10,7 @@ example
 
 .. code-block:: console
 
-  $ kamidana ../examples/readme/src/nginx.jinja2 --data ../examples/readme/data.json
+  $ kamidana examples/readme/src/00/nginx.jinja2 --data examples/readme/src/00/data.json
   server {
     listen 80;
     server_name localhost;
@@ -22,7 +22,7 @@ example
     error_log  /var/log/nginx/http.error.log;
   }
 
-src/nginx.jinja2
+examples/readme/src/00/nginx.jinja2
 
 .. code-block:: jinja2
 
@@ -38,7 +38,7 @@ src/nginx.jinja2
   }
 
 
-data.json
+examples/readme/src/00/data.json
 
 .. code-block:: json
 
@@ -57,11 +57,12 @@ example2 (--additionals)
 
 .. code-block:: console
 
-  $ kamidana --additionals=../examples/readme2/additionals.py --data=../examples/readme2/data.yaml ../examples/readme2/src/hello.jinja2
+  $ kamidana --additionals=examples/readme/src/01/additionals.py --data=examples/readme/src/01/data.yaml examples/readme/src/01/hello.jinja2
     bye, world!!
 
 
-src/hello.jinja2
+
+examples/readme/src/01/hello.jinja2
 
 .. code-block:: jinja2
 
@@ -71,7 +72,8 @@ src/hello.jinja2
     {{daytime}}, {{name|surprised}}
   {% endif %}
 
-additionals.py
+
+examples/readme/src/01/additionals.py
 
 .. code-block:: python
 
@@ -97,7 +99,7 @@ additionals.py
       return 19 <= hour or hour < 3
 
 
-data.yaml
+examples/readme/src/01/data.yaml
 
 .. code-block:: yaml
 

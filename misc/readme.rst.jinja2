@@ -10,25 +10,25 @@ example
 
 .. code-block:: console
 
-{% with cmd="kamidana ../examples/readme/src/nginx.jinja2 --data ../examples/readme/data.json" %}
+{% with cmd="kamidana examples/readme/src/00/nginx.jinja2 --data examples/readme/src/00/data.json" %}
   $ {{cmd}}
-  {{cmd|read_from_command|indent(2)}}
+  {{cmd|read_from_command(relative_self=False)|indent(2)}}
 {% endwith %}
 
-{% with name="src/nginx.jinja2" %}
+{% with name="examples/readme/src/00/nginx.jinja2" %}
 {{name}}
 
 .. code-block:: jinja2
 
-  {{"../examples/readme/%s"|format(name)|read_from_file|indent(2)}}
+  {{name|read_from_file(relative_self=False)|indent(2)}}
 {% endwith %}
 
-{% with name="data.json" %}
+{% with name="examples/readme/src/00/data.json" %}
 {{name}}
 
 .. code-block:: json
 
-  {{"../examples/readme/%s"|format(name)|read_from_file|indent(2)}}
+  {{name|read_from_file(relative_self=False)|indent(2)}}
 {% endwith %}
 
 
@@ -37,31 +37,33 @@ example2 (--additionals)
 
 .. code-block:: console
 
-{% with cmd="kamidana --additionals=../examples/readme2/additionals.py --data=../examples/readme2/data.yaml ../examples/readme2/src/hello.jinja2" %}
+{% with cmd="kamidana --additionals=examples/readme/src/01/additionals.py --data=examples/readme/src/01/data.yaml examples/readme/src/01/hello.jinja2" %}
   $ {{cmd}}
-  {{cmd|read_from_command|indent(2)}}
+  {{cmd|read_from_command(relative_self=False)|indent(2)}}
 {% endwith %}
 
-{% with name="src/hello.jinja2" %}
+
+{% with name="examples/readme/src/01/hello.jinja2" %}
 {{name}}
 
 .. code-block:: jinja2
 
-  {{"../examples/readme2/%s"|format(name)|read_from_file|indent(2)}}
+  {{name|read_from_file(relative_self=False)|indent(2)}}
 {% endwith %}
 
-{% with name="additionals.py" %}
+
+{% with name="examples/readme/src/01/additionals.py" %}
 {{name}}
 
 .. code-block:: python
 
-  {{"../examples/readme2/%s"|format(name)|read_from_file|indent(2)}}
+  {{name|read_from_file(relative_self=False)|indent(2)}}
 {% endwith %}
 
-{% with name="data.yaml" %}
+{% with name="examples/readme/src/01/data.yaml" %}
 {{name}}
 
 .. code-block:: yaml
 
-  {{"../examples/readme2/%s"|format(name)|read_from_file|indent(2)}}
+  {{name|read_from_file(relative_self=False)|indent(2)}}
 {% endwith %}
