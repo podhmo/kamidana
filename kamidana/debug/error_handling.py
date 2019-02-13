@@ -15,12 +15,7 @@ def _get_jinja2_exception_info(exc: jinja2.TemplateError):
 
 class GentleOutputRenderer:
     def __init__(
-        self,
-        *,
-        n: int,
-        full: bool = False,
-        formatter=None,
-        colorful: bool = False,
+        self, *, n: int, full: bool = False, formatter=None, colorful: bool = False
     ):
         self.n = n
         self.full = full  # todo: handling (currently, ignored)
@@ -36,12 +31,16 @@ class GentleOutputRenderer:
             message: {d[exception_message]}
             where: {d[name]}
             ------------------------------------------------------------
-            """.lstrip("\n")
+            """.lstrip(
+                "\n"
+            )
         )
         fmt2 = textwrap.dedent(
             """
             {d[output]}
-            """.strip("\n")
+            """.strip(
+                "\n"
+            )
         )
         if "output" in d:
             fmt += fmt2
@@ -98,6 +97,6 @@ def get_gentle_output_from_exception(
     renderer=GentleOutputRenderer,
     full=False,
     n=3,
-    colorful=None,
+    colorful=False,
 ) -> str:
     return renderer(full=full, n=n, colorful=colorful).render(exc)
