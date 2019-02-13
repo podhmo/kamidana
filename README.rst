@@ -14,7 +14,37 @@ features
 - rendering with individual filters (via `--additionals` option)
 - (useful additionals modules (e.g. `kamidana.additionals.naming` ...)
 
-example
+usage
+----------------------------------------
+
+.. code-block:: console
+
+  usage: kamidana [-h] [--driver DRIVER] [--loader LOADER] [-d DATA]
+                  [--logging {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}]
+                  [-a ADDITIONALS] [-e EXTENSION]
+                  [-i {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}]
+                  [-o OUTPUT_FORMAT] [--dump-context] [--debug] [--dst DST]
+                  template
+
+  positional arguments:
+    template
+
+  optional arguments:
+    -h, --help            show this help message and exit
+    --driver DRIVER       default: kamidana.driver:Driver
+    --loader LOADER       default: kamidana.loader:TemplateLoader
+    -d DATA, --data DATA  support yaml, json, toml
+    --logging {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}
+    -a ADDITIONALS, --additionals ADDITIONALS
+    -e EXTENSION, --extension EXTENSION
+    -i {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}, --input-format {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}
+    -o OUTPUT_FORMAT, --output-format OUTPUT_FORMAT
+    --dump-context
+    --debug
+    --dst DST
+
+
+examples
 ----------------------------------------
 
 .. code-block:: console
