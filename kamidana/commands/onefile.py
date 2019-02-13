@@ -3,6 +3,8 @@ import logging
 from magicalimport import import_symbol
 from dictknife.langhelpers import traceback_shortly
 
+logger = logging.getLogger(__name__)
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -25,7 +27,7 @@ def main():
     parser.add_argument("-i", "--input-format", default=None)
     parser.add_argument("-o", "--output-format", default="raw")
     parser.add_argument("--dump-context", action="store_true")
-    parser.add_argument("template")
+    parser.add_argument("template", nargs="?")
     parser.add_argument("--debug", action="store_true")
     parser.add_argument("--dst", default=None)
 
@@ -39,6 +41,9 @@ def main():
         ]
         loader = loader_cls(args.data, args.additionals, extensions, format=args.input_format)
 
+        if args.template is None:
+            logger.info("template is not passed, running as --dump-context")
+            args.dump_context = True
         if args.dump_context:
             driver_cls = import_symbol("ContextDumpDriver", ns="kamidana.driver")
         else:
