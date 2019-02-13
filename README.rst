@@ -47,6 +47,9 @@ usage
 examples
 ----------------------------------------
 
+example (basic)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 .. code-block:: console
 
   $ kamidana examples/readme/src/00/nginx.jinja2 --data examples/readme/src/00/data.json
@@ -145,3 +148,80 @@ examples/readme/src/01/data.yaml
   name: world
 
 
+
+example3 (using jinja2 extensions)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: console
+
+  $ kamidana -e with_ -e do -e loopcontrols examples/readme/src/02/use-extension.jinja2
+  hello
+    world
+  hello
+
+  ## counting
+
+  - 1
+  - 2
+  - 4
+
+  ## do
+
+  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+
+examples/readme/src/02/use-extension.jinja2
+
+.. code-block:: jinja2
+
+  {# with with. with_ extension is used. #}
+  {% with msg = "hello"%}
+  {{msg}}
+  {% with msg = "world"%}
+    {{msg}}
+  {% endwith %}
+  {{msg}}
+  {% endwith %}
+
+  ## counting
+  {# with break and continue. loopcontrolls extension is used. #}
+
+  {% for i in range(10) %}
+  {% if i % 3 == 0 %}{% continue %} {% endif %}
+  {% if i == 5 %}{% break %} {% endif %}
+  - {{i}}
+  {% endfor %}
+
+  ## do
+
+  {% set xs = [] %}
+  {% for i in range(10) %}
+  {% do xs.append(i) %}
+  {% endfor %}
+  {{xs}}
+
+
+
+example4 (batch execution)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+TODO. `see this <./examples/batch>`_
+
+
+debugging
+----------------------------------------
+
+- `--dump-context`
+- `--debug`
+
+dump context
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+.. code-block:: console
+
+  $ kamidana --dump-context --data=examples/readme/src/01/data.yaml examples/readme/src/01/hello.jinja2
+  {
+    "name": "world",
+    "template_filename": "examples/readme/src/01/hello.jinja2"
+  }
