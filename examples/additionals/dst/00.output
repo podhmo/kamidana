@@ -1,0 +1,7 @@
+camelCase,snake_case,kebab-case
+
+- fooBarBoo -> fooBarBoo
+- fooBarBoo|snakecase -> foo_bar_boo
+- fooBarBoo|kebabcase -> foo-bar-boo
+
+- csv_reader|camelcase -> csvReader
