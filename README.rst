@@ -93,6 +93,22 @@ examples/readme/src/00/data.json
   }
 
 
+More over, passing data with stdin. (please doen't forget to add `--input-format` option)
+
+.. code-block:: console
+
+  $ echo '{"nginx": {"logdir": "/tmp/logs/nginx"}}' | kamidana --input-format json examples/readme/src/00/nginx.jinja2 --data examples/readme/src/00/data.json
+  server {
+    listen 80;
+    server_name localhost;
+
+    root /var/www/project;
+    index index.htm;
+
+    access_log /tmp/logs/nginx/http.access.log combined;
+    error_log  /tmp/logs/nginx/http.error.log;
+  }
+
 
 example2 (--additionals)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
