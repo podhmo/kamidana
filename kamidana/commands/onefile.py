@@ -2,6 +2,7 @@ import argparse
 import logging
 from magicalimport import import_symbol
 from dictknife.langhelpers import traceback_shortly
+from dictknife.loading import get_formats
 
 logger = logging.getLogger(__name__)
 
@@ -21,10 +22,13 @@ def main():
     parser.add_argument(
         "-d", "--data", action="append", help="support yaml, json, toml", default=[]
     )
-    parser.add_argument("--logging", choices=list(logging._nameToLevel.keys()), default="INFO")
+    parser.add_argument(
+        "--logging", choices=list(logging._nameToLevel.keys()), default="INFO"
+    )
     parser.add_argument("-a", "--additionals", action="append", default=[])
     parser.add_argument("-e", "--extension", action="append", default=[])
-    parser.add_argument("-i", "--input-format", default=None)
+
+    parser.add_argument("-i", "--input-format", default=None, choices=get_formats())
     parser.add_argument("-o", "--output-format", default="raw")
     parser.add_argument("--dump-context", action="store_true")
     parser.add_argument("template", nargs="?")
@@ -37,9 +41,12 @@ def main():
     with traceback_shortly(args.debug):
         loader_cls = import_symbol(args.loader, ns="kamidana.loader")
         extensions = [
-            ("jinja2.ext.{}".format(ext) if "." not in ext else ext) for ext in args.extension
+            ("jinja2.ext.{}".format(ext) if "." not in ext else ext)
+            for ext in args.extension
         ]
-        loader = loader_cls(args.data, args.additionals, extensions, format=args.input_format)
+        loader = loader_cls(
+            args.data, args.additionals, extensions, format=args.input_format
+        )
 
         if args.template is None:
             logger.info("template is not passed, running as --dump-context")

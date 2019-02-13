@@ -4,13 +4,55 @@ kamidana
 .. image:: https://travis-ci.org/podhmo/kamidana.svg?branch=master
     :target: https://travis-ci.org/podhmo/kamidana
 
-example
-----------------------------------------
+kamidana is yet another jinja2's cli wrapper.
 
+features
+
+- using jinja2 file as template file (basic feature)
+- various input formats support (json, yaml, toml, ...)
+- batch execution for speed-up (via `kamidana-batch`)
+- rendering with individual filters (via `--additionals` option)
+- (useful additionals modules (e.g. `kamidana.additionals.naming` ...)
+
+usage
+----------------------------------------
 
 .. code-block:: console
 
-  $ kamidana ../examples/readme/src/nginx.jinja2 --data ../examples/readme/data.json
+  usage: kamidana [-h] [--driver DRIVER] [--loader LOADER] [-d DATA]
+                  [--logging {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}]
+                  [-a ADDITIONALS] [-e EXTENSION]
+                  [-i {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}]
+                  [-o OUTPUT_FORMAT] [--dump-context] [--debug] [--dst DST]
+                  [template]
+
+  positional arguments:
+    template
+
+  optional arguments:
+    -h, --help            show this help message and exit
+    --driver DRIVER       default: kamidana.driver:Driver
+    --loader LOADER       default: kamidana.loader:TemplateLoader
+    -d DATA, --data DATA  support yaml, json, toml
+    --logging {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}
+    -a ADDITIONALS, --additionals ADDITIONALS
+    -e EXTENSION, --extension EXTENSION
+    -i {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}, --input-format {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}
+    -o OUTPUT_FORMAT, --output-format OUTPUT_FORMAT
+    --dump-context
+    --debug
+    --dst DST
+
+
+examples
+----------------------------------------
+
+example (basic)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: console
+
+  $ kamidana examples/readme/src/00/nginx.jinja2 --data examples/readme/src/00/data.json
   server {
     listen 80;
     server_name localhost;
@@ -22,7 +64,7 @@ example
     error_log  /var/log/nginx/http.error.log;
   }
 
-src/nginx.jinja2
+examples/readme/src/00/nginx.jinja2
 
 .. code-block:: jinja2
 
@@ -38,7 +80,7 @@ src/nginx.jinja2
   }
 
 
-data.json
+examples/readme/src/00/data.json
 
 .. code-block:: json
 
@@ -55,13 +97,64 @@ data.json
 example2 (--additionals)
 ----------------------------------------
 
+builtin addtional modules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 .. code-block:: console
 
-  $ kamidana --additionals=../examples/readme2/additionals.py --data=../examples/readme2/data.yaml ../examples/readme2/src/hello.jinja2
+  $ kamidana --additionals=kamidana.additionals.naming examples/readme/src/01/use-naming.jinja2
+  singular, plurals
+
+  - days|singularize -> day
+  - day|pluralize -> days
+
+  - people|singularize -> person
+  - person|pluralize -> people
+
+  to {snake_case, kebab-case, camelCase}
+
+  - fooBarBoo|snakecase -> foo_bar_boo
+  - fooBarBoo|kebabcase -> foo-bar-boo
+  - foo_bar_boo|camelcase -> fooBarBoo
+
+
+  more information: see kamidana.additionals.naming module
+
+
+examples/readme/src/01/use-naming.jinja2
+
+.. code-block:: jinja2
+
+  singular, plurals
+
+  - days|singularize -> {{"days"|singularize}}
+  - day|pluralize -> {{"day"|pluralize}}
+
+  - people|singularize -> {{"people"|singularize}}
+  - person|pluralize -> {{"person"|pluralize}}
+
+  to {snake_case, kebab-case, camelCase}
+
+  - fooBarBoo|snakecase -> {{"fooBarBoo"|snakecase}}
+  - fooBarBoo|kebabcase -> {{"fooBarBoo"|kebabcase}}
+  - foo_bar_boo|camelcase -> {{"foo_bar_boo"|camelcase}}
+
+
+  more information: see kamidana.additionals.naming module
+
+
+or `kamidana -a naming` is also OK (shortcut).
+
+individual additional modules
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: console
+
+  $ kamidana --additionals=examples/readme/src/01/additionals.py --data=examples/readme/src/01/data.yaml examples/readme/src/01/hello.jinja2
     bye, world!!
 
 
-src/hello.jinja2
+examples/readme/src/01/hello.jinja2
 
 .. code-block:: jinja2
 
@@ -71,7 +164,8 @@ src/hello.jinja2
     {{daytime}}, {{name|surprised}}
   {% endif %}
 
-additionals.py
+
+examples/readme/src/01/additionals.py
 
 .. code-block:: python
 
@@ -97,10 +191,131 @@ additionals.py
       return 19 <= hour or hour < 3
 
 
-data.yaml
+examples/readme/src/01/data.yaml
 
 .. code-block:: yaml
 
   name: world
 
+
+
+example3 (using jinja2 extensions)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: console
+
+  $ kamidana -e with_ -e do -e loopcontrols examples/readme/src/02/use-extension.jinja2
+  hello
+    world
+  hello
+
+  ## counting
+
+  - 1
+  - 2
+  - 4
+
+  ## do
+
+  [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+
+examples/readme/src/02/use-extension.jinja2
+
+.. code-block:: jinja2
+
+  {# with with. with_ extension is used. #}
+  {% with msg = "hello"%}
+  {{msg}}
+  {% with msg = "world"%}
+    {{msg}}
+  {% endwith %}
+  {{msg}}
+  {% endwith %}
+
+  ## counting
+  {# with break and continue. loopcontrolls extension is used. #}
+
+  {% for i in range(10) %}
+  {% if i % 3 == 0 %}{% continue %} {% endif %}
+  {% if i == 5 %}{% break %} {% endif %}
+  - {{i}}
+  {% endfor %}
+
+  ## do
+
+  {% set xs = [] %}
+  {% for i in range(10) %}
+  {% do xs.append(i) %}
+  {% endfor %}
+  {{xs}}
+
+
+
+example4 (batch execution)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+TODO. `see this <./examples/batch>`_
+
+
+debugging
+----------------------------------------
+
+- `--dump-context`
+- `--debug`
+
+dump context
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: console
+
+  $ kamidana --dump-context --data=examples/readme/src/10/data.yaml
+  INFO:kamidana.commands.onefile:template is not passed, running as --dump-context
+  {
+    "name": "foo",
+    "age": 20,
+    "friends": [
+      "bar",
+      "boo"
+    ],
+    "template_filename": null
+  }
+
+and be able to merge two files.
+
+.. code-block:: console
+
+  $ kamidana --dump-context --data=examples/readme/src/10/data.yaml --data=examples/readme/src/10/data.yaml
+  INFO:kamidana.commands.onefile:template is not passed, running as --dump-context
+  {
+    "name": "foo",
+    "age": 20,
+    "friends": [
+      "bar",
+      "boo"
+    ],
+    "template_filename": null
+  }
+
+then
+
+examples/readme/src/10/data.yaml
+
+.. code-block:: jinja2
+
+  name: foo
+  age: 20
+  friends:
+    - bar
+    - boo
+
+
+examples/readme/src/10/data2.yaml
+
+.. code-block:: jinja2
+
+  age: 21
+  friends:
+    - bar
+    - baz
 
