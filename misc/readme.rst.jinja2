@@ -4,9 +4,18 @@ kamidana
 .. image:: https://travis-ci.org/podhmo/kamidana.svg?branch=master
     :target: https://travis-ci.org/podhmo/kamidana
 
+kamidana is yet another jinja2's cli wrapper.
+
+features
+
+- using jinja2 file as template file (basic feature)
+- various input formats support (json, yaml, toml, ...)
+- batch execution for speed-up (via `kamidana-batch`)
+- rendering with individual filters (via `--additionals` option)
+- (useful additionals modules (e.g. `kamidana.additionals.naming` ...)
+
 example
 ----------------------------------------
-
 
 .. code-block:: console
 
