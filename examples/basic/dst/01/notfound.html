@@ -1,0 +1,15 @@
+------------------------------------------------------------
+exception: jinja2.exceptions.TemplateNotFound
+message: [Errno 2] No such file or directory: 'src/01*/notfound.j2'
+where: None
+------------------------------------------------------------
+Traceback (most recent call last):
+  File "HERE/kamidana/debug/__init__.py", line 10, in error_handler
+    yield
+  File "HERE/kamidana/commands/onefile.py", line 60, in main
+    driver.run(args.template, args.dst)
+  File "HERE/kamidana/driver.py", line 49, in run
+    template = self.load(src)
+jinja2.exceptions.TemplateNotFound: [Errno 2] No such file or directory: 'src/01*/notfound.j2'
+
+
