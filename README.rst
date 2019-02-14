@@ -64,6 +64,7 @@ example (basic)
     error_log  /var/log/nginx/http.error.log;
   }
 
+
 examples/readme/src/00/nginx.jinja2
 
 .. code-block::
@@ -110,6 +111,7 @@ More over, passing data with stdin. (please doen't forget to add `--input-format
   }
 
 
+
 example2 (--additionals)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -135,6 +137,7 @@ builtin addtional modules
 
 
   more information: see kamidana.additionals.naming module
+
 
 
 examples/readme/src/01/use-naming.jinja2
