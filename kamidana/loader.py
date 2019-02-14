@@ -23,9 +23,15 @@ class TemplateLoader(ITemplateLoader):
         if data is not None:
             return data
 
-        with open(filename) as rf:
-            logger.debug("load: %s", filename)
-            data = self._cache[filename] = rf.read()
+        try:
+            with open(filename) as rf:
+                logger.debug("load: %s", filename)
+                data = self._cache[filename] = rf.read()
+        except FileNotFoundError as e:
+            import jinja2
+
+            where = None  # TODO: if parent is passed, then assiging it as filename
+            raise jinja2.TemplateNotFound(where, message=str(e)) from None
         return data
 
     @reify

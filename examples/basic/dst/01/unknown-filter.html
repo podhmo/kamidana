@@ -1,0 +1,12 @@
+------------------------------------------------------------
+exception: jinja2.exceptions.TemplateAssertionError
+message: no filter named 'downer'
+where: src/01invalid-syntax/unknown-filter.j2
+------------------------------------------------------------
+    12: consectetur adipiscing elit,
+    13: sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    14: Ut enim ad minim veniam,
+->  15: quis nostrud exercitation ullamco {{"laboris"|downer}} nisi ut aliquip ex ea commodo consequat.
+    16: Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    17: Excepteur sint occaecat cupidatat non proident,
+    18: sunt in culpa qui officia deserunt mollit anim id est laborum.

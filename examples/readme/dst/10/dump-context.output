@@ -1,0 +1,9 @@
+{
+  "name": "foo",
+  "age": 21,
+  "friends": [
+    "bar",
+    "baz"
+  ],
+  "template_filename": null
+}
