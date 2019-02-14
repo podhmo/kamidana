@@ -12,7 +12,7 @@ def error_handler(*, quiet: bool, debug: bool):
         if debug:
             raise
         if quiet:
-            message = "{e.__class__.__name__}: {e}".format(e)
+            message = "{e.__class__.__name__}: {e}".format(e=e)
             print(highlight(message, colorful=is_colorful()), file=sys.stderr)
         else:
             print(
