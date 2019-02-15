@@ -38,9 +38,9 @@ class ResolvingByRelativePathEnvironment(jinja2.Environment):
     # @override
     def join_path(self, path: str, where: str = None) -> str:
         if where is None:
-            relpath = path
+            template_path = path
         else:
-            relpath = os.path.normpath(
+            template_path = os.path.normpath(
                 os.path.join(os.path.abspath(os.path.dirname(where)), path)
             )
-        return TemplatePath(relpath, original=_Original(path=path, where=where))
+        return TemplatePath(template_path, original=_Original(path=path, where=where))
