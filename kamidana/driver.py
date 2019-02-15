@@ -7,6 +7,7 @@ from dictknife import deepmerge
 from dictknife import loading
 from dictknife.langhelpers import reify
 from .interfaces import IDriver
+from ._path import ResolvingByRelativePathEnvironment
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +21,7 @@ def _render_with_newline(t, data):
 
 def _make_environment(load, additionals, extensions):
     extensions.append(ext.with_)
-    env = jinja2.Environment(
+    env = ResolvingByRelativePathEnvironment(
         loader=jinja2.FunctionLoader(load),
         undefined=jinja2.StrictUndefined,
         trim_blocks=True,
