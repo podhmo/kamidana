@@ -1,0 +1,6 @@
+{% with name="xxx" %}
+{% with name="foo" %}{% include "greeting.j2" %}{% endwith %}
+{% with name="bar" %}{% include "greeting.j2" %}{% endwith %}
+{% with name="boo" %}{% include "greeting.j2" %}{% endwith %}
+{% include "greeting.j2" %}
+{% endwith %}
