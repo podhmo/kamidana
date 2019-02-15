@@ -1,16 +1,30 @@
+import os
 import textwrap
 import traceback
 from collections import defaultdict
 from io import StringIO
 import jinja2
+from .._path import XTemplatePathNotFound
 from .color import highlight
 
 
-def _get_jinja2_exception_info(exc: jinja2.TemplateError):
-    return {
-        "exception_class": "{}.{}".format(exc.__module__, exc.__class__.__name__),
-        "exception_message": str(exc),
+def _get_info_from_exception(exc: jinja2.TemplateError):
+    d = {
+        "exc_class": "{}.{}".format(exc.__module__, exc.__class__.__name__),
+        "message": str(exc),
     }
+
+    if hasattr(exc, "filename"):
+        d["where"] = exc.filename or exc.name
+        return d
+
+    # hack: original expression from hidden api
+    if hasattr(exc, "original_context"):
+        octx = exc.original_context
+        if octx.where is not None:
+            d["where"] = os.path.relpath(octx.where, os.getcwd())
+        d["message"] = d["message"].replace(exc.args[0], octx.path)
+    return d
 
 
 class GentleOutputRenderer:
@@ -27,9 +41,9 @@ class GentleOutputRenderer:
         fmt = textwrap.dedent(
             """
             ------------------------------------------------------------
-            exception: {d[exception_class]}
-            message: {d[exception_message]}
-            where: {d[name]}
+            exception: {d[exc_class]}
+            message: {d[message]}
+            where: {d[where]}
             ------------------------------------------------------------
             """.lstrip(
                 "\n"
@@ -52,14 +66,14 @@ class GentleOutputRenderer:
     def get_information(self, exc: Exception) -> str:
         if isinstance(exc, jinja2.TemplateSyntaxError):
             return self.on_syntax_error(exc)
-        elif isinstance(exc, jinja2.TemplateError):
+        elif isinstance(exc, (XTemplatePathNotFound, jinja2.TemplateError)):
             return self.on_template_error(exc)
         else:
             raise
 
     def on_template_error(self, exc: jinja2.TemplateError) -> dict:
         d = vars(exc).copy()
-        d.update(_get_jinja2_exception_info(exc))
+        d.update(_get_info_from_exception(exc))
         d["output"] = traceback.format_exc(limit=3)
         return d
 
@@ -87,7 +101,7 @@ class GentleOutputRenderer:
                 print("   {}".format(text), file=buf)
 
         d["output"] = buf.getvalue()
-        d.update(_get_jinja2_exception_info(exc))
+        d.update(_get_info_from_exception(exc))
         return d
 
 

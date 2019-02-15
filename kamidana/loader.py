@@ -6,6 +6,7 @@ from dictknife.langhelpers import reify
 from magicalimport import import_module
 from . import collect_marked_items
 from .interfaces import ITemplateLoader
+from ._path import XTemplatePathNotFound
 
 logger = logging.getLogger(__name__)
 
@@ -27,12 +28,9 @@ class TemplateLoader(ITemplateLoader):
             with open(filename) as rf:
                 logger.debug("load: %s", filename)
                 data = self._cache[filename] = rf.read()
+            return data
         except FileNotFoundError as e:
-            import jinja2
-
-            where = None  # TODO: if parent is passed, then assiging it as filename
-            raise jinja2.TemplateNotFound(where, message=str(e)) from None
-        return data
+            raise XTemplatePathNotFound(filename, exc=e) from None
 
     @reify
     def data(self):
