@@ -1,5 +1,5 @@
 ------------------------------------------------------------
-exception: jinja2.exceptions.TemplateNotFound
+exception: kamidana._path.XTemplatePathNotFound
 message: [Errno 2] No such file or directory: 'src/01*/notfound.j2'
 where: None
 ------------------------------------------------------------
@@ -8,6 +8,6 @@ Traceback (most recent call last):
     yield
   File "HERE/kamidana/commands/onefile.py", line 60, in main
     driver.run(args.template, args.dst)
-  File "HERE/kamidana/driver.py", line 59, in run
+  File "HERE/kamidana/driver.py", line 60, in run
     template = self.load(src)
-jinja2.exceptions.TemplateNotFound: [Errno 2] No such file or directory: 'src/01*/notfound.j2'
+kamidana._path.XTemplatePathNotFound: [Errno 2] No such file or directory: 'src/01*/notfound.j2'
