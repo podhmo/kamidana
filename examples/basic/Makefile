@@ -37,7 +37,7 @@ clean:
 	# using use directly
 	kamidana src/03*/zero.div.html.j2 ${MASK} ${TEE} dst/03/zero.div.html || exit 0
 	# main (use indirectly)
-	kamidana src/03*/main.html.j2 ${MASK} ${TEE} dst/03/main.html
+	kamidana src/03*/main.html.j2 ${MASK} ${TEE} dst/03/runtime-error.html
 
 # filter
 04: dst
