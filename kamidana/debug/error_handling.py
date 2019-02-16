@@ -71,20 +71,9 @@ class GentleOutputRenderer:
         return self.formatter(self.get_information(exc))
 
     def get_information(self, exc: Exception) -> str:
-        if isinstance(exc, jinja2.TemplateSyntaxError):
-            return self.on_syntax_error(exc)
-        elif isinstance(exc, jinja2.TemplateError):
-            return self.on_template_error(exc)
-        else:
-            return self.on_error(exc)
+        return self.on_error(exc)
 
-    def on_template_error(self, exc: jinja2.TemplateError) -> dict:
-        d = vars(exc).copy()
-        d.update(_get_info_from_exception(exc))
-        d["output"] = traceback.format_exc(limit=3)
-        return d
-
-    def on_error(self, exc: Exception, *, level: int = 3) -> dict:
+    def on_error(self, exc: Exception, *, level: int = 5) -> dict:
         # shape :: [python, jinja2, python, ....]
         d = vars(exc).copy()
         detail = extract_detail(exc)
@@ -126,31 +115,6 @@ class GentleOutputRenderer:
                 print("".join(lines), file=buf)
 
         d["where"] = os.path.relpath(filename, start=os.getcwd())  # xxx
-        d["output"] = buf.getvalue()
-        d.update(_get_info_from_exception(exc))
-        return d
-
-    def on_syntax_error(self, exc: jinja2.TemplateSyntaxError) -> dict:
-        d = vars(exc).copy()
-        lineno = exc.lineno  # int
-        # name = exc.name  # Optional[str]
-        # filename = exc.filename  # Optional[str]
-        source = exc.source  # str
-        # translated = exc.translated  # bool
-
-        if source is None:
-            return self.on_error(exc)  # xxx:
-
-        buf = StringIO()
-        lines = source.split("\n")
-        start_position = max(0, lineno - 1 - self.n)
-        end_position = min(len(lines), lineno + self.n)
-
-        for i, line in enumerate(
-            lines[start_position:end_position], start_position + 1
-        ):
-            print(self.line_formatter(i, line, lineno=lineno), file=buf)
-
         d["output"] = buf.getvalue()
         d.update(_get_info_from_exception(exc))
         return d
