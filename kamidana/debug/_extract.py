@@ -9,7 +9,7 @@ def extract_detail(exc: Exception, *, tb=None) -> Detail:
     tb = tb or exc.__traceback__
     aggs = _aggregate_traceback(tb)
     if len(aggs) == 1:
-        return Detail(jinja2=[], framesets=aggs, outermost=False)
+        return Detail(jinja2=None, framesets=aggs, outermost=False)
 
     aggs = _compact_aggregated(aggs)
     if aggs[-1].kind == "jinja2":
