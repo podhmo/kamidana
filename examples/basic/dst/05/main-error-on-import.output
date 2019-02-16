@@ -1,0 +1,15 @@
+------------------------------------------------------------
+exception: jinja2.exceptions.TemplateSyntaxError
+message: unexpected '}', expected ')'
+where: src/05import/greeting2.j2
+------------------------------------------------------------
+src/05import/main-error-on-import.j2:
+  ->  1: {% import "greeting2.j2" as g %}
+      2: {{ g.hello2("bar", "xxxxx") }}
+
+src/05import/greeting2.j2:
+      1: {% import "greeting.j2" as g %}
+      2: 
+      3: {% macro hello2(name, nickname) -%}
+  ->  4: {{g.hello(name, nickname}}
+      5: {%- endmacro %}

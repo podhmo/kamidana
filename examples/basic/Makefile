@@ -1,4 +1,4 @@
-default: 00 01 02 03 04
+default: 00 01 02 03 04 05
 
 OPTS ?= --logging=DEBUG
 MASK ?= 2>&1 | sed "s@$(shell cd ../../; pwd)@HERE@"
@@ -49,4 +49,11 @@ clean:
 	# main (use indirectly)
 	kamidana -a src/04*/additionals.py src/04*/main.html.j2 ${MASK} ${TEE} dst/04/main.html
 
-# todo: import
+
+05: dst
+	mkdir -p dst/05
+	kamidana src/05*/main.j2 ${MASK} ${TEE} dst/05/main.output
+	# error
+	kamidana src/05*/main-error.j2 ${MASK} ${TEE} dst/05/main-error.output
+	# error on import
+	kamidana src/05*/main-error-on-import.j2 ${MASK} ${TEE} dst/05/main-error-on-import.output

@@ -1,0 +1,5 @@
+{% import "greeting.j2" as g %}
+
+{% macro hello2(name, nickname) -%}
+{{g.hello(name, nickname}}
+{%- endmacro %}
