@@ -24,7 +24,7 @@ def _make_environment(load, additionals, extensions):
     env = ResolvingByRelativePathEnvironment(
         loader=jinja2.FunctionLoader(load),
         undefined=jinja2.StrictUndefined,
-        trim_blocks=True,
+        trim_blocks=False,
         lstrip_blocks=True,
         extensions=extensions,
     )
