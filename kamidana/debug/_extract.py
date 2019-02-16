@@ -11,6 +11,7 @@ def extract_detail(exc: Exception, *, tb=None) -> Detail:
     if len(aggs) == 1:
         return Detail(jinja2=[], framesets=aggs, outermost=False)
 
+    aggs = _compact_aggregated(aggs)
     if aggs[-1].kind == "jinja2":
         outermost = True
         fsets = aggs[-1]
@@ -19,6 +20,22 @@ def extract_detail(exc: Exception, *, tb=None) -> Detail:
         fsets = aggs[-2]
     f: traceback.FrameSummary = fsets[-1]
     return Detail(jinja2=fsets, framesets=aggs, outermost=outermost)
+
+
+def _compact_aggregated(aggs):
+    r = []
+    for fset in aggs:
+        if fset.kind == "jinja2":
+            r.append(fset)
+
+    is_last_frame_python = aggs[-1] != r[-1]
+
+    compacted = [f for fset in r for f in fset.frames]
+    r.append(FrameSet(kind="jinja2", frames=compacted))
+
+    if is_last_frame_python:
+        r.append(aggs[-1])
+    return r
 
 
 def _detect_kind(

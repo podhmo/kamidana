@@ -63,6 +63,10 @@ class GentleOutputRenderer:
             fmt += fmt2
         return fmt.format(d=d).rstrip()
 
+    # xxx:
+    def is_jinja2_frames(self, frames):
+        return "site-packages/jinja2" in frames[-1].filename
+
     def render(self, exc: Exception) -> str:
         return self.formatter(self.get_information(exc))
 
@@ -115,10 +119,11 @@ class GentleOutputRenderer:
         # python's traceback
         if not detail.outermost:
             frames = detail.framesets[-1].frames
-            lines = traceback.StackSummary.from_list(frames).format()
-            print("", file=buf)
-            print("Traceback:", file=buf)
-            print("".join(lines), file=buf)
+            if not self.is_jinja2_frames(frames):
+                lines = traceback.StackSummary.from_list(frames).format()
+                print("", file=buf)
+                print("Traceback:", file=buf)
+                print("".join(lines), file=buf)
 
         d["where"] = os.path.relpath(filename, start=os.getcwd())  # xxx
         d["output"] = buf.getvalue()
@@ -132,6 +137,9 @@ class GentleOutputRenderer:
         # filename = exc.filename  # Optional[str]
         source = exc.source  # str
         # translated = exc.translated  # bool
+
+        if source is None:
+            return self.on_error(exc)  # xxx:
 
         buf = StringIO()
         lines = source.split("\n")
