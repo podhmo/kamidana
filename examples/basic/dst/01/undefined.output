@@ -1,0 +1,11 @@
+------------------------------------------------------------
+exception: jinja2.exceptions.UndefinedError
+message: 'name' is undefined
+where: src/01invalid-syntax/undefined.j2
+------------------------------------------------------------
+src/01invalid-syntax/undefined.j2:
+      1: a undefined variable is used
+      2: 
+  ->  3: {{name}}
+      4: 
+      5: hmm.

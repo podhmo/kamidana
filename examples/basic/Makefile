@@ -18,19 +18,22 @@ clean:
 01: dst
 	# notfound
 	mkdir -p dst/01
-	kamidana ${OPTS} src/01*/notfound.j2 ${MASK} ${TEE} dst/01/notfound.html || exit 0
+	kamidana ${OPTS} src/01*/notfound.j2 ${MASK} ${TEE} dst/01/notfound.output || exit 0
 	# {{xxx}
-	kamidana ${OPTS} src/01*/broken.j2 ${MASK} ${TEE} dst/01/broken.html || exit 0
+	kamidana ${OPTS} src/01*/broken.j2 ${MASK} ${TEE} dst/01/broken.output || exit 0
 	# unknown filter
-	kamidana ${OPTS} src/01*/unknown-filter.j2 ${MASK} ${TEE} dst/01/unknown-filter.html || exit 0
-# todo: undefined
+	kamidana ${OPTS} src/01*/unknown-filter.j2 ${MASK} ${TEE} dst/01/unknown-filter.output || exit 0
+	# undefined variable
+	kamidana ${OPTS} src/01*/undefined.j2 ${MASK} ${TEE} dst/01/undefined.output || exit 0
+
 
 # include
 02: dst
 	mkdir -p dst/02
+	# use include
 	kamidana ${OPTS} src/02*/main.html.j2 ${MASK} ${TEE} dst/02/include.html
+	# include 404
 	kamidana ${OPTS} src/02*/main-notfound.html.j2 ${MASK} ${TEE} dst/02/include-notfound.html
-# todo: include 404
 
 # runtime error
 03: dst
