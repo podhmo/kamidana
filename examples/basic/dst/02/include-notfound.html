@@ -11,7 +11,7 @@ src/02include/main-notfound.html.j2:
       5: {% include "missing-404.j2" %}
 
 Traceback:
-  File "/home/nao/venvs/my/lib/python3.7/site-packages/jinja2/loaders.py", line 314, in get_source
+  File "SITE-PACKAGES/jinja2/loaders.py", line 314, in get_source
     rv = self.load_func(template)
   File "HERE/kamidana/loader.py", line 27, in load
     raise XTemplatePathNotFound(filename, exc=e).with_traceback(e.__traceback__)
