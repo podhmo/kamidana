@@ -128,11 +128,6 @@ def _get_info_from_exception(exc: jinja2.TemplateError):
         ),
         "message": str(exc),
     }
-
-    if hasattr(exc, "filename"):
-        d["where"] = exc.filename or exc.name
-        return d
-
     # hack: original expression from hidden api
     if hasattr(exc, "original_context"):
         octx = exc.original_context
