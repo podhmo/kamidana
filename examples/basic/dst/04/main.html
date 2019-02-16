@@ -1,19 +1,4 @@
-------------------------------------------------------------
-exception: builtins.Exception
-message: oops foo
-where: src/04filter-error/invalid-filter.html.j2
-------------------------------------------------------------
-src/04filter-error/main.html.j2:
-  ->  1: {% include "invalid-filter.html.j2" %}
-      2: {% include "missing.html.j2" %}
-
-src/04filter-error/invalid-filter.html.j2:
-      1: {% for i in range(10) %}
-  ->  2: - {{i}} {{"foo" | use}}
-      3: {% endfor %}
-
-Traceback:
-  File "src/04filter-error/additionals.py", line 6, in use
-    return oops(x)
-  File "src/04filter-error/additionals.py", line 10, in oops
-    raise Exception("oops {}".format(x))
+header
+- ABC
+- abc
+footer

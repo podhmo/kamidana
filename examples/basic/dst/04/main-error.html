@@ -3,6 +3,10 @@ exception: builtins.Exception
 message: oops foo
 where: src/04filter/invalid-filter.html.j2
 ------------------------------------------------------------
+src/04filter/main-error.html.j2:
+  ->  1: {% include "invalid-filter.html.j2" %}
+      2: {% include "missing-filter.html.j2" %}
+
 src/04filter/invalid-filter.html.j2:
       1: {% for i in range(10) %}
   ->  2: - {{i}} {{"foo" | use}}

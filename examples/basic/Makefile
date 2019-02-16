@@ -39,15 +39,17 @@ clean:
 	# main (use indirectly)
 	kamidana src/03*/main.html.j2 ${MASK} ${TEE} dst/03/main.html
 
-# runtime error2 (filter)
+# filter
 04: dst
 	mkdir -p dst/04
-	# missing directly
-	kamidana src/04*/missing.html.j2 ${MASK} ${TEE} dst/04/missing.html || exit 0
-	# error directly
+	# main
+	kamidana src/04*/main.html.j2 ${MASK} ${TEE} dst/04/main.html
+	# missing-filter directly
+	kamidana src/04*/missing-filter.html.j2 ${MASK} ${TEE} dst/04/missing-filter.html || exit 0
+	# invalid-filter directly
 	kamidana -a src/04*/additionals.py src/04*/invalid-filter.html.j2 ${MASK} ${TEE} dst/04/invalid-filter.html || exit 0
-	# main (use indirectly)
-	kamidana -a src/04*/additionals.py src/04*/main.html.j2 ${MASK} ${TEE} dst/04/main.html
+	# main-error (use indirectly)
+	kamidana -a src/04*/additionals.py src/04*/main-error.html.j2 ${MASK} ${TEE} dst/04/main-error.html
 
 
 05: dst
