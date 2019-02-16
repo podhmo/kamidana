@@ -18,13 +18,13 @@ class TemplateLoader(ITemplateLoader):
         self.extensions = extensions
         self.format = format
 
-    def load(self, filename):
+    def load(self, filename):  # -> source, path, unmodified_fn
         try:
             with open(filename) as rf:
                 logger.debug("load: %s", filename)
-                return rf.read()
+                return rf.read(), filename, None
         except FileNotFoundError as e:
-            raise XTemplatePathNotFound(filename, exc=e) from None
+            raise XTemplatePathNotFound(filename, exc=e).with_traceback(e.__traceback__)
 
     @reify
     def data(self):
