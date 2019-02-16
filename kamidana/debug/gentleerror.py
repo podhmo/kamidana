@@ -15,7 +15,7 @@ from ._extract import extract_detail
 logger = logging.getLogger(__name__)
 
 
-class GentleOutputRenderer:
+class Renderer:
     def __init__(
         self,
         *,
@@ -137,12 +137,7 @@ def _get_info_from_exception(exc: jinja2.TemplateError):
     return d
 
 
-def get_gentle_output_from_exception(
-    exc: jinja2.TemplateError,
-    *,
-    renderer=GentleOutputRenderer,
-    full=False,
-    n=3,
-    colorful=False
+def get_gentle_output(
+    exc: jinja2.TemplateError, *, renderer=Renderer, full=False, n=3, colorful=False
 ) -> str:
     return renderer(full=full, n=n, colorful=colorful).render(exc)
