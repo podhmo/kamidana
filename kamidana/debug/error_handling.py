@@ -69,17 +69,10 @@ class GentleOutputRenderer:
     def get_information(self, exc: Exception) -> str:
         if isinstance(exc, jinja2.TemplateSyntaxError):
             return self.on_syntax_error(exc)
-        # elif isinstance(exc, XTemplatePathNotFound):
-        #     return self.on_notfound_error(exc)
         elif isinstance(exc, jinja2.TemplateError):
             return self.on_template_error(exc)
         else:
             return self.on_error(exc)
-
-    def on_notfound_error(self, exc: XTemplatePathNotFound) -> dict:
-        d = vars(exc).copy()
-        d.update(_get_info_from_exception(exc))
-        return d
 
     def on_template_error(self, exc: jinja2.TemplateError) -> dict:
         d = vars(exc).copy()
@@ -93,11 +86,10 @@ class GentleOutputRenderer:
         detail = extract_detail(exc)
         if not detail.jinja2:
             if isinstance(exc, XTemplatePathNotFound):
-                return self.on_notfound_error(exc)
+                d.update(_get_info_from_exception(exc))
+                return d
             raise exc.with_traceback(exc.__traceback__)
 
-        # todo: python
-        # todo: nested template
         logger.debug(
             "frame shape: %r", [(fs.kind, len(fs.frames)) for fs in detail.framesets]
         )
@@ -156,7 +148,7 @@ class GentleOutputRenderer:
         return d
 
 
-## xxx: remove it
+# xxx: remove it
 def _get_info_from_exception(exc: jinja2.TemplateError):
     d = {
         "exc_class": "{}.{}".format(
