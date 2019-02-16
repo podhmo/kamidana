@@ -1,0 +1,10 @@
+------------------------------------------------------------
+exception: jinja2.exceptions.TemplateAssertionError
+message: no filter named 'downer'
+where: src/04filter/missing-filter.html.j2
+------------------------------------------------------------
+src/04filter/missing-filter.html.j2:
+      1: header
+      2: - {{ "abc" | upper }}
+  ->  3: - {{ "ABC" | downer }}  # lower
+      4: footer

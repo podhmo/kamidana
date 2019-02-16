@@ -1,9 +1,11 @@
 import abc
 
+# TODO: using typing_extensions.Protocol?
+
 
 class ITemplateLoader(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def load(self, filename):
+    def load(self, filename):  # Tuple[str, str, Callable[[], bool]]
         pass
 
     @abc.abstractproperty

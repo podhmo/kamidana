@@ -1,6 +1,6 @@
 import sys
 import contextlib
-from .error_handling import get_gentle_output_from_exception  # noqa
+from . import gentleerror
 from .color import is_colorful, highlight
 
 
@@ -12,11 +12,11 @@ def error_handler(*, quiet: bool, debug: bool):
         if debug:
             raise
         if quiet:
-            message = "{e.__class__.__name__}: {e}".format(e)
+            message = "{e.__class__.__name__}: {e}".format(e=e)
             print(highlight(message, colorful=is_colorful()), file=sys.stderr)
         else:
             print(
-                get_gentle_output_from_exception(e, colorful=is_colorful()),
+                gentleerror.get_gentle_output(e, colorful=is_colorful()),
                 file=sys.stderr,
             )
         sys.exit(1)

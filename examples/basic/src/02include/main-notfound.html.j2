@@ -1,0 +1,6 @@
+{% with name="xxx" %}
+{% with name="foo" %}{% include "missing-404.j2" %}{% endwith %}
+{% with name="bar" %}{% include "missing-404.j2" %}{% endwith %}
+{% with name="boo" %}{% include "missing-404.j2" %}{% endwith %}
+{% include "missing-404.j2" %}
+{% endwith %}

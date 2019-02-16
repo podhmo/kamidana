@@ -1,0 +1,10 @@
+------------------------------------------------------------
+exception: builtins.TypeError
+message: macro 'hello' takes not more than 1 argument(s)
+where: src/05import/main-error.j2
+------------------------------------------------------------
+src/05import/main-error.j2:
+      1: {% import "greeting.j2" as g %}
+      2: {{ g.hello("foo") }}
+  ->  3: {{ g.hello("bar", "B") }}
+      4: {{ g.hello("boo") }}

@@ -1,0 +1,5 @@
+------------------------------------------------------------
+exception: kamidana._path.XTemplatePathNotFound
+message: [Errno 2] No such file or directory: 'src/01*/notfound.j2'
+where: None
+------------------------------------------------------------

@@ -1,0 +1,19 @@
+------------------------------------------------------------
+exception: kamidana._path.XTemplatePathNotFound
+message: [Errno 2] No such file or directory: 'missing-404.j2'
+where: src/02include/main-notfound.html.j2
+------------------------------------------------------------
+src/02include/main-notfound.html.j2:
+      1: {% with name="xxx" %}
+  ->  2: {% with name="foo" %}{% include "missing-404.j2" %}{% endwith %}
+      3: {% with name="bar" %}{% include "missing-404.j2" %}{% endwith %}
+      4: {% with name="boo" %}{% include "missing-404.j2" %}{% endwith %}
+      5: {% include "missing-404.j2" %}
+
+Traceback:
+  File "SITE-PACKAGES/jinja2/loaders.py", line 314, in get_source
+    rv = self.load_func(template)
+  File "HERE/kamidana/loader.py", line 27, in load
+    raise XTemplatePathNotFound(filename, exc=e).with_traceback(e.__traceback__)
+  File "HERE/kamidana/loader.py", line 23, in load
+    with open(filename) as rf:
