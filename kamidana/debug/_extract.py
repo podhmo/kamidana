@@ -18,7 +18,6 @@ def extract_detail(exc: Exception, *, tb=None) -> Detail:
     else:
         outermost = False
         fsets = aggs[-2]
-    f: traceback.FrameSummary = fsets[-1]
     return Detail(jinja2=fsets, framesets=aggs, outermost=outermost)
 
 
@@ -31,7 +30,17 @@ def _compact_aggregated(aggs):
     is_last_frame_python = aggs[-1] != r[-1]
 
     compacted = [f for fset in r for f in fset.frames]
-    r.append(FrameSet(kind="jinja2", frames=compacted))
+
+    # dedup
+    seen = set()
+    frames = []
+    for f in reversed(compacted):
+        k = (f.filename, f.lineno)
+        if k in seen:
+            continue
+        seen.add(k)
+        frames.append(f)
+    r.append(FrameSet(kind="jinja2", frames=list(reversed(frames))))
 
     if is_last_frame_python:
         r.append(aggs[-1])
