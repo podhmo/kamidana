@@ -28,7 +28,7 @@ clean:
 # include
 02: dst
 	mkdir -p dst/02
-	kamidana src/02*/main.html.j2 ${MASK} ${TEE} dst/02/incllude.html
+	kamidana src/02*/main.html.j2 ${MASK} ${TEE} dst/02/include.html
 # todo: include 404
 
 # runtime error
