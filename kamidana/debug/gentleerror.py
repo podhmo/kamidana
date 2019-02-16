@@ -15,31 +15,19 @@ from ._extract import extract_detail
 logger = logging.getLogger(__name__)
 
 
-class Renderer:
-    def __init__(
-        self,
-        *,
-        n: int,
-        full: bool = False,
-        formatter=None,
-        line_formatter=None,
-        colorful: bool = False
-    ):
+class Formatter:
+    def __init__(self, n: int, *, colorful: bool = False):
         self.n = n
-        self.full = full  # todo: handling (currently, ignored)
         self.colorful = colorful
-        # todo: separation
-        self.formatter = formatter or self._format
-        self.line_formatter = line_formatter or self._line_format
 
-    def _line_format(self, i: int, line: str, *, lineno: int) -> str:
+    def line_format(self, i: int, line: str, *, lineno: int) -> str:
         size = len(str(lineno + self.n))
         text = ("{lineno: %d}: {line}" % (size)).format(lineno=i, line=line)
         if i == lineno:
             return highlight("  -> {}".format(text), colorful=self.colorful)
         return "     {}".format(text)
 
-    def _format(self, d) -> str:
+    def format(self, d) -> str:
         d = defaultdict(lambda: None, d)
         fmt = textwrap.dedent(
             """
@@ -63,12 +51,18 @@ class Renderer:
             fmt += fmt2
         return fmt.format(d=d).rstrip()
 
+
+class Renderer:
+    def __init__(self, *, n: int, colorful: bool = False, formatter=None):
+        self.n = n
+        self.formatter = formatter or Formatter(n, colorful=colorful)
+
     # xxx:
     def is_jinja2_frames(self, frames):
         return "site-packages/jinja2" in frames[-1].filename
 
     def render(self, exc: Exception) -> str:
-        return self.formatter(self.get_information(exc))
+        return self.formatter.format(self.get_information(exc))
 
     def get_information(self, exc: Exception) -> str:
         return self.on_error(exc)
@@ -103,7 +97,7 @@ class Renderer:
             end_lineno = min(len(linecache.getlines(filename)) + 1, lineno + self.n + 1)
             for i in range(start_lineno, end_lineno):
                 line = linecache.getline(filename, lineno=i).rstrip()
-                print(self.line_formatter(i, line, lineno=lineno), file=buf)
+                print(self.formatter.line_format(i, line, lineno=lineno), file=buf)
 
         # python's traceback
         if not detail.outermost:
@@ -137,7 +131,5 @@ def _get_info_from_exception(exc: jinja2.TemplateError):
     return d
 
 
-def get_gentle_output(
-    exc: jinja2.TemplateError, *, renderer=Renderer, full=False, n=3, colorful=False
-) -> str:
-    return renderer(full=full, n=n, colorful=colorful).render(exc)
+def get_gentle_output(exc: Exception, *, renderer=Renderer, n=3, colorful=False) -> str:
+    return renderer(n=n, colorful=colorful).render(exc)
