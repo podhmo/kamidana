@@ -9,7 +9,6 @@ docs:
 
 # integration tests (regression tests)
 WHERE ?= .
-OPTS ?= --logging=WARNING
 run:
 	$(MAKE) --silent _find-candidates | xargs -n 1 make -C || (echo "**********NG**********" && exit 1)
 ci:
