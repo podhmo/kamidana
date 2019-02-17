@@ -10,6 +10,8 @@ features
 
 - using jinja2 file as template file (basic feature)
 - various input formats support (json, yaml, toml, ...)
+- the way of lookup template is changed, relative to parent template path
+- gentle error message
 - batch execution for speed-up (via `kamidana-batch`)
 - rendering with individual filters (via `--additionals` option)
 - (useful additionals modules (e.g. `kamidana.additionals.naming` ...)
@@ -59,6 +61,24 @@ More over, passing data with stdin. (please doen't forget to add `--input-format
   {{cmd|read_from_command(relative_self=False)|indent(2)}}
 {% endwith %}
 
+gentle error message
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+if using include, but the included template is not found.
+
+.. code-block:: console
+
+{% with cmd="tree examples/readme/src/11" %}
+  $ {{cmd}}
+  {{cmd|read_from_command(relative_self=False)|indent(2)}}
+{% endwith %}
+
+.. code-block:: console
+
+{% with cmd="kamidana examples/readme/src/11/main.html.j2" %}
+  $ {{cmd}}
+  {{cmd|read_from_command(relative_self=False, check=False)|indent(2)}}
+{% endwith %}
 
 example2 (--additionals)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

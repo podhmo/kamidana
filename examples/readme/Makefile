@@ -1,7 +1,8 @@
-OPTS ?= --logging=DEBUG
+OPTS ?= --logging=INFO
 TEE ?= | tee
+MASK ?= 2>&1 | sed 's@$(shell cd ../../; pwd)@HERE@g; s@".*/site-packages@"SITE-PACKAGES@g'
 
-default: 00 01 02 10
+default: 00 01 02 10 11
 
 dst:
 	mkdir -p dst
@@ -20,6 +21,12 @@ dst:
 	mkdir -p dst/02
 	kamidana ${OPTS} -e with_ -e do -e loopcontrols src/02/use-extension.jinja2 ${TEE} dst/02/use-extension.output
 
+# --dump-context
 10: dst
 	mkdir -p dst/10
 	kamidana ${OPTS} --data src/10/data.yaml --data src/10/data2.yaml --dump-context ${TEE} dst/10/dump-context.output
+
+# gentle error message
+11: dst
+	mkdir -p dst/11
+	kamidana ${OPTS} src/11/main.html.j2 ${MASK} ${TEE} dst/11/error-include-404.html

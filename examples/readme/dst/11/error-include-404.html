@@ -1,0 +1,18 @@
+------------------------------------------------------------
+exception: kamidana._path.XTemplatePathNotFound
+message: [Errno 2] No such file or directory: 'footer-404.html.j2'
+where: src/11/main.html.j2
+------------------------------------------------------------
+src/11/main.html.j2:
+      2: <main>
+      3:   this is main contents
+      4: </main>
+  ->  5: {% include "footer-404.html.j2" %}
+
+Traceback:
+  File "SITE-PACKAGES/jinja2/loaders.py", line 314, in get_source
+    rv = self.load_func(template)
+  File "HERE/kamidana/loader.py", line 27, in load
+    raise XTemplatePathNotFound(filename, exc=e).with_traceback(e.__traceback__)
+  File "HERE/kamidana/loader.py", line 23, in load
+    with open(filename) as rf:

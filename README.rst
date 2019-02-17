@@ -10,6 +10,8 @@ features
 
 - using jinja2 file as template file (basic feature)
 - various input formats support (json, yaml, toml, ...)
+- the way of lookup template is changed, relative to parent template path
+- gentle error message
 - batch execution for speed-up (via `kamidana-batch`)
 - rendering with individual filters (via `--additionals` option)
 - (useful additionals modules (e.g. `kamidana.additionals.naming` ...)
@@ -23,7 +25,8 @@ usage
                   [--logging {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}]
                   [-a ADDITIONALS] [-e EXTENSION]
                   [-i {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}]
-                  [-o OUTPUT_FORMAT] [--dump-context] [--debug] [--dst DST]
+                  [-o OUTPUT_FORMAT] [--dump-context] [--debug] [--quiet]
+                  [--dst DST]
                   [template]
 
   positional arguments:
@@ -41,6 +44,7 @@ usage
     -o OUTPUT_FORMAT, --output-format OUTPUT_FORMAT
     --dump-context
     --debug
+    --quiet
     --dst DST
 
 
@@ -51,6 +55,7 @@ example (basic)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: console
+
 
   $ kamidana examples/readme/src/00/nginx.jinja2 --data examples/readme/src/00/data.json
   server {
@@ -63,6 +68,8 @@ example (basic)
     access_log /var/log/nginx/http.access.log combined;
     error_log  /var/log/nginx/http.error.log;
   }
+
+
 
 
 examples/readme/src/00/nginx.jinja2
@@ -81,6 +88,8 @@ examples/readme/src/00/nginx.jinja2
   }
 
 
+
+
 examples/readme/src/00/data.json
 
 .. code-block:: json
@@ -94,9 +103,11 @@ examples/readme/src/00/data.json
   }
 
 
+
 More over, passing data with stdin. (please doen't forget to add `--input-format` option)
 
 .. code-block:: console
+
 
   $ echo '{"nginx": {"logdir": "/tmp/logs/nginx"}}' | kamidana --input-format json examples/readme/src/00/nginx.jinja2 --data examples/readme/src/00/data.json
   server {
@@ -112,6 +123,48 @@ More over, passing data with stdin. (please doen't forget to add `--input-format
 
 
 
+gentle error message
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+if using include, but the included template is not found.
+
+.. code-block:: console
+
+
+  $ tree examples/readme/src/11
+  examples/readme/src/11
+  ├── header.html.j2
+  └── main.html.j2
+
+  0 directories, 2 files
+
+
+
+.. code-block:: console
+
+
+  $ kamidana examples/readme/src/11/main.html.j2
+  ------------------------------------------------------------
+  exception: kamidana._path.XTemplatePathNotFound
+  message: [Errno 2] No such file or directory: 'footer-404.html.j2'
+  where: examples/readme/src/11/main.html.j2
+  ------------------------------------------------------------
+  examples/readme/src/11/main.html.j2:
+        2: <main>
+        3:   this is main contents
+        4: </main>
+    ->  5: {% include "footer-404.html.j2" %}
+
+  Traceback:
+    File "SITE-PACKAGES/jinja2/loaders.py", line 314, in get_source
+      rv = self.load_func(template)
+    File "HERE/my/kamidana/kamidana/loader.py", line 27, in load
+      raise XTemplatePathNotFound(filename, exc=e).with_traceback(e.__traceback__)
+    File "HERE/my/kamidana/kamidana/loader.py", line 23, in load
+      with open(filename) as rf:
+
+
+
 example2 (--additionals)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -119,6 +172,7 @@ builtin addtional modules
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: console
+
 
   $ kamidana --additionals=kamidana.additionals.naming examples/readme/src/01/use-naming.jinja2
   singular, plurals
@@ -137,6 +191,8 @@ builtin addtional modules
 
 
   more information: see kamidana.additionals.naming module
+
+
 
 
 
@@ -162,6 +218,7 @@ examples/readme/src/01/use-naming.jinja2
   more information: see kamidana.additionals.naming module
 
 
+
 or `kamidana -a naming` is also OK (shortcut).
 
 individual additional modules
@@ -169,8 +226,12 @@ individual additional modules
 
 .. code-block:: console
 
+
   $ kamidana --additionals=examples/readme/src/01/additionals.py --data=examples/readme/src/01/data.yaml examples/readme/src/01/hello.jinja2
+  
     bye, world!!
+
+
 
 
 examples/readme/src/01/hello.jinja2
@@ -182,6 +243,8 @@ examples/readme/src/01/hello.jinja2
   {% else %}
     {{daytime}}, {{name|surprised}}
   {% endif %}
+
+
 
 
 examples/readme/src/01/additionals.py
@@ -210,6 +273,8 @@ examples/readme/src/01/additionals.py
       return 19 <= hour or hour < 3
 
 
+
+
 examples/readme/src/01/data.yaml
 
 .. code-block:: yaml
@@ -218,25 +283,71 @@ examples/readme/src/01/data.yaml
 
 
 
+
 example3 (using jinja2 extensions)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: console
 
+
   $ kamidana -e with_ -e do -e loopcontrols examples/readme/src/02/use-extension.jinja2
+  
+
   hello
+
     world
+
   hello
+
 
   ## counting
 
+
+
+
+
+
   - 1
+
+
+
   - 2
+
+
+
+
   - 4
+
+
+
 
   ## do
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+
 
 
 examples/readme/src/02/use-extension.jinja2
@@ -271,6 +382,7 @@ examples/readme/src/02/use-extension.jinja2
 
 
 
+
 example4 (batch execution)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -288,6 +400,7 @@ dump context
 
 .. code-block:: console
 
+
   $ kamidana --dump-context --data=examples/readme/src/10/data.yaml
   {
     "name": "foo",
@@ -299,9 +412,11 @@ dump context
     "template_filename": null
   }
 
+
 and be able to merge two files.
 
 .. code-block:: console
+
 
   $ kamidana --dump-context --data=examples/readme/src/10/data.yaml --data=examples/readme/src/10/data2.yaml
   {
@@ -314,7 +429,9 @@ and be able to merge two files.
     "template_filename": null
   }
 
+
 then
+
 
 examples/readme/src/10/data.yaml
 
@@ -325,6 +442,8 @@ examples/readme/src/10/data.yaml
   friends:
     - bar
     - boo
+
+
 
 
 examples/readme/src/10/data2.yaml
