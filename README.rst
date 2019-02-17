@@ -292,59 +292,16 @@ example3 (using jinja2 extensions)
 
   $ kamidana -e with_ -e do -e loopcontrols examples/readme/src/02/use-extension.jinja2
   
-
   hello
-
     world
-
   hello
-
 
   ## counting
-
-
-
-
-
-
   - 1
-
-
-
   - 2
-
-
-
-
   - 4
 
-
-
-
   ## do
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
@@ -355,29 +312,29 @@ examples/readme/src/02/use-extension.jinja2
 .. code-block::
 
   {# with with. with_ extension is used. #}
-  {% with msg = "hello"%}
+  {%- with msg = "hello"%}
   {{msg}}
-  {% with msg = "world"%}
+  {%- with msg = "world"%}
     {{msg}}
-  {% endwith %}
+  {%- endwith %}
   {{msg}}
-  {% endwith %}
+  {%- endwith %}
 
   ## counting
-  {# with break and continue. loopcontrolls extension is used. #}
+  {#- with break and continue. loopcontrolls extension is used. #}
 
-  {% for i in range(10) %}
-  {% if i % 3 == 0 %}{% continue %} {% endif %}
-  {% if i == 5 %}{% break %} {% endif %}
+  {%- for i in range(10) %}
+  {%- if i % 3 == 0 %}{% continue %} {% endif %}
+  {%- if i == 5 %}{% break %} {% endif %}
   - {{i}}
-  {% endfor %}
+  {%- endfor %}
 
   ## do
 
-  {% set xs = [] %}
-  {% for i in range(10) %}
-  {% do xs.append(i) %}
-  {% endfor %}
+  {%- set xs = [] %}
+  {%- for i in range(10) %}
+  {%- do xs.append(i) %}
+  {%- endfor %}
   {{xs}}
 
 
