@@ -1,3 +1,10 @@
+0.7.0
+
+- gentle error message
+- changing template path lookup mechanism
+- adding newline at end of file
+- drop trim block=True
+
 0.6.2
 
 - template is not passed, act as --dump-context (#21)
