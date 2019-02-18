@@ -10,15 +10,6 @@ src/00inheritance/main.html.j2:
       4:     {{- super() }}
 
 src/00inheritance/base/base.html.j2:
-      9: <body>
-      10:     <div id="content">{% block content %}{% endblock %}</div>
-      11:     <div id="footer">
-  ->  12:         {%- block footer %}
-      13:         {{copy()}} Copyright 2008 by <a href="http://domain.invalid/">you</a>.
-      14:         {%- endblock %}
-      15:     </div>
-
-src/00inheritance/base/base.html.j2:
       10:     <div id="content">{% block content %}{% endblock %}</div>
       11:     <div id="footer">
       12:         {%- block footer %}
