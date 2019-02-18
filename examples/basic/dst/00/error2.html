@@ -1,0 +1,28 @@
+------------------------------------------------------------
+exception: jinja2.exceptions.UndefinedError
+message: 'copy' is undefined
+where: src/00inheritance/base/base.html.j2
+------------------------------------------------------------
+src/00inheritance/main.html.j2:
+  ->  1: {%- extends "./base/base.html.j2" %}
+      2: {%- block title %}Index{% endblock -%}
+      3: {%- block head %}
+      4:     {{- super() }}
+
+src/00inheritance/base/base.html.j2:
+      9: <body>
+      10:     <div id="content">{% block content %}{% endblock %}</div>
+      11:     <div id="footer">
+  ->  12:         {%- block footer %}
+      13:         {{copy()}} Copyright 2008 by <a href="http://domain.invalid/">you</a>.
+      14:         {%- endblock %}
+      15:     </div>
+
+src/00inheritance/base/base.html.j2:
+      10:     <div id="content">{% block content %}{% endblock %}</div>
+      11:     <div id="footer">
+      12:         {%- block footer %}
+  ->  13:         {{copy()}} Copyright 2008 by <a href="http://domain.invalid/">you</a>.
+      14:         {%- endblock %}
+      15:     </div>
+      16: </body>

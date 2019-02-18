@@ -12,7 +12,9 @@ clean:
 # extends
 00: dst
 	mkdir -p dst/00
-	kamidana ${OPTS} -a src/00*/helpers.py src/00*/*.j2 ${TEE} dst/00/output.html
+	kamidana ${OPTS} -a src/00*/url_for.py -a src/00*/copy.py src/00*/*.j2 ${TEE} dst/00/inheritance.html
+	kamidana ${OPTS} src/00*/*.j2 ${MASK} ${TEE} dst/00/error.html || exit 0
+	kamidana ${OPTS} -a src/00*/url_for.py src/00*/*.j2 ${MASK} ${TEE} dst/00/error2.html || exit 0
 
 # syntax error
 01: dst
