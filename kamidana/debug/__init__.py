@@ -16,7 +16,7 @@ def error_handler(*, quiet: bool, debug: bool):
             print(highlight(message, colorful=is_colorful()), file=sys.stderr)
         else:
             print(
-                gentleerror.get_gentle_output(e, colorful=is_colorful()),
+                gentleerror.translate_error(e, colorful=is_colorful()),
                 file=sys.stderr,
             )
         sys.exit(1)

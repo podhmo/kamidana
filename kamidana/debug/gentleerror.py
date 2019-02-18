@@ -131,5 +131,5 @@ def _get_info_from_exception(exc: jinja2.TemplateError):
     return d
 
 
-def get_gentle_output(exc: Exception, *, renderer=Renderer, n=3, colorful=False) -> str:
+def translate_error(exc: Exception, *, renderer=Renderer, n=3, colorful=False) -> str:
     return renderer(n=n, colorful=colorful).render(exc)

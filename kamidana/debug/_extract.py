@@ -39,6 +39,8 @@ def _compact_aggregated(aggs):
         if k in seen:
             continue
         seen.add(k)
+        if frames and frames[-1].filename == f.filename:
+            continue
         frames.append(f)
     r.append(FrameSet(kind="jinja2", frames=list(reversed(frames))))
 

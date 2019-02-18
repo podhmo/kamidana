@@ -1,0 +1,37 @@
+------------------------------------------------------------
+exception: jinja2.exceptions.UndefinedError
+message: 'url_for' is undefined
+where: src/00inheritance/base/base.html.j2
+------------------------------------------------------------
+src/00inheritance/main.html.j2:
+  ->  1: {%- extends "./base/base.html.j2" %}
+      2: {%- block title %}Index{% endblock -%}
+      3: {%- block head %}
+      4:     {{- super() }}
+
+src/00inheritance/base/base.html.j2:
+      1: <!DOCTYPE html>
+      2: <html lang="en">
+      3: <head>
+  ->  4: {%- block head %}
+      5:     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+      6:     <title>{%- block title %}{% endblock %} - My Webpage</title>
+      7: {%- endblock %}
+
+src/00inheritance/main.html.j2:
+      1: {%- extends "./base/base.html.j2" %}
+      2: {%- block title %}Index{% endblock -%}
+      3: {%- block head %}
+  ->  4:     {{- super() }}
+      5:     <style type="text/css">
+      6:         .important { color: #336699; }
+      7:     </style>
+
+src/00inheritance/base/base.html.j2:
+      2: <html lang="en">
+      3: <head>
+      4: {%- block head %}
+  ->  5:     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+      6:     <title>{%- block title %}{% endblock %} - My Webpage</title>
+      7: {%- endblock %}
+      8: </head>
