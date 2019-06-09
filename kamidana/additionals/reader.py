@@ -29,5 +29,6 @@ def read_from_command(ctx, cmd, *, shell=True, check=True, encoding="utf-8", rel
         check=check,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
+        text=True
     )
-    return p.stdout.decode(encoding)
+    return p.stdout
