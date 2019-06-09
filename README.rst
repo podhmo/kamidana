@@ -22,11 +22,9 @@ usage
 .. code-block:: console
 
   usage: kamidana [-h] [--driver DRIVER] [--loader LOADER] [-d DATA]
-                  [--logging {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}]
-                  [-a ADDITIONALS] [-e EXTENSION]
-                  [-i {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}]
-                  [-o OUTPUT_FORMAT] [--dump-context] [--debug] [--quiet]
-                  [--dst DST]
+                  [--logging {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}] [-a ADDITIONALS] [-e EXTENSION]
+                  [-i {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}] [-o OUTPUT_FORMAT] [--dump-context]
+                  [--list-info] [--debug] [--quiet] [--dst DST]
                   [template]
 
   positional arguments:
@@ -42,7 +40,8 @@ usage
     -e EXTENSION, --extension EXTENSION
     -i {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}, --input-format {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}
     -o OUTPUT_FORMAT, --output-format OUTPUT_FORMAT
-    --dump-context
+    --dump-context        dumping loading data (used by jinja2 template)
+    --list-info           listting information (for available extensions and additional modules)
     --debug
     --quiet
     --dst DST
