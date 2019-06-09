@@ -411,3 +411,25 @@ examples/readme/src/10/data2.yaml
     - bar
     - baz
 
+
+
+available info (extensions and additional modules)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: json
+
+  [1mextensions are used by `-e`, additional modules are used by `-a`.[0m
+  {
+    "extensions": {
+      "jinja2.ext.i18n": "This extension adds gettext support to Jinja2.",
+      "jinja2.ext.do": "Adds a `do` tag to Jinja2 that works like the print statement just",
+      "jinja2.ext.loopcontrols": "Adds break and continue to the template engine.",
+      "jinja2.ext.with_": "Extensions can be used to add extra functionality to the Jinja template",
+      "jinja2.ext.autoescape": "Extensions can be used to add extra functionality to the Jinja template"
+    },
+    "additional_modules": {
+      "kamidana.additionals.reader": "Reading from other resources (e.g. read_from_file, read_from_command)",
+      "kamidana.additionals.naming": "Naming helpers (e.g. snakecase, kebabcase, ... pluralize, singularize)",
+      "kamidana.additionals.env": "accessing environemt variable, via env()"
+    }
+  }
