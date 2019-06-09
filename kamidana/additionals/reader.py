@@ -1,3 +1,6 @@
+"""
+Reading from other resources (e.g. read_from_file, read_from_command)
+"""
 import os.path
 import subprocess
 from kamidana import as_filter
