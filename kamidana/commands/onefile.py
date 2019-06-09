@@ -1,3 +1,4 @@
+import sys
 import argparse
 import logging
 from magicalimport import import_symbol
@@ -69,6 +70,10 @@ def main():
             output_format = args.output_format
             if output_format == "raw":
                 output_format = "json"
+            print(
+                "\x1b[1mextensions are used by `-e`, additional modules are used by `-a`.\x1b[0m",
+                file=sys.stderr,
+            )
             dumpfile(listinfo.listinfo(), format=output_format)
             return print("")
         else:
