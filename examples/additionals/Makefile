@@ -1,7 +1,7 @@
 OPTS ?= --logging=DEBUG
 TEE ?= | tee
 
-default: 00 01 02 03 04
+default: 00 01 02 03 04 05
 
 dst:
 	mkdir -p dst
@@ -25,3 +25,6 @@ dst:
 04: dst
 	kamidana ${OPTS} -a scream.py src/04*.jinja2 ${TEE} dst/04.output
 
+# env
+05: dst
+	kamidana ${OPTS} -a env src/05*.jinja2 ${TEE} dst/05.output

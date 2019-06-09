@@ -1,0 +1,7 @@
+env("SHELL") => /bin/bash
+"SHELL"|env => /bin/bash
+
+missing
+env("SOMTHING_THIS_IS_NOT_FOUND") => 
+env("SOMTHING_THIS_IS_NOT_FOUND", default="<missing>") => <missing>
+"SOMTHING_THIS_IS_NOT_FOUND"|env(default="<missing>") => <missing>

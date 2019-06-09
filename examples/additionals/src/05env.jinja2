@@ -1,0 +1,7 @@
+env("SHELL") => {{env("SHELL")}}
+"SHELL"|env => {{"SHELL"|env}}
+
+missing
+env("SOMTHING_THIS_IS_NOT_FOUND") => {{env("SOMTHING_THIS_IS_NOT_FOUND")}}
+env("SOMTHING_THIS_IS_NOT_FOUND", default="<missing>") => {{env("SOMTHING_THIS_IS_NOT_FOUND", default="<missing>")}}
+"SOMTHING_THIS_IS_NOT_FOUND"|env(default="<missing>") => {{"SOMTHING_THIS_IS_NOT_FOUND"|env(default="<missing>")}}
