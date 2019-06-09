@@ -6,7 +6,7 @@ from importlib import import_module
 import jinja2.ext
 from .compat import importlib_resources
 
-Description = t.NewType(str)
+Description = t.NewType("Description", str)
 
 
 def collect_extensions_info() -> t.Dict[str, Description]:
@@ -40,3 +40,10 @@ def collect_additional_modules_info() -> t.Dict[str, Description]:
         modulename = f"kamidana.additionals.{os.path.splitext(filename)[0]}"
         info[modulename] = inspect.getdoc(import_module(modulename))
     return info
+
+
+def listinfo():
+    d = OrderedDict()
+    d["extensions"] = collect_extensions_info()
+    d["additional_modules"] = collect_additional_modules_info()
+    return d
