@@ -14,6 +14,8 @@ except IOError:
     README = CHANGES = ""
 
 install_requires = ["jinja2", "dictknife", "magicalimport", "inflection"]
+if sys.version_info[:2] < (3, 7):
+    install_requires.append("importlib_resources")
 
 docs_extras = ["sphinx", "recommonmark", "sphinx_rtd_theme"]
 
