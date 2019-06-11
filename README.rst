@@ -418,7 +418,7 @@ available info (extensions and additional modules)
 
 .. code-block::
 
-  [1mextensions are used by `-e`, additional modules are used by `-a`.[0m
+  extensions are used by `-e`, additional modules are used by `-a`.
   {
     "extensions": {
       "jinja2.ext.i18n": "This extension adds gettext support to Jinja2.",

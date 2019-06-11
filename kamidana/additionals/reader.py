@@ -1,6 +1,7 @@
 """
 Reading from other resources (e.g. read_from_file, read_from_command)
 """
+import re
 import os.path
 import subprocess
 from kamidana import as_filter
@@ -21,7 +22,9 @@ def read_from_file(ctx, filename, *, relative_self=True):
 
 @as_filter
 @contextfilter
-def read_from_command(ctx, cmd, *, shell=True, check=True, encoding="utf-8", relative_self=True):
+def read_from_command(
+    ctx, cmd, *, shell=True, check=True, encoding="utf-8", relative_self=True
+):
     if relative_self:
         script = "cd {}; {}".format(os.path.dirname(ctx.name) or ".", cmd)
     else:
@@ -32,6 +35,11 @@ def read_from_command(ctx, cmd, *, shell=True, check=True, encoding="utf-8", rel
         check=check,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
-        text=True
+        text=True,
     )
     return p.stdout
+
+
+@as_filter
+def strip_ansi_escape_sequence(text, *, _rx=re.compile(r"\x1b\[\d+;?\d*m")):
+    return _rx.sub("", text)
