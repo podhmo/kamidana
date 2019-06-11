@@ -416,7 +416,7 @@ examples/readme/src/10/data2.yaml
 available info (extensions and additional modules)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: json
+.. code-block::
 
   [1mextensions are used by `-e`, additional modules are used by `-a`.[0m
   {
@@ -425,7 +425,10 @@ available info (extensions and additional modules)
       "jinja2.ext.do": "Adds a `do` tag to Jinja2 that works like the print statement just",
       "jinja2.ext.loopcontrols": "Adds break and continue to the template engine.",
       "jinja2.ext.with_": "Extensions can be used to add extra functionality to the Jinja template",
-      "jinja2.ext.autoescape": "Extensions can be used to add extra functionality to the Jinja template"
+      "jinja2.ext.autoescape": "Extensions can be used to add extra functionality to the Jinja template",
+      "kamidana.extensions.NamingModuleExtension": "extension create from kamidana.additionals.naming",
+      "kamidana.extensions.ReaderModuleExtension": "extension create from kamidana.additionals.reader",
+      "kamidana.extensions.CookiecutterAdditionalModulesExtension": "activate additional modules, see context['cookiecutter']['_additional_modules'], created from your cookiecutter.json"
     },
     "additional_modules": {
       "kamidana.additionals.reader": "Reading from other resources (e.g. read_from_file, read_from_command)",
