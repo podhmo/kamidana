@@ -4,5 +4,5 @@ tmpl = """\
 {{word}}|snakecase -> {{word|snakecase}}
 """
 
-t = Template(tmpl, extensions=["kamidana.extensions.NamingHelperExtension"])
+t = Template(tmpl, extensions=["kamidana.extensions.NamingModuleExtension"])
 print(t.render(word="fooBarBoo"))
