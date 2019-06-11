@@ -1,3 +1,9 @@
+0.8.0
+
+- add creating jinja2's extension mini-framework, and cookiecutter support
+- add kamidana.additionals.env
+- add `--list-info` option
+
 0.7.2
 
 - on error message, skipping almost duplicated jinja2 frame's output
