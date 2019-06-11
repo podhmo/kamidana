@@ -27,9 +27,9 @@ def create_apply_additonal_modules_extension_class(name: str, *, modules: list):
     return cls
 
 
-NamingExtension = create_apply_additonal_modules_extension_class(
-    "NamingExtension", modules=["kamidana.additionals.naming"]
+NamingHelperExtension = create_apply_additonal_modules_extension_class(
+    "NamingHelperExtension", modules=["kamidana.additionals.naming"]
 )
-ReaderExtension = create_apply_additonal_modules_extension_class(
-    "ReaderExtension", modules=["kamidana.additionals.reader"]
+ReaderHelperExtension = create_apply_additonal_modules_extension_class(
+    "ReaderHelperExtension", modules=["kamidana.additionals.reader"]
 )

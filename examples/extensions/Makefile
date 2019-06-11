@@ -10,4 +10,4 @@ dst:
 00: dst
 	python src/00*.py ${TEE} dst/00.output
 01: dst
-	kamidana ${OPTS} src/01use-naming.j2 -e "kamidana.extensions:NamingExtension" ${TEE} dst/01.output
+	kamidana ${OPTS} src/01use-naming.j2 -e "kamidana.extensions:NamingHelperExtension" ${TEE} dst/01.output
