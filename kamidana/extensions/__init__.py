@@ -14,7 +14,7 @@ def _build_additionals(modules) -> dict:
 
 
 def create_apply_additonal_modules_extension_class(name: str, *, modules: list):
-    doc = f"Applying additional module {', '.join(modules)}"
+    doc = f"extension create from {', '.join(modules)}"
 
     def __init__(self, environment: Environment) -> None:
         super(cls, self).__init__(environment)
