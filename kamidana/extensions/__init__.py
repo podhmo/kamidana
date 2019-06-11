@@ -1,13 +1,17 @@
+import logging
 from jinja2.ext import Extension
 from jinja2.environment import Environment
 from jinja2.utils import import_string
-from kamidana import collect_marked_items
 from dictknife import deepmerge
+from .. import collect_marked_items
+
+logger = logging.Logger(__name__)
 
 
 def _build_additionals(modules) -> dict:
     additionals = {}
     for name in modules:
+        logger.info("activate additional module %s", name)
         m = import_string(name)  # xxx: use magicalimport.import_module()?
         additionals = deepmerge(additionals, collect_marked_items(m))
     return additionals
