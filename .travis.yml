@@ -8,6 +8,7 @@ python:
 install:
   - pip install -e .[testing]
   - pip install dictknife[load]
+  - pip install cookiecutter  # for examples/extensions
 script:
   - python setup.py test
   - make ci
