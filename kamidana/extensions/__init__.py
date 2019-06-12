@@ -1,14 +1,16 @@
 import logging
+from functools import partial
 from jinja2.ext import Extension
 from jinja2.environment import Environment
-from jinja2.utils import import_string
+from jinja2 import utils as j2utils
+import magicalimport
 from dictknife import deepmerge
 from .. import collect_marked_items
 
 logger = logging.Logger(__name__)
 
 
-def _build_additionals(modules) -> dict:
+def _build_additionals(modules, *, import_string) -> dict:
     additionals = {}
     for name in modules:
         logger.info("activate additional module %s", name)
@@ -21,8 +23,8 @@ def create_apply_additonal_modules_extension_class(name: str, *, doc, get_module
     def __init__(self, environment: Environment) -> None:
         super(cls, self).__init__(environment)
 
-        modules = get_modules(environment)
-        additionals = _build_additionals(modules)
+        modules, import_string = get_modules(environment)
+        additionals = _build_additionals(modules, import_string=import_string)
         for name, defs in additionals.items():
             getattr(environment, name).update(defs)
 
@@ -33,20 +35,24 @@ def create_apply_additonal_modules_extension_class(name: str, *, doc, get_module
 
 NamingModuleExtension = create_apply_additonal_modules_extension_class(
     "NamingModuleExtension",
-    get_modules=lambda env: ["kamidana.additionals.naming"],
+    get_modules=lambda env: (["kamidana.additionals.naming"], j2utils.import_string),
     doc="extension create from kamidana.additionals.naming",
 )
 ReaderModuleExtension = create_apply_additonal_modules_extension_class(
     "ReaderModuleExtension",
-    get_modules=lambda env: ["kamidana.additionals.reader"],
+    get_modules=lambda env: (["kamidana.additionals.reader"], j2utils.import_string),
     doc="extension create from kamidana.additionals.reader",
 )
 
-## for cookiecutter
+
+# for cookiecutter
 def _extract_module_from_cookiecutter_cotext(env, *, exception_cls=ImportError):
     import inspect
 
-    # black magic (collect context arguments, from stackframes)
+    # :WARGNING:
+    # todo: drop inspect.currentframe()
+
+    # black magic (collect context argument, from stackframes)
     _context = None
     f = inspect.currentframe()
     while f.f_back:
@@ -59,9 +65,20 @@ def _extract_module_from_cookiecutter_cotext(env, *, exception_cls=ImportError):
     if "cookiecutter" not in _context:
         raise exception_cls("'cookiecutter' is not found in context, something wrong??")
 
+    # black magic (collect the value of repo_dir variable on cookiecutter.main:cookiecutter())
+    _repo_dir = None
+    while f.f_back:
+        if "repo_dir" in f.f_locals:
+            _repo_dir = f.f_locals["repo_dir"]
+            break
+        f = f.f_back
+
     if "_additional_modules" not in _context["cookiecutter"]:
         raise exception_cls("we needs '_additional_modules' in your cookiecutter.json")
-    return _context["cookiecutter"]["_additional_modules"]
+    return (
+        _context["cookiecutter"]["_additional_modules"],
+        partial(magicalimport.import_module, here=_repo_dir),
+    )
 
 
 CookiecutterAdditionalModulesExtension = create_apply_additonal_modules_extension_class(

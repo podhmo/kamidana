@@ -207,8 +207,15 @@ then
 {% endwith %}
 
 available info (extensions and additional modules)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------------------------------------------------------
 
 .. code-block::
 
+  $ kamidana --list-info
   {{"kamidana --list-info"|read_from_command|indent(2)|strip_ansi_escape_sequence}}
+
+
+with other packages
+--------------------------------------------------------------------------------
+
+- use kamidana's additional modules with `cookiecutter <https://pypi.org/project/cookiecutter/>`_ . (see `examples/extensions/src/02with-cookiecutter <https://github.com/podhmo/kamidana/blob/master/examples/extensions/src/02with-cookiecutter>`_)

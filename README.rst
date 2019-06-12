@@ -414,10 +414,11 @@ examples/readme/src/10/data2.yaml
 
 
 available info (extensions and additional modules)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------------------------------------------------------
 
 .. code-block::
 
+  $ kamidana --list-info
   extensions are used by `-e`, additional modules are used by `-a`.
   {
     "extensions": {
@@ -436,3 +437,10 @@ available info (extensions and additional modules)
       "kamidana.additionals.env": "accessing environemt variable, via env()"
     }
   }
+
+
+
+with other packages
+--------------------------------------------------------------------------------
+
+- use kamidana's additional modules with `cookiecutter <https://pypi.org/project/cookiecutter/>`_ . (see `examples/extensions/src/02with-cookiecutter <https://github.com/podhmo/kamidana/blob/master/examples/extensions/src/02with-cookiecutter>`_)
