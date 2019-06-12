@@ -5,5 +5,5 @@ print("kebabcase: {{cookiecutter.project_name|kebabcase}}")
 
 # python's grammar
 """
-{{get_grammar()}}
+{{about_kamidana()}}
 """

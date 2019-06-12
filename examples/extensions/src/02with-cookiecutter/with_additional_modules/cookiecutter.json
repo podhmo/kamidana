@@ -5,7 +5,7 @@
     "kamidana.extensions.CookiecutterAdditionalModulesExtension"
   ],
   "_additional_modules": [
-    "./get_grammar.py",
+    "./about_kamidana.py",
     "kamidana.additionals.naming"
   ]
 }

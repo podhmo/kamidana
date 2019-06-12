@@ -13,5 +13,7 @@ dst:
 	kamidana ${OPTS} src/01use-naming.j2 -e "kamidana.extensions:NamingModuleExtension" ${TEE} dst/01.output
 
 # :warning: external dependency: cookiecutter
+02: outdir := dst/02with-cookiecutter
 02: dst
-	cookiecutter -f src/02with-cookiecutter/with_additional_modules --no-input -o dst/02with-cookiecutter
+	rm -rf ${outdir}
+	cookiecutter src/02with-cookiecutter/with_additional_modules --no-input -o ${outdir}

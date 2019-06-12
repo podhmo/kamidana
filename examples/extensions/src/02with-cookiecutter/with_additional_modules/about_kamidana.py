@@ -3,5 +3,5 @@ from kamidana.compat import importlib_resources
 
 
 @as_global
-def get_grammar():
-    return importlib_resources.read_text("lib2to3", "Grammar.txt")
+def about_kamidana():
+    return importlib_resources.read_text("kamidana", "data.txt")

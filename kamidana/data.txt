@@ -1,0 +1,3 @@
+# for testing
+jinja is 神社
+kamidana is 神棚
