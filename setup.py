@@ -5,13 +5,10 @@ import fastentrypoints
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-try:
-    with open(os.path.join(here, "README.rst")) as f:
-        README = f.read()
-    with open(os.path.join(here, "CHANGES.txt")) as f:
-        CHANGES = f.read()
-except IOError:
-    README = CHANGES = ""
+with open(os.path.join(here, "README.rst")) as f:
+    README = f.read()
+with open(os.path.join(here, "CHANGES.txt")) as f:
+    CHANGES = f.read()
 
 install_requires = ["jinja2", "dictknife", "magicalimport", "inflection"]
 if sys.version_info[:2] < (3, 7):
@@ -37,6 +34,7 @@ setup(
     author_email="ababjam61+github@gmail.com",
     url="https://github.com/podhmo/kamidana",
     packages=find_packages(exclude=["kamidana.tests"]),
+    long_description_content_type="text/x-rst",
     include_package_data=True,
     zip_safe=False,
     install_requires=install_requires,
