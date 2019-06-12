@@ -443,4 +443,4 @@ available info (extensions and additional modules)
 with other packages
 --------------------------------------------------------------------------------
 
-- `use kamidana's additional modules with cookiecutter <https://github.com/podhmo/kamidana/blob/master/examples/extensions/src/02with-cookiecutter>`_
+- use kamidana's additional modules with `cookiecutter <https://pypi.org/project/cookiecutter/>`_ . (see `examples/extensions/src/02with-cookiecutter <https://github.com/podhmo/kamidana/blob/master/examples/extensions/src/02with-cookiecutter>`_)
