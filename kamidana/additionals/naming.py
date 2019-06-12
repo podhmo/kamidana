@@ -18,7 +18,10 @@ def snakecase(
     from_separator="-",
 ):
     if from_separator in name:
-        return name.replace(from_separator, separator)
+        return separator.join(
+            snakecase(x, separator=separator, from_separator=from_separator)
+            for x in name.split(from_separator)
+        )
     pattern = r"\1{}\2".format(separator)
     return rx1.sub(pattern, rx0.sub(pattern, name)).lower()
 

@@ -17,6 +17,24 @@ class Tests(unittest.TestCase):
             C(input="foo-bar-boo", output="fooBarBoo", fn=camelcase),
             C(input="foo-bar-boo", output="foo_bar_boo", fn=snakecase),
             C(input="foo-bar-boo", output="foo-bar-boo", fn=kebabcase),
+            C(input="foo-bar_boo", output="fooBarBoo", fn=camelcase),
+            C(input="foo-bar_boo", output="foo_bar_boo", fn=snakecase),
+            C(input="foo-bar_boo", output="foo-bar-boo", fn=kebabcase),
+            C(input="fooBar_boo", output="fooBarBoo", fn=camelcase),
+            C(input="fooBar_boo", output="foo_bar_boo", fn=snakecase),
+            C(input="fooBar_boo", output="foo-bar-boo", fn=kebabcase),
+            C(input="foo_barBoo", output="fooBarBoo", fn=camelcase),
+            C(input="foo_barBoo", output="foo_bar_boo", fn=snakecase),
+            C(input="foo_barBoo", output="foo-bar-boo", fn=kebabcase),
+            C(input="FOObarBoo", output="fOObarBoo", fn=camelcase),  # xxx
+            C(input="FOObarBoo", output="fo_obar_boo", fn=snakecase),  # xxx
+            C(input="FOObarBoo", output="fo-obar-boo", fn=kebabcase),  # xxx
+            C(input="fooBARBoo", output="fooBARBoo", fn=camelcase),
+            C(input="fooBARBoo", output="foo_bar_boo", fn=snakecase),
+            C(input="fooBARBoo", output="foo-bar-boo", fn=kebabcase),
+            C(input="fooBarBOO", output="fooBarBOO", fn=camelcase),
+            C(input="fooBarBOO", output="foo_bar_boo", fn=snakecase),
+            C(input="fooBarBOO", output="foo-bar-boo", fn=kebabcase),
         ]
         for c in cases:
             with self.subTest(input=c.input, output=c.output, fn=c.fn):
