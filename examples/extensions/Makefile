@@ -14,4 +14,4 @@ dst:
 
 # :warning: external dependency: cookiecutter
 02: dst
-	cookiecutter src/02with-cookiecutter/with_additional_modules --no-input -o dst/02with-cookiecutter
+	cookiecutter -f src/02with-cookiecutter/with_additional_modules --no-input -o dst/02with-cookiecutter
