@@ -1,0 +1,11 @@
+{
+  "directory_name": "Hello",
+  "project_name": "defaultProject",
+  "_extensions": [
+    "kamidana.extensions.CookiecutterAdditionalModulesExtension"
+  ],
+  "_additional_modules": [
+    "./get_grammar.py",
+    "kamidana.additionals.naming"
+  ]
+}
