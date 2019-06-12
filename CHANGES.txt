@@ -1,3 +1,7 @@
+0.8.1
+
+- refine kamidana.additionals.naming implementation
+
 0.8.0
 
 - add creating jinja2's extension mini-framework, and cookiecutter support
