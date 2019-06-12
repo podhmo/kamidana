@@ -26,9 +26,9 @@ class Tests(unittest.TestCase):
             C(input="foo_barBoo", output="fooBarBoo", fn=camelcase),
             C(input="foo_barBoo", output="foo_bar_boo", fn=snakecase),
             C(input="foo_barBoo", output="foo-bar-boo", fn=kebabcase),
-            C(input="FOObarBoo", output="fOObarBoo", fn=camelcase),  # xxx
-            C(input="FOObarBoo", output="fo_obar_boo", fn=snakecase),  # xxx
-            C(input="FOObarBoo", output="fo-obar-boo", fn=kebabcase),  # xxx
+            C(input="FOObarBoo", output="fOObarBoo", fn=camelcase),
+            C(input="FOObarBoo", output="foo_bar_boo", fn=snakecase),
+            C(input="FOObarBoo", output="foo-bar-boo", fn=kebabcase),
             C(input="fooBARBoo", output="fooBARBoo", fn=camelcase),
             C(input="fooBARBoo", output="foo_bar_boo", fn=snakecase),
             C(input="fooBARBoo", output="foo-bar-boo", fn=kebabcase),
