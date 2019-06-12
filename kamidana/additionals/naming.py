@@ -14,20 +14,40 @@ def snakecase(
     name,
     rx0=re.compile("(.)([A-Z][a-z]+)"),
     rx1=re.compile("([a-z0-9])([A-Z])"),
+    rx2=re.compile("[A-Z]+"),
     separator="_",
+    from_separator="-",
 ):
-    pattern = r"\1{}\2".format(separator)
-    return rx1.sub(pattern, rx0.sub(pattern, name)).lower()
+    if from_separator in name:
+        if rx2.search(name) is None:
+            return name.replace(from_separator, separator)
+        else:
+            return separator.join(
+                snakecase(x, separator=separator, from_separator=from_separator)
+                for x in name.split(from_separator)
+            )
+    m = rx2.match(name)
+    if m is not None:
+        i = m.end()
+        return separator.join(
+            [
+                name[:i].lower(),
+                snakecase(name[i:], separator=separator, from_separator=from_separator),
+            ]
+        )
+    else:
+        pattern = r"\1{}\2".format(separator)
+        return rx1.sub(pattern, rx0.sub(pattern, name)).lower()
 
 
 @as_filter
 def kebabcase(name):
-    return snakecase(name, separator="-")
+    return snakecase(name, separator="-", from_separator="_")
 
 
 @as_filter
 def lispcase(name):  # alias
-    return snakecase(name, separator="-")
+    return snakecase(name, separator="-", from_separator="_")
 
 
 @as_filter
@@ -36,7 +56,7 @@ def camelcase(name):
 
 
 @as_filter
-def pascalcase(name, rx=re.compile("[\-_ ]")):
+def pascalcase(name, rx=re.compile(r"[\-_ ]")):
     return "".join(titleize(x) for x in rx.split(name))
 
 
