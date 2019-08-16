@@ -50,9 +50,16 @@ def _compact_aggregated(aggs):
 
 
 def _detect_kind(
-    name: str, *, _cands=set(["template", "top-level template code", "template"])
+    fs: traceback.FrameSummary,
+    *,
+    _cands=set(["template", "top-level template code", "template"])
 ) -> str:
-    is_jinja2 = name in _cands or name.startswith('block "')
+    is_jinja2 = False
+    name = fs.name
+    if name in _cands or name.startswith('block "'):
+        is_jinja2 = True
+    elif name == "<module>" and fs.filename.endswith((".j2", ".jinja2")):
+        is_jinja2 = True
     return "jinja2" if is_jinja2 else "python"
 
 
@@ -62,7 +69,7 @@ def _aggregate_traceback(tb, *, detect_kind=_detect_kind):
     cur = []
     r = []
     for fs in frames:
-        prev, kind = kind, detect_kind(fs.name)
+        prev, kind = kind, detect_kind(fs)
         if prev != kind:
             if cur:
                 r.append(FrameSet(kind=prev, frames=cur))
