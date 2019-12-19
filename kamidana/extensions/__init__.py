@@ -77,7 +77,7 @@ def _extract_module_from_cookiecutter_cotext(env, *, exception_cls=ImportError):
         raise exception_cls("we needs '_additional_modules' in your cookiecutter.json")
     return (
         _context["cookiecutter"]["_additional_modules"],
-        partial(magicalimport.import_module, here=_repo_dir),
+        partial(magicalimport.import_module, here=_repo_dir, cwd=True),
     )
 
 

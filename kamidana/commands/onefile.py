@@ -50,7 +50,7 @@ def main():
     logging.basicConfig(level=getattr(logging, args.logging))
 
     with error_handler(debug=args.debug, quiet=args.quiet):
-        loader_cls = import_symbol(args.loader, ns="kamidana.loader")
+        loader_cls = import_symbol(args.loader, ns="kamidana.loader", cwd=True)
         extensions = [
             ("jinja2.ext.{}".format(ext) if "." not in ext else ext)
             for ext in args.extension
@@ -63,7 +63,7 @@ def main():
             logger.info("template is not passed, running as --dump-context")
             args.dump_context = True
         if args.dump_context:
-            driver_cls = import_symbol("ContextDumpDriver", ns="kamidana.driver")
+            driver_cls = import_symbol("ContextDumpDriver", ns="kamidana.driver", cwd=True)
         elif args.list_info:
             from kamidana import listinfo
 
@@ -77,6 +77,6 @@ def main():
             dumpfile(listinfo.listinfo(), format=output_format)
             return print("")
         else:
-            driver_cls = import_symbol(args.driver, ns="kamidana.driver")
+            driver_cls = import_symbol(args.driver, ns="kamidana.driver", cwd=True)
         driver = driver_cls(loader, format=args.output_format)
         driver.run(args.template, args.dst)
