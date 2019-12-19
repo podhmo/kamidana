@@ -4,6 +4,7 @@ from magicalimport import import_symbol
 from dictknife.loading import get_formats
 from kamidana.debug import error_handler
 
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -29,7 +30,7 @@ def main():
     args = parser.parse_args()
     logging.basicConfig(level=getattr(logging, args.logging))
     with error_handler(debug=args.debug, quiet=args.quiet):
-        loader_cls = import_symbol(args.loader, ns="kamidana.loader")
+        loader_cls = import_symbol(args.loader, ns="kamidana.loader", cwd=True)
         extensions = [
             ("jinja2.ext.{}".format(ext) if "." not in ext else ext)
             for ext in args.extension
@@ -37,6 +38,6 @@ def main():
         loader = loader_cls(
             args.data, args.additionals, extensions, format=args.input_format
         )
-        driver_cls = import_symbol("kamidana.driver:BatchCommandDriver")
+        driver_cls = import_symbol("kamidana.driver:BatchCommandDriver", cwd=True)
         driver = driver_cls(loader, format=args.output_format)
         driver.run(args.batch, args.outdir)
