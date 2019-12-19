@@ -22,7 +22,7 @@ testing_extras = tests_require + []
 
 setup(
     name="kamidana",
-    version="0.9.0",
+    version=open("VERSION").read().strip(),
     description="command line jinja2 template (yet another j2cli)",
     long_description=README + "\n\n" + CHANGES,
     classifiers=[

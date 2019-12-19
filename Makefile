@@ -17,3 +17,14 @@ ci:
 	test -z `git diff` || (echo  "*********DIFF*********" && git diff && exit 2)
 _find-candidates:
 	@find ${WHERE} -mindepth 2 -name Makefile | grep -v optional/sheet | grep -v docs | xargs -n 1 -I{} dirname {}
+
+build:
+#	pip install wheel
+	python setup.py bdist_wheel
+
+upload:
+#	pip install twine
+	twine check dist/kamidana-$(shell cat VERSION)*
+	twine upload dist/kamidana-$(shell cat VERSION)*
+
+.PHONY: build upload
