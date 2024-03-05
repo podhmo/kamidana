@@ -10,7 +10,7 @@ with open(os.path.join(here, "README.rst")) as f:
 with open(os.path.join(here, "CHANGES.txt")) as f:
     CHANGES = f.read()
 
-install_requires = ["jinja2", "dictknife", "magicalimport", "inflection"]
+install_requires = ["jinja2", "dictknife[load]", "magicalimport", "inflection"]
 if sys.version_info[:2] < (3, 7):
     install_requires.append("importlib_resources")
 
