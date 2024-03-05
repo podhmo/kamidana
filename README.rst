@@ -289,7 +289,7 @@ example3 (using jinja2 extensions)
 .. code-block:: console
 
 
-  $ kamidana -e with_ -e do -e loopcontrols examples/readme/src/02/use-extension.jinja2
+  $ kamidana -e do -e loopcontrols examples/readme/src/02/use-extension.jinja2
   
   hello
     world
