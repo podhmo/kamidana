@@ -2,7 +2,6 @@ import logging
 import os.path
 import json
 import jinja2
-import jinja2.ext as ext
 from dictknife import deepmerge
 from dictknife import loading
 from dictknife.langhelpers import reify
@@ -20,7 +19,6 @@ def _render_with_newline(t, data):
 
 
 def _make_environment(load, additionals, extensions):
-    extensions.append(ext.with_)
     env = ResolvingByRelativePathEnvironment(
         loader=jinja2.FunctionLoader(load),
         undefined=jinja2.StrictUndefined,

@@ -422,21 +422,21 @@ available info (extensions and additional modules)
   extensions are used by `-e`, additional modules are used by `-a`.
   {
     "extensions": {
-      "jinja2.ext.i18n": "This extension adds gettext support to Jinja2.",
-      "jinja2.ext.do": "Adds a `do` tag to Jinja2 that works like the print statement just",
+      "jinja2.ext.i18n": "This extension adds gettext support to Jinja.",
+      "jinja2.ext.do": "Adds a `do` tag to Jinja that works like the print statement just",
       "jinja2.ext.loopcontrols": "Adds break and continue to the template engine.",
-      "jinja2.ext.with_": "Extensions can be used to add extra functionality to the Jinja template",
-      "jinja2.ext.autoescape": "Extensions can be used to add extra functionality to the Jinja template",
+      "jinja2.ext.debug": "A ``{% debug %}`` tag that dumps the available variables,",
       "kamidana.extensions.NamingModuleExtension": "extension create from kamidana.additionals.naming",
       "kamidana.extensions.ReaderModuleExtension": "extension create from kamidana.additionals.reader",
       "kamidana.extensions.CookiecutterAdditionalModulesExtension": "activate additional modules, see context['cookiecutter']['_additional_modules'], created from your cookiecutter.json"
     },
     "additional_modules": {
-      "kamidana.additionals.reader": "Reading from other resources (e.g. read_from_file, read_from_command)",
+      "kamidana.additionals.env": "accessing environemt variable, via env()",
       "kamidana.additionals.naming": "Naming helpers (e.g. snakecase, kebabcase, ... pluralize, singularize)",
-      "kamidana.additionals.env": "accessing environemt variable, via env()"
+      "kamidana.additionals.reader": "Reading from other resources (e.g. read_from_file, read_from_command)"
     }
   }
+
 
 
 
