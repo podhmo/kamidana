@@ -30,7 +30,7 @@ usage
   positional arguments:
     template
 
-  optional arguments:
+  options:
     -h, --help            show this help message and exit
     --driver DRIVER       default: kamidana.driver:Driver
     --loader LOADER       default: kamidana.loader:TemplateLoader
@@ -135,7 +135,7 @@ if using include, but the included template is not found.
   ├── header.html.j2
   └── main.html.j2
 
-  0 directories, 2 files
+  1 directory, 2 files
 
 
 
@@ -155,11 +155,11 @@ if using include, but the included template is not found.
     ->  5: {% include "footer-404.html.j2" %}
 
   Traceback:
-    File "SITE-PACKAGES/jinja2/loaders.py", line 314, in get_source
+    File "SITE-PACKAGES/jinja2/loaders.py", line 462, in get_source
       rv = self.load_func(template)
-    File "HERE/my/kamidana/kamidana/loader.py", line 27, in load
+    File "HERE/me/kamidana/kamidana/loader.py", line 27, in load
       raise XTemplatePathNotFound(filename, exc=e).with_traceback(e.__traceback__)
-    File "HERE/my/kamidana/kamidana/loader.py", line 23, in load
+    File "HERE/me/kamidana/kamidana/loader.py", line 23, in load
       with open(filename) as rf:
 
 
@@ -289,7 +289,7 @@ example3 (using jinja2 extensions)
 .. code-block:: console
 
 
-  $ kamidana -e with_ -e do -e loopcontrols examples/readme/src/02/use-extension.jinja2
+  $ kamidana -e do -e loopcontrols examples/readme/src/02/use-extension.jinja2
   
   hello
     world
@@ -422,19 +422,18 @@ available info (extensions and additional modules)
   extensions are used by `-e`, additional modules are used by `-a`.
   {
     "extensions": {
-      "jinja2.ext.i18n": "This extension adds gettext support to Jinja2.",
-      "jinja2.ext.do": "Adds a `do` tag to Jinja2 that works like the print statement just",
+      "jinja2.ext.i18n": "This extension adds gettext support to Jinja.",
+      "jinja2.ext.do": "Adds a `do` tag to Jinja that works like the print statement just",
       "jinja2.ext.loopcontrols": "Adds break and continue to the template engine.",
-      "jinja2.ext.with_": "Extensions can be used to add extra functionality to the Jinja template",
-      "jinja2.ext.autoescape": "Extensions can be used to add extra functionality to the Jinja template",
+      "jinja2.ext.debug": "A ``{% debug %}`` tag that dumps the available variables,",
       "kamidana.extensions.NamingModuleExtension": "extension create from kamidana.additionals.naming",
       "kamidana.extensions.ReaderModuleExtension": "extension create from kamidana.additionals.reader",
       "kamidana.extensions.CookiecutterAdditionalModulesExtension": "activate additional modules, see context['cookiecutter']['_additional_modules'], created from your cookiecutter.json"
     },
     "additional_modules": {
-      "kamidana.additionals.reader": "Reading from other resources (e.g. read_from_file, read_from_command)",
+      "kamidana.additionals.env": "accessing environemt variable, via env()",
       "kamidana.additionals.naming": "Naming helpers (e.g. snakecase, kebabcase, ... pluralize, singularize)",
-      "kamidana.additionals.env": "accessing environemt variable, via env()"
+      "kamidana.additionals.reader": "Reading from other resources (e.g. read_from_file, read_from_command)"
     }
   }
 

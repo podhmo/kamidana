@@ -19,7 +19,7 @@ dst:
 
 02: dst
 	mkdir -p dst/02
-	kamidana ${OPTS} -e with_ -e do -e loopcontrols src/02/use-extension.jinja2 ${TEE} dst/02/use-extension.output
+	kamidana ${OPTS} -e do -e loopcontrols src/02/use-extension.jinja2 ${TEE} dst/02/use-extension.output
 
 # --dump-context
 10: dst

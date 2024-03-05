@@ -1,15 +1,16 @@
 """
 Reading from other resources (e.g. read_from_file, read_from_command)
 """
+
 import re
 import os.path
 import subprocess
 from kamidana import as_filter
-from jinja2.filters import contextfilter
+from jinja2 import pass_context
 
 
 @as_filter
-@contextfilter
+@pass_context
 def read_from_file(ctx, filename, *, relative_self=True):
     if relative_self:
         dirname = os.path.dirname(os.path.abspath(ctx.name))
@@ -21,7 +22,7 @@ def read_from_file(ctx, filename, *, relative_self=True):
 
 
 @as_filter
-@contextfilter
+@pass_context
 def read_from_command(
     ctx, cmd, *, shell=True, check=True, encoding="utf-8", relative_self=True
 ):

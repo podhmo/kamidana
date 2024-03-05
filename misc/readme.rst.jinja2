@@ -144,7 +144,7 @@ example3 (using jinja2 extensions)
 
 .. code-block:: console
 
-{% with cmd="kamidana -e with_ -e do -e loopcontrols examples/readme/src/02/use-extension.jinja2"%}
+{% with cmd="kamidana -e do -e loopcontrols examples/readme/src/02/use-extension.jinja2"%}
   $ {{cmd}}
   {{cmd|read_from_command(relative_self=False)|indent(2)}}
 {% endwith %}
