@@ -30,7 +30,7 @@ usage
   positional arguments:
     template
 
-  optional arguments:
+  options:
     -h, --help            show this help message and exit
     --driver DRIVER       default: kamidana.driver:Driver
     --loader LOADER       default: kamidana.loader:TemplateLoader
@@ -135,7 +135,7 @@ if using include, but the included template is not found.
   ├── header.html.j2
   └── main.html.j2
 
-  0 directories, 2 files
+  1 directory, 2 files
 
 
 
@@ -155,11 +155,11 @@ if using include, but the included template is not found.
     ->  5: {% include "footer-404.html.j2" %}
 
   Traceback:
-    File "SITE-PACKAGES/jinja2/loaders.py", line 314, in get_source
+    File "SITE-PACKAGES/jinja2/loaders.py", line 462, in get_source
       rv = self.load_func(template)
-    File "HERE/my/kamidana/kamidana/loader.py", line 27, in load
+    File "HERE/me/kamidana/kamidana/loader.py", line 27, in load
       raise XTemplatePathNotFound(filename, exc=e).with_traceback(e.__traceback__)
-    File "HERE/my/kamidana/kamidana/loader.py", line 23, in load
+    File "HERE/me/kamidana/kamidana/loader.py", line 23, in load
       with open(filename) as rf:
 
 
@@ -436,7 +436,6 @@ available info (extensions and additional modules)
       "kamidana.additionals.reader": "Reading from other resources (e.g. read_from_file, read_from_command)"
     }
   }
-
 
 
 
