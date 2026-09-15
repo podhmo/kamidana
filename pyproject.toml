@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kamidana"
+dynamic = ["version", "readme"]
+description = "command line jinja2 template (yet another j2cli)"
+keywords = ["jinja2", "cli", "commandline"]
+authors = [
+    {name = "podhmo", email = "ababjam61+github@gmail.com"},
+]
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+dependencies = [
+    "jinja2>=3.1",
+    "dictknife[load]>=0.14",
+    "inflection>=0.5",
+]
+
+[project.optional-dependencies]
+testing = ["pytest"]
+docs = ["sphinx", "sphinx_rtd_theme"]
+
+[project.urls]
+Homepage = "https://github.com/podhmo/kamidana"
+
+[project.scripts]
+kamidana = "kamidana.commands.onefile:main"
+kamidana-batch = "kamidana.commands.manyfiles:main"
+
+[tool.setuptools]
+include-package-data = true
+zip-safe = false
+
+[tool.setuptools.packages.find]
+exclude = ["kamidana.tests"]
+
+[tool.setuptools.dynamic]
+version = {file = ["VERSION"]}
+readme = {file = ["README.md", "CHANGES.txt"], content-type = "text/markdown"}
