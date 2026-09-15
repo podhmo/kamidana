@@ -25,6 +25,7 @@ def _make_environment(load, additionals, extensions):
         trim_blocks=False,
         lstrip_blocks=True,
         extensions=extensions,
+        optimized=False,
     )
     for name, defs in additionals.items():
         getattr(env, name).update(defs)
