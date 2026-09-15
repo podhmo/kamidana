@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = python -msphinx
-SPHINXPROJ    = dictknife
+SPHINXPROJ    = kamidana
 SOURCEDIR     = source
 BUILDDIR      = build
 
