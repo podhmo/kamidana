@@ -7,7 +7,7 @@ import magicalimport
 from dictknife import deepmerge
 from .. import collect_marked_items
 
-logger = logging.Logger(__name__)
+logger = logging.getLogger(__name__)
 
 
 def _build_additionals(modules, *, import_string) -> dict:
