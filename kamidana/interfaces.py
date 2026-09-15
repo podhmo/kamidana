@@ -8,7 +8,8 @@ class ITemplateLoader(metaclass=abc.ABCMeta):
     def load(self, filename):  # Tuple[str, str, Callable[[], bool]]
         pass
 
-    @abc.abstractproperty
+    @property
+    @abc.abstractmethod
     def data(self):
         pass
 

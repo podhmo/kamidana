@@ -3,8 +3,8 @@ import inspect
 import os.path
 from collections import defaultdict, OrderedDict
 from importlib import import_module
+from importlib import resources
 import jinja2.ext
-from .compat import importlib_resources
 
 Description = t.NewType("Description", str)
 
@@ -34,8 +34,9 @@ def collect_extensions_info(
 
 def collect_additional_modules_info() -> t.Dict[str, Description]:
     info = OrderedDict()
-    contents = importlib_resources.contents("kamidana.additionals")
-    for filename in contents:
+    contents = resources.files("kamidana.additionals")
+    for resource in contents.iterdir():
+        filename = resource.name
         if not filename.endswith(".py"):
             continue
         if filename == "__init__.py":
