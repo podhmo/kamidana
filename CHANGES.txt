@@ -1,3 +1,12 @@
+0.10.0
+
+- drop python <3.10 support (3.9 is EOL; CI covers 3.10-3.14)
+- update dependencies: jinja2>=3.1, dictknife[load]>=0.14, inflection>=0.5
+- drop dependencies: magicalimport (inlined as kamidana._import), fastentrypoints, importlib_resources
+- rework kamidana.debug traceback extraction for jinja2 3.x frame names
+- set jinja2 Environment(optimized=False) explicitly
+- run examples regression (make ci) on CI
+
 0.9.1
 
 - catch up magicalimport 0.8.1
