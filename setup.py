@@ -1,6 +1,4 @@
 import os
-import sys
-import fastentrypoints
 
 from setuptools import setup, find_packages
 
@@ -10,15 +8,15 @@ with open(os.path.join(here, "README.rst")) as f:
 with open(os.path.join(here, "CHANGES.txt")) as f:
     CHANGES = f.read()
 
-install_requires = ["jinja2", "dictknife[load]", "magicalimport", "inflection"]
-if sys.version_info[:2] < (3, 7):
-    install_requires.append("importlib_resources")
+install_requires = [
+    "jinja2>=3.1",
+    "dictknife[load]>=0.14",
+    "inflection>=0.5",
+]
 
-docs_extras = ["sphinx", "recommonmark", "sphinx_rtd_theme"]
+docs_extras = ["sphinx", "sphinx_rtd_theme"]
 
-tests_require = []
-
-testing_extras = tests_require + []
+testing_extras = ["pytest"]
 
 setup(
     name="kamidana",
@@ -37,10 +35,9 @@ setup(
     long_description_content_type="text/x-rst",
     include_package_data=True,
     zip_safe=False,
+    python_requires=">=3.10",
     install_requires=install_requires,
     extras_require={"testing": testing_extras, "docs": docs_extras},
-    tests_require=tests_require,
-    test_suite="kamidana.tests",
     entry_points="""
       [console_scripts]
       kamidana=kamidana.commands.onefile:main
