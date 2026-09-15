@@ -1,6 +1,6 @@
 import logging
 import argparse
-from magicalimport import import_symbol
+from kamidana._import import import_symbol
 from dictknife.loading import get_formats
 from kamidana.debug import error_handler
 

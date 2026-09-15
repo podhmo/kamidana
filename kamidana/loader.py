@@ -3,7 +3,7 @@ import logging
 from dictknife import deepmerge
 from dictknife import loading
 from dictknife.langhelpers import reify
-from magicalimport import import_module
+from ._import import import_module
 from . import collect_marked_items
 from .interfaces import ITemplateLoader
 from ._path import XTemplatePathNotFound

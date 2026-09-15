@@ -1,7 +1,7 @@
 import sys
 import argparse
 import logging
-from magicalimport import import_symbol
+from kamidana._import import import_symbol
 from kamidana.debug import error_handler
 from dictknife.loading import get_formats, dumpfile
 
