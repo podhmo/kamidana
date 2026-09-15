@@ -1,7 +1,7 @@
 default: 00 01 02 03 04 05
 
 OPTS ?= --logging=INFO
-MASK ?= 2>&1 | sed 's@$(shell cd ../../; pwd)@HERE@g; s@".*/site-packages@"SITE-PACKAGES@g'
+MASK ?= 2>&1 | sed 's@$(shell cd ../../; pwd)@HERE@g; s@".*/site-packages@"SITE-PACKAGES@g; /SITE-PACKAGES/ s@, line [0-9][0-9]*@, line N@g; /^ *[\^~][\^~ ]*$$/d'
 TEE ?= | tee
 
 dst:

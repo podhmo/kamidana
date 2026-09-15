@@ -57,41 +57,30 @@ class Renderer:
         self.n = n
         self.formatter = formatter or Formatter(n, colorful=colorful)
 
-    # xxx:
-    def is_jinja2_frames(self, frames):
-        return "site-packages/jinja2" in frames[-1].filename
-
     def render(self, exc: Exception) -> str:
-        return self.formatter.format(self.get_information(exc))
-
-    def get_information(self, exc: Exception) -> str:
-        return self.on_error(exc)
+        return self.formatter.format(self.on_error(exc))
 
     def on_error(self, exc: Exception, *, level: int = 5) -> dict:
-        # shape :: [python, jinja2, python, ....]
         d = vars(exc).copy()
         detail = extract_detail(exc)
-        if not detail.jinja2:
+        if detail.jinja2_frames is None:
             if isinstance(exc, XTemplatePathNotFound):
                 d.update(_get_info_from_exception(exc))
                 return d
             raise exc.with_traceback(exc.__traceback__)
 
-        logger.debug(
-            "frame shape: %r", [(fs.kind, len(fs.frames)) for fs in detail.framesets]
-        )
+        logger.debug("jinja2 frames: %r", detail.jinja2_frames)
 
         buf = StringIO()
         first = True
-        # jinja2's traceback
-        for i in reversed(range(1, min(level, len(detail.jinja2.frames) + 1))):
+        for f in detail.jinja2_frames[-level:]:  # outermost -> innermost
             if first:
                 first = False
             else:
                 print("", file=buf)
 
-            lineno = detail.jinja2.frames[-i].lineno
-            filename = detail.jinja2.frames[-i].filename
+            lineno = f.lineno
+            filename = f.filename
             print("{}:".format(os.path.relpath(filename, os.getcwd())), file=buf)
             start_lineno = max(1, lineno - self.n)
             end_lineno = min(len(linecache.getlines(filename)) + 1, lineno + self.n + 1)
@@ -99,14 +88,12 @@ class Renderer:
                 line = linecache.getline(filename, lineno=i).rstrip()
                 print(self.formatter.line_format(i, line, lineno=lineno), file=buf)
 
-        # python's traceback
-        if not detail.outermost:
-            frames = detail.framesets[-1].frames
-            if not self.is_jinja2_frames(frames):
-                lines = traceback.StackSummary.from_list(frames).format()
-                print("", file=buf)
-                print("Traceback:", file=buf)
-                print("".join(lines), file=buf)
+        # python's traceback (e.g. a filter function written in python)
+        if detail.python_frames:
+            lines = traceback.StackSummary.from_list(detail.python_frames).format()
+            print("", file=buf)
+            print("Traceback:", file=buf)
+            print("".join(lines), file=buf)
 
         d["where"] = os.path.relpath(filename, start=os.getcwd())  # xxx
         d["output"] = buf.getvalue()

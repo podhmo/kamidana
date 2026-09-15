@@ -1,80 +1,61 @@
+import os.path
 import traceback
 from collections import namedtuple
 
-FrameSet = namedtuple("FrameSet", "kind, frames")
-Detail = namedtuple("Detail", "jinja2, framesets, outermost")
+import jinja2
+
+# the output shape is a pair of
+# - template frames (deduplicated, outermost -> innermost)
+# - trailing python frames, dropped when the innermost frame is inside jinja2
+Detail = namedtuple("Detail", "jinja2_frames, python_frames")
+
+_JINJA2_DIR = os.path.dirname(jinja2.__file__)
+
+# names given to the code objects that jinja2 generates for a template
+# (see jinja2.debug.rewrite_traceback_stack):
+#   "root"          -> "top-level template code"
+#   "block_<name>"  -> "block <name>!r" (e.g. "block 'title'")
+#   anything else   -> "template"      (macros, loop bodies, ...)
+_JINJA2_FRAME_NAMES = frozenset(["template", "top-level template code"])
 
 
-def extract_detail(exc: Exception, *, tb=None) -> Detail:
-    tb = tb or exc.__traceback__
-    aggs = _aggregate_traceback(tb)
-    if len(aggs) == 1:
-        return Detail(jinja2=None, framesets=aggs, outermost=False)
-
-    aggs = _compact_aggregated(aggs)
-    if aggs[-1].kind == "jinja2":
-        outermost = True
-        fsets = aggs[-1]
-    else:
-        outermost = False
-        fsets = aggs[-2]
-    return Detail(jinja2=fsets, framesets=aggs, outermost=outermost)
+def _is_jinja2_frame(fs: traceback.FrameSummary) -> bool:
+    name = fs.name
+    if name in _JINJA2_FRAME_NAMES or name.startswith("block "):
+        return True
+    return name == "<module>" and fs.filename.endswith((".j2", ".jinja2"))
 
 
-def _compact_aggregated(aggs):
-    r = []
-    for fset in aggs:
-        if fset.kind == "jinja2":
-            r.append(fset)
+def _is_jinja2_internal_frame(fs: traceback.FrameSummary) -> bool:
+    return os.path.dirname(fs.filename) == _JINJA2_DIR
 
-    is_last_frame_python = aggs[-1] != r[-1]
 
-    compacted = [f for fset in r for f in fset.frames]
-
-    # dedup
+def _deduplicate(frames):
     seen = set()
-    frames = []
-    for f in reversed(compacted):
+    r = []
+    for f in reversed(frames):  # innermost -> outermost
         k = (f.filename, f.lineno)
         if k in seen:
             continue
         seen.add(k)
-        if frames and frames[-1].filename == f.filename:
+        if r and r[-1].filename == f.filename:
             continue
-        frames.append(f)
-    r.append(FrameSet(kind="jinja2", frames=list(reversed(frames))))
-
-    if is_last_frame_python:
-        r.append(aggs[-1])
-    return r
+        r.append(f)
+    return list(reversed(r))
 
 
-def _detect_kind(
-    fs: traceback.FrameSummary,
-    *,
-    _cands=set(["template", "top-level template code", "template"])
-) -> str:
-    is_jinja2 = False
-    name = fs.name
-    if name in _cands or name.startswith('block "'):
-        is_jinja2 = True
-    elif name == "<module>" and fs.filename.endswith((".j2", ".jinja2")):
-        is_jinja2 = True
-    return "jinja2" if is_jinja2 else "python"
+def extract_detail(exc: Exception) -> Detail:
+    frames = traceback.extract_tb(exc.__traceback__)
+    jinja2_indices = [i for i, f in enumerate(frames) if _is_jinja2_frame(f)]
+    if not jinja2_indices:
+        return Detail(jinja2_frames=None, python_frames=None)
 
+    # python frames after the last template frame (e.g. inside a filter
+    # function written in python). meaningless when the innermost frame is
+    # jinja2's own code.
+    python_frames = frames[jinja2_indices[-1] + 1:]
+    if python_frames and _is_jinja2_internal_frame(python_frames[-1]):
+        python_frames = []
 
-def _aggregate_traceback(tb, *, detect_kind=_detect_kind):
-    frames = traceback.extract_tb(tb)
-    kind = None
-    cur = []
-    r = []
-    for fs in frames:
-        prev, kind = kind, detect_kind(fs)
-        if prev != kind:
-            if cur:
-                r.append(FrameSet(kind=prev, frames=cur))
-            cur = []
-        cur.append(fs)
-    if cur:
-        r.append(FrameSet(kind=kind, frames=cur))
-    return r
+    jinja2_frames = _deduplicate([frames[i] for i in jinja2_indices])
+    return Detail(jinja2_frames=jinja2_frames, python_frames=python_frames)
