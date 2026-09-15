@@ -2,7 +2,7 @@ default: readme docs
 MASK ?= 2>&1 | sed 's@$(shell cd ../../; pwd)@HERE@g; s@".*/site-packages@"SITE-PACKAGES@g; /SITE-PACKAGES/ s@, line [0-9][0-9]*@, line N@g; /^ *[\^~][\^~ ]*$$/d'
 
 readme:
-	COLUMNS=120 kamidana misc/readme.rst.jinja2 --additionals reader ${MASK} > README.rst
+	COLUMNS=120 kamidana misc/readme.md.jinja2 --additionals reader ${MASK} > README.md
 
 docs:
 	$(MAKE) html -C docs
@@ -19,8 +19,8 @@ _find-candidates:
 	@find ${WHERE} -mindepth 2 -name Makefile | grep -v optional/sheet | grep -v docs | xargs -n 1 -I{} dirname {}
 
 build:
-#	pip install wheel
-	python setup.py bdist_wheel
+#	pip install build
+	python -m build
 
 upload:
 #	pip install twine

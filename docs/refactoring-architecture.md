@@ -176,9 +176,6 @@ and `recommonmark` (dead; no `.md` sources exist).
 
 Still open:
 
-- Move metadata to `pyproject.toml` (`setuptools` backend) — `setup.py`
-  remains only for the `open("VERSION")` reads, which `setuptools`
-  `attr:`/`file:` directives or `setuptools-scm` can replace.
 - `VERSION` file + `CHANGES.txt` are manual; consider `hatch-vcs`/`setuptools-scm`
   or a `bumpversion` workflow.
 

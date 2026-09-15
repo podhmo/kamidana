@@ -155,8 +155,9 @@ in the dependency-update change; the rest are open.
   frames and strips PEP 657 `~~~~^^^^` caret lines — jinja2 internals line
   numbers drift between releases and traceback carets differ between Python
   3.10 and >= 3.11, both of which broke the fixtures.
-- [ ] Move to `pyproject.toml`; `VERSION`/`CHANGES.txt` reading can be
-  replaced by `setuptools` `file:`/`attr:` metadata.
+- [x] Moved to `pyproject.toml`; `VERSION` is read via
+  `tool.setuptools.dynamic.version.file` and `README.md` + `CHANGES.txt`
+  form the `text/markdown` `readme`.
 - [ ] `Makefile ci`'s `test -z $(git diff)` fails on *any* dirty file, not
   just regenerated outputs — in CI this is fine after a clean checkout, but
   locally it conflates working changes with fixture drift. Consider scoping
