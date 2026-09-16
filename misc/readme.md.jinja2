@@ -23,8 +23,9 @@ features
 
 a template name is interpreted as follows.
 
-- **physical path**: a name starting with `./` or `/` is a file path
+- **physical path**: a name starting with `./`, `../` or `/` is a file path
   - `./main.j2` -> the file `main.j2` in the current directory
+  - `../main.j2` -> the file `main.j2` in the parent directory
   - `/tmp/main.j2` -> the file `/tmp/main.j2`
 - **python package**: otherwise, the name is a template in a python package, in `<package>/<path>` form
   - `mypkg/templates/main.j2` -> the resource `templates/main.j2` inside the installed package `mypkg`

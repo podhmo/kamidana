@@ -88,7 +88,7 @@ class TemplateLoader(ITemplateLoader):
 
 
 _SPEC_NOTE = (
-    "a template name is a file if it starts with './' or '/';"
+    "a template name is a file if it starts with './', '../' or '/';"
     " otherwise it is a template in a python package ('<package>/<path>')"
 )
 
