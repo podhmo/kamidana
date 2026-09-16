@@ -18,19 +18,10 @@ def _render_with_newline(t, data):
     return r + "\n"
 
 
-# candidates for the --undefined option (jinja2 Undefined types)
-UNDEFINED_TYPES = {
-    "strict": jinja2.StrictUndefined,
-    "default": jinja2.Undefined,
-    "debug": jinja2.DebugUndefined,
-    "chainable": jinja2.ChainableUndefined,
-}
-
-
 def _make_environment(load, additionals, extensions, *, undefined=None):
     env = ResolvingByRelativePathEnvironment(
         loader=jinja2.FunctionLoader(load),
-        undefined=undefined or jinja2.StrictUndefined,
+        undefined=undefined or jinja2.Undefined,
         trim_blocks=False,
         lstrip_blocks=True,
         extensions=extensions,
@@ -42,7 +33,7 @@ def _make_environment(load, additionals, extensions, *, undefined=None):
 
 
 class Driver(IDriver):
-    undefined = jinja2.StrictUndefined
+    undefined = jinja2.Undefined
 
     def __init__(self, loader, format):
         self.loader = loader
@@ -96,7 +87,7 @@ class ContextDumpDriver(IDriver):
 
 
 class BatchCommandDriver(IDriver):
-    undefined = jinja2.StrictUndefined
+    undefined = jinja2.Undefined
 
     def __init__(self, loader, format):
         self.loader = loader
