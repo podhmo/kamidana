@@ -144,6 +144,29 @@ def test_mutual_include_same_file_shown_once(loader, tmp_path, monkeypatch):
     assert output.count("pong.html:") == 1
 
 
+def test_stdlib_raise_where_falls_back_to_template_frame(
+    loader, tmp_path, monkeypatch
+):
+    # regression: https://github.com/podhmo/kamidana/issues/72
+    # a RecursionError raised inside frozen stdlib internals made `where`
+    # point at "<frozen posixpath>:NN"; the actionable site is the
+    # recursive `{% include %}` in the template.
+    from kamidana.driver import _make_environment
+
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "loop.html").write_text(
+        '<div>\n{% include "./loop.html" %}\n</div>\n'
+    )
+
+    env = _make_environment(loader.load, {}, [])
+    with pytest.raises(RecursionError) as e:
+        env.get_template("./loop.html").render()
+
+    output = translate_error(e.value)
+    (where_line,) = [l for l in output.splitlines() if l.startswith("where:")]
+    assert where_line == "where: loop.html"
+
+
 def test_python_side_error_where_points_at_raise_site(
     loader, tmp_path, monkeypatch
 ):

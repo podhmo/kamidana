@@ -10,7 +10,7 @@ import jinja2
 
 from .._path import XTemplatePathNotFound, is_physical_path
 from .color import highlight
-from ._extract import extract_detail
+from ._extract import extract_detail, _is_internal_python_frame
 
 logger = logging.getLogger(__name__)
 
@@ -115,9 +115,14 @@ class Renderer:
             print("Traceback:", file=buf)
             print("".join(lines), file=buf)
 
-        if detail.python_frames:
-            # the raise site is the innermost frame, which is python code
-            f = detail.python_frames[-1]
+        # the raise site is the innermost python frame, unless it sits
+        # inside stdlib/jinja2/kamidana internals the user cannot act on
+        # (e.g. a RecursionError raised in frozen posixpath)
+        actionable = [
+            f for f in detail.python_frames if not _is_internal_python_frame(f)
+        ]
+        if actionable:
+            f = actionable[-1]
             d["where"] = "{}:{}".format(_display_path(f.filename), f.lineno)
         else:
             d["where"] = _display_path(filename)
