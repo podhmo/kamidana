@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 def _build_additionals(modules, *, import_string) -> dict:
-    additionals = {}
+    additionals: dict = {}
     for name in modules:
         logger.info("activate additional module %s", name)
         m = import_string(name)  # xxx: use magicalimport.import_module()?
@@ -21,7 +21,7 @@ def _build_additionals(modules, *, import_string) -> dict:
 
 def create_apply_additonal_modules_extension_class(name: str, *, doc, get_modules):
     def __init__(self, environment: Environment) -> None:
-        super(cls, self).__init__(environment)
+        Extension.__init__(self, environment)
 
         modules, import_string = get_modules(environment)
         additionals = _build_additionals(modules, import_string=import_string)

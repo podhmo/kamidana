@@ -1,7 +1,7 @@
 import typing as t
 import inspect
 import os.path
-from collections import defaultdict, OrderedDict
+from collections import defaultdict
 from importlib import import_module
 from importlib import resources
 import jinja2.ext
@@ -24,16 +24,16 @@ def collect_extensions_info(
                 continue
             extensions[v].append(f"{modname}.{name}")
 
-    info = OrderedDict()
+    info = {}
     for cls, fullnames in extensions.items():
         fullname = sorted(fullnames, key=lambda x: len(x))[0]
-        oneline_doc = inspect.getdoc(cls).strip().split("\n", 1)[0]
-        info[fullname] = oneline_doc
+        doc = inspect.getdoc(cls) or ""
+        info[fullname] = Description(doc.strip().split("\n", 1)[0])
     return info
 
 
 def collect_additional_modules_info() -> t.Dict[str, Description]:
-    info = OrderedDict()
+    info = {}
     contents = resources.files("kamidana.additionals")
     for resource in contents.iterdir():
         filename = resource.name
@@ -42,12 +42,13 @@ def collect_additional_modules_info() -> t.Dict[str, Description]:
         if filename == "__init__.py":
             continue
         modulename = f"kamidana.additionals.{os.path.splitext(filename)[0]}"
-        info[modulename] = inspect.getdoc(import_module(modulename))
+        doc = inspect.getdoc(import_module(modulename)) or ""
+        info[modulename] = Description(doc)
     return info
 
 
 def listinfo():
-    d = OrderedDict()
+    d = {}
     d["extensions"] = collect_extensions_info()
     d["additional_modules"] = collect_additional_modules_info()
     return d

@@ -54,7 +54,7 @@ def x_get_original_context(path):
 
 class ResolvingByRelativePathEnvironment(jinja2.Environment):
     # @override
-    def join_path(self, path: str, where: str = None) -> str:
+    def join_path(self, path: str, where: str | None = None) -> str:
         if where is None or path.startswith("/"):
             template_path = path
         elif is_physical_path(where):

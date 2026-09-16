@@ -10,7 +10,7 @@ def _module_id(path: str) -> str:
     return "{}.{}".format(dirname.replace("/", "_"), basename.rsplit(".py", 1)[0])
 
 
-def import_module(module_path: str, *, here: str = None, cwd: bool = True):
+def import_module(module_path: str, *, here: str | None = None, cwd: bool = True):
     """import a module by dotted name (e.g. "foo.bar") or file path (e.g. "foo/bar.py")
 
     - ``here``: base directory used to resolve a relative file path.
@@ -22,7 +22,7 @@ def import_module(module_path: str, *, here: str = None, cwd: bool = True):
     return importlib.import_module(module_path)
 
 
-def _import_from_path(path: str, *, here: str = None, cwd: bool = True):
+def _import_from_path(path: str, *, here: str | None = None, cwd: bool = True):
     if here is None:
         if not cwd:
             raise ValueError("one of here= or cwd=True is required")
@@ -50,7 +50,7 @@ def _import_from_path(path: str, *, here: str = None, cwd: bool = True):
     return module
 
 
-def import_symbol(sym: str, *, ns: str = None, sep: str = ":", cwd: bool = True):
+def import_symbol(sym: str, *, ns: str | None = None, sep: str = ":", cwd: bool = True):
     """import a symbol, e.g. "pkg.mod:attr" or "attr" resolved inside ``ns``."""
     if ns is not None and sep not in sym:
         sym = "{}{}{}".format(ns, sep, sym)

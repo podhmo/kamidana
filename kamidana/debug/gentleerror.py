@@ -6,8 +6,6 @@ import logging
 from collections import defaultdict
 from io import StringIO
 
-import jinja2
-
 from .._path import XTemplatePathNotFound, is_physical_path
 from .color import highlight
 from ._extract import extract_detail, _is_internal_python_frame
@@ -132,7 +130,7 @@ class Renderer:
 
 
 # xxx: remove it
-def _get_info_from_exception(exc: jinja2.TemplateError):
+def _get_info_from_exception(exc: Exception):
     d = {
         "exc_class": "{}.{}".format(
             getattr(exc, "__module__", "builtins"), exc.__class__.__name__
