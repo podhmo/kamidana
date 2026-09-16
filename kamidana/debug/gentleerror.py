@@ -106,7 +106,12 @@ class Renderer:
             print("Traceback:", file=buf)
             print("".join(lines), file=buf)
 
-        d["where"] = _display_path(filename)  # xxx
+        if detail.python_frames:
+            # the raise site is the innermost frame, which is python code
+            f = detail.python_frames[-1]
+            d["where"] = "{}:{}".format(_display_path(f.filename), f.lineno)
+        else:
+            d["where"] = _display_path(filename)
         d["output"] = buf.getvalue()
         d.update(_get_info_from_exception(exc))
         return d
