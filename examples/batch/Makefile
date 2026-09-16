@@ -8,9 +8,9 @@ dst:
 
 # onefile
 00: dst
-	echo '{"name": "foo"}' | kamidana ${OPTS} -i json src/00hello.j2 --dst dst/00/foo.hello
-	echo '{"name": "bar"}' | kamidana ${OPTS} -i json src/00hello.j2 --dst dst/00/bar.hello
-	kamidana ${OPTS} src/00hello.j2 --data me.json --dst dst/00/me.hello
+	echo '{"name": "foo"}' | kamidana ${OPTS} -i json ./src/00hello.j2 --dst dst/00/foo.hello
+	echo '{"name": "bar"}' | kamidana ${OPTS} -i json ./src/00hello.j2 --dst dst/00/bar.hello
+	kamidana ${OPTS} ./src/00hello.j2 --data me.json --dst dst/00/me.hello
 
 # batch
 01: dst
