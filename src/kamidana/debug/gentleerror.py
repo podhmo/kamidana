@@ -22,7 +22,11 @@ logger = logging.getLogger(__name__)
 def _display_path(path: str) -> str:
     # package-spec names are not filesystem paths
     if is_physical_path(path):
-        return os.path.relpath(path, os.getcwd())
+        # shorten paths inside the current directory; outside it a
+        # "../.."-laden relpath is worse than the absolute spelling
+        relpath = os.path.relpath(path, os.getcwd())
+        if not relpath.startswith(".."):
+            return relpath
     return path
 
 
@@ -90,7 +94,7 @@ class Renderer:
             if isinstance(exc, XTemplatePathNotFound):
                 d.update(_get_info_from_exception(exc))
                 return d
-            raise exc.with_traceback(exc.__traceback__)
+            return self._on_python_error(exc, d)
 
         logger.debug("jinja2 frames: %r", detail.jinja2_frames)
 
@@ -110,22 +114,13 @@ class Renderer:
                 first = False
             else:
                 print("", file=buf)
-
-            lineno = f.lineno
-            filename = f.filename
-            print("{}:".format(_display_path(filename)), file=buf)
-            start_lineno = max(1, lineno - self.n)
-            end_lineno = min(len(linecache.getlines(filename)) + 1, lineno + self.n + 1)
-            for i in range(start_lineno, end_lineno):
-                line = linecache.getline(filename, lineno=i).rstrip()
-                print(self.formatter.line_format(i, line, lineno=lineno), file=buf)
+            self._print_frame_context(buf, f)
 
         # python's traceback (e.g. a filter function written in python)
         if detail.python_frames:
-            lines = traceback.StackSummary.from_list(detail.python_frames).format()
             print("", file=buf)
             print("Traceback:", file=buf)
-            print("".join(lines), file=buf)
+            print(_format_traceback(detail.python_frames), file=buf, end="")
 
         # the raise site is the innermost python frame, unless it sits
         # inside stdlib/jinja2/kamidana internals the user cannot act on
@@ -137,10 +132,69 @@ class Renderer:
             f = actionable[-1]
             d["where"] = "{}:{}".format(_display_path(f.filename), f.lineno)
         else:
-            d["where"] = _display_path(filename)
+            d["where"] = _display_path(frames[-1].filename)
         d["output"] = buf.getvalue()
         d.update(_get_info_from_exception(exc))
         return d
+
+    def _print_frame_context(
+        self, buf: StringIO, f: traceback.FrameSummary
+    ) -> None:
+        if f.lineno is None:
+            return
+        lineno = f.lineno
+        filename = f.filename
+        print("{}:".format(_display_path(filename)), file=buf)
+        start_lineno = max(1, lineno - self.n)
+        end_lineno = min(len(linecache.getlines(filename)) + 1, lineno + self.n + 1)
+        for i in range(start_lineno, end_lineno):
+            line = linecache.getline(filename, lineno=i).rstrip()
+            print(self.formatter.line_format(i, line, lineno=lineno), file=buf)
+
+    def _on_python_error(
+        self, exc: Exception, d: t.Dict[str, t.Any]
+    ) -> t.Dict[str, t.Any]:
+        # no template frames: a plain python error (e.g. an additional
+        # module that failed while being imported).  the same
+        # exception/message/where block is rendered, pointing at the
+        # innermost frame the user can act on.
+        frames = (
+            traceback.extract_tb(exc.__traceback__) if exc.__traceback__ else []
+        )
+        actionable = [f for f in frames if not _is_internal_python_frame(f)]
+
+        buf = StringIO()
+        if actionable:
+            innermost = actionable[-1]
+            if innermost.lineno is not None:
+                self._print_frame_context(buf, innermost)
+                print("", file=buf)
+            d["where"] = "{}:{}".format(
+                _display_path(innermost.filename), innermost.lineno
+            )
+
+        shown = actionable or frames
+        if shown:
+            print("Traceback:", file=buf)
+            print(_format_traceback(shown), file=buf, end="")
+
+        d["output"] = buf.getvalue()
+        d.update(_get_info_from_exception(exc))
+        return d
+
+
+def _format_traceback(frames: t.List[traceback.FrameSummary]) -> str:
+    # like StackSummary.format() but with display-relative filenames
+    lines = []
+    for fs in frames:
+        lines.append(
+            '  File "{}", line {}, in {}\n'.format(
+                _display_path(fs.filename), fs.lineno, fs.name
+            )
+        )
+        if fs.line:
+            lines.append("    {}\n".format(fs.line.strip()))
+    return "".join(lines)
 
 
 # xxx: remove it

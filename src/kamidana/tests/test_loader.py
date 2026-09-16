@@ -114,6 +114,20 @@ def test_additionals_missing_py_module(
     assert "kamidana.additionals.missing.py" not in str(e.value)
 
 
+def test_additionals_existing_file_error_is_not_masked(
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # a ".py" file that exists but fails to import must surface its own
+    # error, not a "module not found" message for the builtin fallback.
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "missing.py").write_text("import nosuchdep_xyz\n")
+    loader.additional_path_list.append("missing.py")
+    with pytest.raises(ImportError) as e:
+        loader.additionals
+    assert "nosuchdep_xyz" in str(e.value)
+    assert "kamidana.additionals" not in str(e.value)
+
+
 def test_join_path_in_package(loader: TemplateLoader, package: Path) -> None:
     # {% extends %}/{% include %} are resolved relative to the parent
     # template, also inside a package.

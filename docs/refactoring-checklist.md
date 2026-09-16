@@ -5,16 +5,13 @@ open; completed items are removed.
 
 ## kamidana/_import.py (new, replaces magicalimport)
 
-- [ ] `_module_id()` can collide: `a/b.py` and `a_b.py` both map to `a.b`.
-  Also `sys.modules` keys like `src_00inheritance.url_for` leak into the
-  global module table — consider a private registry dict instead of
-  `sys.modules`, or a hashed suffix.
 - [ ] `import_symbol()` lost the `silent`/`here` options from
   magicalimport — unused today; re-add only if a caller needs them.
-- [ ] `import_module()` does not create parent-package `__init__` modules the
-  way magicalimport did; an additional file inside a package directory that
-  uses relative imports will fail. Acceptable for standalone `*.py`
-  additionals — document the limitation.
+- [ ] a file inside a package is imported through the real machinery:
+  its root dir stays on `sys.path` for the rest of the process — fine
+  for a CLI, but a library embedding `import_module` would see the side
+  effect. Standalone files (no `__init__.py` nearby) still cannot use
+  relative imports — by design.
 
 ## kamidana/loader.py
 
@@ -23,11 +20,6 @@ open; completed items are removed.
 - [ ] `load()` re-reads the template file on every call — jinja2 asks the
   loader again for `{% extends %}`/`{% include %}` targets; add `mtime`-keyed
   caching if profiling shows it matters.
-- [ ] `additionals` falls back `ImportError -> kamidana.additionals.<name>` —
-  catches the *inner* import errors of the user module too (a buggy
-  additional module that itself fails to import is retried under the
-  `kamidana.additionals` namespace, producing a confusing error). Narrow to
-  `ModuleNotFoundError` where `e.name` matches the requested top-level name.
 
 ## kamidana/extensions/__init__.py
 
@@ -54,10 +46,6 @@ open; completed items are removed.
 - [ ] `logging._nameToLevel` is private API — `logging.getLevelNamesMapping()`
   exists on >= 3.11; switch when the floor moves past 3.10 (3.10 EOLs Oct
   2026).
-- [ ] `import_symbol` failures (a bad `--loader` path) are caught by
-  `error_handler` and reported as gentle errors — good — but non-template
-  exceptions re-raise a raw traceback; consider routing all errors through a
-  consistent policy.
 
 ## kamidana/listinfo.py
 

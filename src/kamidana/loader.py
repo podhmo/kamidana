@@ -102,6 +102,11 @@ class TemplateLoader(ITemplateLoader):
             try:
                 m = import_module(path, cwd=True)
             except ImportError as e:
+                # when the file exists, the error came from inside the
+                # module -- surface it instead of masking it behind the
+                # builtin-module fallback.
+                if path.endswith(".py") and os.path.exists(path):
+                    raise
                 module_name = path[:-3] if path.endswith(".py") else path
                 fallback = "kamidana.additionals.{}".format(module_name)
                 try:

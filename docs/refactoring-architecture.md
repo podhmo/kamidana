@@ -149,10 +149,10 @@ Runtime deps are `jinja2>=3.1`, `dictknife[load]>=0.14`,
   `functools.cached_property`; `deepmerge` is ~30 lines; but `loading`'s
   format dispatch (yaml/toml/json/csv/...) is genuinely useful and is what
   `-i/-o` are built on — keeping dictknife is reasonable.
-- `magicalimport` was inlined into `kamidana/_import.py` (~50 lines) — the
-  used surface (`import_module` by path/dotted name, `import_symbol` with
-  `ns`) is much smaller than magicalimport's feature set (sys.path guessing,
-  parent-package synthesis, `expose_members`).
+- `magicalimport` was inlined into `kamidana/_import.py` — the used
+  surface (`import_module` by path/dotted name, `import_symbol` with
+  `ns`, relative imports for files inside packages) is much smaller
+  than magicalimport's feature set (sys.path guessing, `expose_members`).
 - `inflection` is used only for `pluralize`/`singularize` in
   `additionals/naming.py`. If minimizing further matters more than those two
   filters, they could move behind an optional extra or a tiny local
