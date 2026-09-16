@@ -1,0 +1,44 @@
+$ kamidana --logging=WARNING --debug ./main.html
+Traceback (most recent call last):
+  File "~/repos/kamidana/kamidana/loader.py", line 35, in _load_from_file
+    with open(filename) as rf:
+         ^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'HERE/cases/03include-missing/missing.html'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "~/.pyenv/versions/3.12.13/bin/kamidana", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "~/repos/kamidana/kamidana/commands/onefile.py", line 87, in main
+    driver.run(args.template, args.dst)
+  File "~/repos/kamidana/kamidana/driver.py", line 60, in run
+    result = self.transform(template)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/repos/kamidana/kamidana/driver.py", line 47, in transform
+    return _render_with_newline(t, self.loader.data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/repos/kamidana/kamidana/driver.py", line 15, in _render_with_newline
+    r = t.render(**data)
+        ^^^^^^^^^^^^^^^^
+  File "<site-packages>/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "<site-packages>/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "./main.html", line 3, in top-level template code
+    {% include "./missing.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<site-packages>/jinja2/loaders.py", line 494, in get_source
+    rv = self.load_func(template)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/repos/kamidana/kamidana/loader.py", line 30, in load
+    return self._load_from_file(filename)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/repos/kamidana/kamidana/loader.py", line 40, in _load_from_file
+    raise XTemplatePathNotFound(filename, exc=exc).with_traceback(e.__traceback__)
+  File "~/repos/kamidana/kamidana/loader.py", line 35, in _load_from_file
+    with open(filename) as rf:
+         ^^^^^^^^^^^^^^
+kamidana._path.XTemplatePathNotFound: [Errno 2] No such file or directory: 'HERE/cases/03include-missing/missing.html'. (a template name is a file if it starts with './', '../' or '/'; otherwise it is a template in a python package ('<package>/<path>'))
+[exit 1]

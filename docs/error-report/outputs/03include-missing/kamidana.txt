@@ -1,0 +1,26 @@
+$ kamidana --logging=WARNING ./main.html
+------------------------------------------------------------
+exception: kamidana._path.XTemplatePathNotFound
+message: [Errno 2] No such file or directory: './missing.html'. (a template name is a file if it starts with './', '../' or '/'; otherwise it is a template in a python package ('<package>/<path>'))
+where: main.html
+------------------------------------------------------------
+main.html:
+      1: <html>
+      2: <body>
+  ->  3: {% include "./missing.html" %}
+      4: </body>
+      5: </html>
+
+Traceback:
+  File "<site-packages>/jinja2/loaders.py", line 494, in get_source
+    rv = self.load_func(template)
+         ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/repos/kamidana/kamidana/loader.py", line 30, in load
+    return self._load_from_file(filename)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/repos/kamidana/kamidana/loader.py", line 40, in _load_from_file
+    raise XTemplatePathNotFound(filename, exc=exc).with_traceback(e.__traceback__)
+  File "~/repos/kamidana/kamidana/loader.py", line 35, in _load_from_file
+    with open(filename) as rf:
+         ^^^^^^^^^^^^^^
+[exit 1]

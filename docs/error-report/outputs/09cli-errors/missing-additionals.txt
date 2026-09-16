@@ -1,0 +1,45 @@
+$ kamidana --logging=WARNING -a missing.py ./hello.html
+Traceback (most recent call last):
+  File "~/repos/kamidana/kamidana/loader.py", line 83, in additionals
+    m = import_module(path, cwd=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/repos/kamidana/kamidana/_import.py", line 21, in import_module
+    return _import_from_path(module_path, here=here, cwd=cwd)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/repos/kamidana/kamidana/_import.py", line 38, in _import_from_path
+    raise ModuleNotFoundError("module file is not found: {}".format(path))
+ModuleNotFoundError: module file is not found: missing.py
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "~/.pyenv/versions/3.12.13/bin/kamidana", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "~/repos/kamidana/kamidana/commands/onefile.py", line 87, in main
+    driver.run(args.template, args.dst)
+  File "~/repos/kamidana/kamidana/driver.py", line 59, in run
+    template = self.load(src)
+               ^^^^^^^^^^^^^^
+  File "~/repos/kamidana/kamidana/driver.py", line 50, in load
+    return self.environment.get_or_select_template(template_file)
+           ^^^^^^^^^^^^^^^^
+  File "<site-packages>/dictknife/langhelpers.py", line 43, in __get__
+    val = self.wrapped(inst)
+          ^^^^^^^^^^^^^^^^^^
+  File "~/repos/kamidana/kamidana/driver.py", line 43, in environment
+    self.loader.load, self.loader.additionals, self.loader.extensions
+                      ^^^^^^^^^^^^^^^^^^^^^^^
+  File "<site-packages>/dictknife/langhelpers.py", line 43, in __get__
+    val = self.wrapped(inst)
+          ^^^^^^^^^^^^^^^^^^
+  File "~/repos/kamidana/kamidana/loader.py", line 85, in additionals
+    m = import_module("kamidana.additionals.{}".format(path), cwd=True)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/repos/kamidana/kamidana/_import.py", line 21, in import_module
+    return _import_from_path(module_path, here=here, cwd=cwd)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/repos/kamidana/kamidana/_import.py", line 38, in _import_from_path
+    raise ModuleNotFoundError("module file is not found: {}".format(path))
+ModuleNotFoundError: module file is not found: kamidana.additionals.missing.py
+[exit 1]
