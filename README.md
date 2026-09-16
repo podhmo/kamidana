@@ -16,10 +16,10 @@ features
 ## usage
 
 ```console
-usage: kamidana [-h] [--driver DRIVER] [--loader LOADER] [-d DATA]
-                  [--logging {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}] [-a ADDITIONALS] [-e EXTENSION]
-                  [-i {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}] [-o OUTPUT_FORMAT] [--dump-context]
-                  [--list-info] [--strict-undefined] [--debug] [--quiet] [--dst DST]
+usage: kamidana [-h] [--loader LOADER] [-d DATA] [--logging {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}]
+                  [-a ADDITIONALS] [-e EXTENSION] [-i {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}]
+                  [-o OUTPUT_FORMAT] [--strict-undefined] [--debug] [--quiet] [--driver DRIVER] [--dump-context]
+                  [--list-info] [--dst DST]
                   [template]
 
   positional arguments:
@@ -28,7 +28,6 @@ usage: kamidana [-h] [--driver DRIVER] [--loader LOADER] [-d DATA]
 
   options:
     -h, --help            show this help message and exit
-    --driver DRIVER       default: kamidana.driver:Driver
     --loader LOADER       default: kamidana.loader:TemplateLoader
     -d DATA, --data DATA  support yaml, json, toml
     --logging {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}
@@ -36,11 +35,12 @@ usage: kamidana [-h] [--driver DRIVER] [--loader LOADER] [-d DATA]
     -e EXTENSION, --extension EXTENSION
     -i {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}, --input-format {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}
     -o OUTPUT_FORMAT, --output-format OUTPUT_FORMAT
-    --dump-context        dumping loading data (used by jinja2 template)
-    --list-info           listting information (for available extensions and additional modules)
     --strict-undefined    raise an error when an undefined variable is used (jinja2.StrictUndefined)
     --debug
     --quiet
+    --driver DRIVER       default: kamidana.driver:Driver
+    --dump-context        dumping loading data (used by jinja2 template)
+    --list-info           listting information (for available extensions and additional modules)
     --dst DST
 
 ```
@@ -180,11 +180,11 @@ $ kamidana ./examples/readme/src/11/main.html.j2
   Traceback:
     File "SITE-PACKAGES/jinja2/loaders.py", line N, in get_source
       rv = self.load_func(template)
-    File "HERE/repos/kamidana/kamidana/loader.py", line 30, in load
+    File "HERE/repos/kamidana/src/kamidana/loader.py", line 30, in load
       return self._load_from_file(filename)
-    File "HERE/repos/kamidana/kamidana/loader.py", line 40, in _load_from_file
+    File "HERE/repos/kamidana/src/kamidana/loader.py", line 40, in _load_from_file
       raise XTemplatePathNotFound(filename, exc=exc).with_traceback(e.__traceback__)
-    File "HERE/repos/kamidana/kamidana/loader.py", line 35, in _load_from_file
+    File "HERE/repos/kamidana/src/kamidana/loader.py", line 35, in _load_from_file
       with open(filename) as rf:
 
 

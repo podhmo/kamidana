@@ -35,8 +35,10 @@ kamidana-batch = "kamidana.commands.manyfiles:main"
 [tool.setuptools]
 include-package-data = true
 zip-safe = false
+package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
+where = ["src"]
 exclude = ["kamidana.tests"]
 
 [tool.setuptools.dynamic]
@@ -45,4 +47,4 @@ readme = {file = ["README.md", "CHANGES.txt"], content-type = "text/markdown"}
 
 [tool.mypy]
 python_version = "3.10"
-files = ["kamidana"]
+files = ["src/kamidana"]
