@@ -223,3 +223,46 @@ def test_python_side_error_where_points_at_raise_site(
     lineno = helpers.lookup_rate.__code__.co_firstlineno + 1
     assert "where: helpers.py:{}".format(lineno) in output
     assert "where: main.jinja2" not in output
+
+
+def test_python_only_error_is_rendered_gently(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # an additional module that fails *while being imported* has no
+    # template frames; it used to escape as a raw interpreter traceback.
+    # it should now get the same exception/message/where treatment.
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "bad.py").write_text("raise RuntimeError('boom')\n")
+
+    def run() -> None:
+        from kamidana._import import import_module
+
+        import_module("bad.py")
+
+    with pytest.raises(RuntimeError) as e:
+        run()
+
+    output = translate_error(e.value)
+    assert "exception: builtins.RuntimeError" in output
+    assert "message: boom" in output
+    assert "where: bad.py:1" in output
+    assert "bad.py:" in output
+    # internal frames are not locations the user can act on
+    assert "kamidana" not in output
+
+
+def test_python_only_error_without_actionable_frames_falls_back(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    # when every frame is inside stdlib/jinja2/kamidana internals there
+    # is nothing actionable to point at; the full traceback is kept.
+    monkeypatch.chdir(tmp_path)
+    with pytest.raises(ModuleNotFoundError) as e:
+        from kamidana._import import import_module
+
+        import_module("not-there.py")
+
+    output = translate_error(e.value)
+    assert "exception: builtins.ModuleNotFoundError" in output
+    assert "not-there.py" in output
+    assert "Traceback:" in output

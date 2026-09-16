@@ -5,16 +5,13 @@ open; completed items are removed.
 
 ## kamidana/_import.py (new, replaces magicalimport)
 
-- [ ] `_module_id()` can collide: `a/b.py` and `a_b.py` both map to `a.b`.
-  Also `sys.modules` keys like `src_00inheritance.url_for` leak into the
-  global module table — consider a private registry dict instead of
-  `sys.modules`, or a hashed suffix.
 - [ ] `import_symbol()` lost the `silent`/`here` options from
   magicalimport — unused today; re-add only if a caller needs them.
-- [ ] `import_module()` does not create parent-package `__init__` modules the
-  way magicalimport did; an additional file inside a package directory that
-  uses relative imports will fail. Acceptable for standalone `*.py`
-  additionals — document the limitation.
+- [ ] a file inside a package is imported through the real machinery:
+  its root dir stays on `sys.path` for the rest of the process — fine
+  for a CLI, but a library embedding `import_module` would see the side
+  effect. Standalone files (no `__init__.py` nearby) still cannot use
+  relative imports — by design.
 
 ## kamidana/loader.py
 
