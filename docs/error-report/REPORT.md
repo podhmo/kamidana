@@ -219,13 +219,14 @@ API 引数経由のみ。
 
 ## 残る観察点 (今回新たに気付いた点・未修正)
 
-- **`where:` が stdlib 内部を指すことがある**: raise 箇所を正確に指すようになった
-  副作用として、RecursionError が `os.path` 内部で起きる再帰 include では
-  `where: <frozen posixpath>:63` と表示される (`11recursive/self-include.txt`)。
-  正確ではあるがユーザーが見るべき場所 (再帰している `{% include %}` 行) ではない。
-  直すなら「最内側のユーザーコード (非 stdlib・非 jinja2) フレーム」を優先するか、
-  テンプレート位置を併記する形が考えられる。深刻度は低い。
-- **`level` は CLI から変えられない**: 省略マーカー付きの上限機能は
+- **`where:` が stdlib 内部を指すことがある** (issue #72): raise 箇所を正確に
+  指すようになった副作用として、RecursionError が `os.path` 内部で起きる再帰
+  include では `where: <frozen posixpath>:63` と表示される
+  (`11recursive/self-include.txt`)。正確ではあるがユーザーが見るべき場所
+  (再帰している `{% include %}` 行) ではない。直すなら「最内側のユーザー
+  コード (非 stdlib・非 jinja2) フレーム」を優先するか、テンプレート位置を
+  併記する形が考えられる。深刻度は低い。
+- **`level` は CLI から変えられない** (issue #73): 省略マーカー付きの上限機能は
   `translate_error`/`on_error` の引数経由のみ。上限をユーザーが使いたい場面は
   dedup があるので実質ほぼないが、API だけの隠れ機能になっている。
 
