@@ -81,8 +81,15 @@ class TemplateLoader(ITemplateLoader):
         for path in self.additional_path_list:
             try:
                 m = import_module(path, cwd=True)
-            except ImportError:
-                m = import_module("kamidana.additionals.{}".format(path), cwd=True)
+            except ImportError as e:
+                module_name = path[:-3] if path.endswith(".py") else path
+                fallback = "kamidana.additionals.{}".format(module_name)
+                try:
+                    m = import_module(fallback, cwd=True)
+                except ImportError:
+                    raise ImportError(
+                        "module not found: {} (also tried {})".format(path, fallback)
+                    ) from e
             d = deepmerge(d, collect_marked_items(m))
         return d
 
