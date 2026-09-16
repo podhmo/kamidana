@@ -36,7 +36,10 @@ class TemplateLoader(ITemplateLoader):
                 logger.debug("load: %s", filename)
                 return rf.read(), filename, None
         except FileNotFoundError as e:
-            raise XTemplatePathNotFound(filename, exc=e).with_traceback(e.__traceback__)
+            exc = FileNotFoundError("{}. ({})".format(e, _SPEC_NOTE))
+            raise XTemplatePathNotFound(filename, exc=exc).with_traceback(
+                e.__traceback__
+            )
 
     def _load_from_package(self, filename):
         package, resource = split_package_spec(filename)
@@ -57,11 +60,7 @@ class TemplateLoader(ITemplateLoader):
         except (FileNotFoundError, IsADirectoryError, NotADirectoryError) as e:
             raise XTemplatePathNotFound(
                 filename,
-                exc=FileNotFoundError(
-                    'template "{}" is not found in package "{}"'.format(
-                        resource, package
-                    )
-                ),
+                exc=_resource_not_found_exc(package, resource, anchor),
             ).with_traceback(e.__traceback__)
 
         logger.debug("load: %s (package=%s)", filename, package)
@@ -93,31 +92,45 @@ class TemplateLoader(ITemplateLoader):
         return d
 
 
+_SPEC_NOTE = (
+    "a template name is a file if it starts with './' or '/';"
+    " otherwise it is a template in a python package ('<package>/<path>')"
+)
+
+
 def _missing_spec_exc(filename):
     if os.path.exists(filename):
         msg = (
             '"{0}" exists in the current directory, but "{0}" is interpreted'
             " as a template in a python package. to load the file, pass"
-            ' "./{0}"'.format(filename)
+            ' "./{0}". ({1})'.format(filename, _SPEC_NOTE)
         )
     else:
         msg = (
             '"{0}" is interpreted as a template in a python package, but it'
-            " is not in '<package>/<path>' form. a physical path must start"
-            " with './' or '/' (e.g. './{0}'); a package template looks like"
-            " '<package>/<path>'".format(filename)
+            " is not in '<package>/<path>' form. ({1})".format(
+                filename, _SPEC_NOTE
+            )
         )
     return FileNotFoundError(msg)
 
 
 def _package_not_found_exc(package, filename, e):
     if os.path.exists(filename):
-        hint = ' the file exists; pass "./{}" to load it.'.format(filename)
+        hint = ' the file exists; to load it, pass "./{}".'.format(filename)
     else:
-        hint = (
-            " if it is a file, a physical path must start with './' or '/'."
+        hint = ""
+    msg = (
+        'python package "{}" is not found, while loading template "{}"'
+        " ({}).{} ({})".format(package, filename, e, hint, _SPEC_NOTE)
+    )
+    return FileNotFoundError(msg)
+
+
+def _resource_not_found_exc(package, resource, anchor):
+    msg = (
+        'template "{}" is not found in package "{}" (at {}). ({})'.format(
+            resource, package, anchor, _SPEC_NOTE
         )
-    msg = 'python package "{}" is not found, while loading template "{}" ({}).{}'.format(
-        package, filename, e, hint
     )
     return FileNotFoundError(msg)

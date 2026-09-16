@@ -47,18 +47,29 @@ usage: kamidana [-h] [--driver DRIVER] [--loader LOADER] [-d DATA]
 
 a template name is interpreted as follows.
 
-- physical path: a name starting with `./` or `/` (e.g. `./main.j2`, `/tmp/main.j2`)
-- python package: otherwise (e.g. `mypkg/templates/main.j2`, resolved as the resource `templates/main.j2` inside the installed package `mypkg`)
+- **physical path**: a name starting with `./` or `/` is a file path
+  - `./main.j2` -> the file `main.j2` in the current directory
+  - `/tmp/main.j2` -> the file `/tmp/main.j2`
+- **python package**: otherwise, the name is a template in a python package, in `<package>/<path>` form
+  - `mypkg/templates/main.j2` -> the resource `templates/main.j2` inside the installed package `mypkg`
+  - `mypkg.sub/templates/main.j2` -> a dotted package name is also ok (resolved via `importlib.resources`)
 
-so, a file in the current directory must be passed with `./` prefix.
+this is consistent with how `-a/--additionals` accepts either a file path (`foo/bar.py`) or a module name (`foo.bar`).
 
 ```console
-$ kamidana main.j2        # NG: interpreted as a package template
-$ kamidana ./main.j2      # OK: physical path
-$ kamidana mypkg/main.j2  # OK: template "main.j2" in package "mypkg"
+$ kamidana main.j2                   # NG: interpreted as a package template
+$ kamidana ./main.j2                 # OK: the file main.j2
+$ kamidana mypkg/templates/main.j2   # OK: the template "templates/main.j2" in package "mypkg"
 ```
 
+so, a file in the current directory must be passed with `./` prefix.
+when a template name cannot be resolved, the error message explains this rule
+(e.g. `"main.j2" exists in the current directory, but "main.j2" is interpreted as a template in a python package. to load the file, pass "./main.j2"`).
+
 also, `{% extends %}` and `{% include %}` are resolved relative to the parent template, in both cases.
+for example, `{% extends "base.j2" %}` inside `mypkg/templates/main.j2` loads `templates/base.j2` from the same package.
+
+in `kamidana-batch`, the `template` field of each command follows the same rule.
 
 ## examples
 
@@ -154,7 +165,7 @@ $ tree ./examples/readme/src/11
 $ kamidana ./examples/readme/src/11/main.html.j2
 ------------------------------------------------------------
   exception: kamidana._path.XTemplatePathNotFound
-  message: [Errno 2] No such file or directory: 'footer-404.html.j2'
+  message: [Errno 2] No such file or directory: 'footer-404.html.j2'. (a template name is a file if it starts with './' or '/'; otherwise it is a template in a python package ('<package>/<path>'))
   where: examples/readme/src/11/main.html.j2
   ------------------------------------------------------------
   examples/readme/src/11/main.html.j2:
@@ -168,8 +179,8 @@ $ kamidana ./examples/readme/src/11/main.html.j2
       rv = self.load_func(template)
     File "HERE/repos/kamidana/kamidana/loader.py", line 30, in load
       return self._load_from_file(filename)
-    File "HERE/repos/kamidana/kamidana/loader.py", line 39, in _load_from_file
-      raise XTemplatePathNotFound(filename, exc=e).with_traceback(e.__traceback__)
+    File "HERE/repos/kamidana/kamidana/loader.py", line 40, in _load_from_file
+      raise XTemplatePathNotFound(filename, exc=exc).with_traceback(
     File "HERE/repos/kamidana/kamidana/loader.py", line 35, in _load_from_file
       with open(filename) as rf:
 
