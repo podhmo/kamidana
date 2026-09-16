@@ -194,7 +194,7 @@ def test_python_side_error_where_points_at_raise_site(
         )
     )
     monkeypatch.syspath_prepend(str(tmp_path))
-    import helpers
+    import helpers  # type: ignore[import-not-found]
 
     def money(amount):
         return helpers.format_money(amount, "JPY")

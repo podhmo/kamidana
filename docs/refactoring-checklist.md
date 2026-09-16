@@ -98,8 +98,8 @@ in the dependency-update change; the rest are open.
 
 - [x] `importlib_resources.contents` -> `importlib.resources.files().iterdir()`
   (`contents()` is deprecated; the backport package is gone entirely).
-- [ ] `OrderedDict` -> plain `dict` (ordered since 3.7).
-- [ ] `inspect.getdoc(cls)` can return `None` -> `None.strip()` would crash on
+- [x] `OrderedDict` -> plain `dict` (ordered since 3.7).
+- [x] `inspect.getdoc(cls)` can return `None` -> `None.strip()` would crash on
   an undocumented extension class (none today; cheap guard).
 - [ ] Discovering "additional modules" via filesystem listing of
   `kamidana.additionals` misses modules importable only via `sys.path`;

@@ -55,6 +55,4 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install -e .[testing]
     - name: Type check with mypy
-      # warning-only for now; drop continue-on-error to enforce later
-      continue-on-error: true
       run: make typecheck
