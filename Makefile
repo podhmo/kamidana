@@ -18,6 +18,9 @@ ci:
 _find-candidates:
 	@find ${WHERE} -mindepth 2 -name Makefile | grep -v optional/sheet | grep -v docs | xargs -n 1 -I{} dirname {}
 
+typecheck:
+	mypy
+
 build:
 #	pip install build
 	python -m build
@@ -27,4 +30,4 @@ upload:
 	twine check dist/kamidana-$(shell cat VERSION)*
 	twine upload dist/kamidana-$(shell cat VERSION)*
 
-.PHONY: build upload
+.PHONY: typecheck build upload
