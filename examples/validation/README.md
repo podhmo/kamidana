@@ -1,13 +1,13 @@
-# pydantic による入力値の検証
+# validating params with pydantic
 
-`--driver` は `kamidana/commands/onefile.py` の
-`import_symbol(args.driver, ns="kamidana.driver", cwd=True)` でドライバを
-解決します。そのため、ローカルの `.py` ファイルも指定できます。
+`--driver` is resolved in `kamidana/commands/onefile.py` via
+`import_symbol(args.driver, ns="kamidana.driver", cwd=True)`. Because of
+`cwd=True`, a local `.py` file can be passed as `<path>:<ClassName>`.
 
-この例では pydantic v2 が必要です。pydantic は kamidana の依存関係には
-含まれていないため、別途インストールしてください。
+This example requires pydantic v2. pydantic is not a dependency of
+kamidana, so install it yourself (`pip install pydantic`).
 
-リポジトリのルートから、正常なデータをレンダリングします。
+From the repository root, render valid data:
 
 ```console
 $ kamidana --driver=./examples/validation/validating_driver.py:ValidatingDriver -d examples/validation/data.ok.yaml examples/validation/template.j2
@@ -15,8 +15,8 @@ hello, foo!
 listening on port 8081
 ```
 
-必須の `name` がなく、`port` の型も不正なデータでは、pydantic の
-`ValidationError` が表示されます。
+With data that lacks the required `name` and has a `port` of the wrong
+type, pydantic's `ValidationError` is raised and nothing is rendered:
 
 ```console
 $ kamidana --driver=./examples/validation/validating_driver.py:ValidatingDriver -d examples/validation/data.ng.yaml examples/validation/template.j2
@@ -29,7 +29,7 @@ Traceback (most recent call last):
     driver.run(args.template, args.dst)
   File "kamidana/driver.py", line 72, in run
     return self.dump(self.transform(self.load(src)), dst)
-  File "examples/validation/validating_driver.py", line 14, in transform
+  File "examples/validation/validating_driver.py", line 16, in transform
     params = Params.model_validate(self.loader.data)
   File "site-packages/pydantic/main.py", line 732, in model_validate
     return cls.__pydantic_validator__.validate_python(
@@ -42,6 +42,8 @@ port
     For further information visit https://errors.pydantic.dev/2.13/v/int_parsing
 ```
 
-`transform` の入口で検証するため、必須パラメータがない状態でテンプレートが
-レンダリングされることはありません。`model_dump()` によって、テンプレート
-から pydantic のデフォルト値も参照できます。
+Since `run()` is `dump(transform(load(src)))`, validating at the entrance
+of `transform` guarantees the template is never rendered without the
+required params. Passing `model_dump()` to the template also makes
+pydantic's default values (e.g. `greeting`) and coerced values
+(e.g. `port` as `int`) available in the template.
