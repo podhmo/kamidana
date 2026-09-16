@@ -1,0 +1,66 @@
+$ kamidana --logging=WARNING --debug ./c0.html -a additionals.py
+Traceback (most recent call last):
+  File "~/.pyenv/versions/3.12.13/bin/kamidana", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "~/repos/kamidana/kamidana/commands/onefile.py", line 87, in main
+    driver.run(args.template, args.dst)
+  File "~/repos/kamidana/kamidana/driver.py", line 60, in run
+    result = self.transform(template)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/repos/kamidana/kamidana/driver.py", line 47, in transform
+    return _render_with_newline(t, self.loader.data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/repos/kamidana/kamidana/driver.py", line 15, in _render_with_newline
+    r = t.render(**data)
+        ^^^^^^^^^^^^^^^^
+  File "<site-packages>/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "<site-packages>/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "./c0.html", line 1, in top-level template code
+    {% extends "c1.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/10deep-chain/c1.html", line 1, in top-level template code
+    {% extends "c2.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/10deep-chain/c2.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "HERE/cases/10deep-chain/base.html", line 3, in top-level template code
+    {% block content %}
+    ^^^^^^^^^^^^^^^^^^^^
+  File "./c0.html", line 2, in block 'content'
+    {% block content %}[c0] {{ super() }}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/10deep-chain/c1.html", line 2, in block 'content'
+    {% block content %}[c1] {{ super() }}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/10deep-chain/c2.html", line 2, in block 'content'
+    {% block content %}[c2] {{ super() }}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/10deep-chain/base.html", line 4, in block 'content'
+    {% include "./part1.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/10deep-chain/part1.html", line 2, in top-level template code
+    {% include "./part2.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/10deep-chain/part2.html", line 3, in top-level template code
+    {{ m.price() }}
+    ^^^^^^^^^^^^^^^^
+  File "<site-packages>/jinja2/runtime.py", line 784, in _invoke
+    rv = self._func(*arguments)
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/10deep-chain/macros.html", line 2, in template
+    price: {{ 100|money }}
+  ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "additionals.py", line 7, in money
+    return helpers.format_money(amount, "JPY")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/10deep-chain/helpers.py", line 11, in format_money
+    rate = lookup_rate(currency)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/10deep-chain/helpers.py", line 7, in lookup_rate
+    return _RATES[currency]
+           ~~~~~~^^^^^^^^^^
+KeyError: 'JPY'
+[exit 1]

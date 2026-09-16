@@ -1,0 +1,52 @@
+$ python ../../j2.py c0.html
+Traceback (most recent call last):
+  File "HERE/cases/10deep-chain/../../j2.py", line 42, in <module>
+    main()
+  File "HERE/cases/10deep-chain/../../j2.py", line 37, in main
+    sys.stdout.write(t.render())
+                     ^^^^^^^^^^
+  File "<site-packages>/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "<site-packages>/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "c0.html", line 1, in top-level template code
+    {% extends "c1.html" %}
+  File "c1.html", line 1, in top-level template code
+    {% extends "c2.html" %}
+  File "c2.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "base.html", line 3, in top-level template code
+    {% block content %}
+  File "c0.html", line 2, in block 'content'
+    {% block content %}[c0] {{ super() }}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c1.html", line 2, in block 'content'
+    {% block content %}[c1] {{ super() }}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c2.html", line 2, in block 'content'
+    {% block content %}[c2] {{ super() }}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "base.html", line 4, in block 'content'
+    {% include "./part1.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "part1.html", line 2, in top-level template code
+    {% include "./part2.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "part2.html", line 3, in top-level template code
+    {{ m.price() }}
+  File "<site-packages>/jinja2/runtime.py", line 784, in _invoke
+    rv = self._func(*arguments)
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "macros.html", line 2, in template
+    price: {{ 100|money }}
+  File "HERE/cases/10deep-chain/additionals.py", line 7, in money
+    return helpers.format_money(amount, "JPY")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/10deep-chain/helpers.py", line 11, in format_money
+    rate = lookup_rate(currency)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/10deep-chain/helpers.py", line 7, in lookup_rate
+    return _RATES[currency]
+           ~~~~~~^^^^^^^^^^
+KeyError: 'JPY'
+[exit 1]

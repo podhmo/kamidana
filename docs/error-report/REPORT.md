@@ -41,6 +41,8 @@ jinja2 の生 traceback は 2019 年当時と比べて大幅に改善されて�
 4. `XTemplatePathNotFound` のヒントメッセージなど、kamidana 独自の情報が載る。
 
 一方で今回見つかった kamidana 側の問題点もある (後述「見つかった問題」)。
+特に case 10 で分かったように、多段ネストではフレームが暗黙に5窓へ切り捨てられ、
+素の jinja2 より記録が不完全になるケースがある。
 
 ## ケース別の観察
 
@@ -128,6 +130,43 @@ jinja2 に対応物がないので kamidana の出力だけを見た:
   `kamidana.additionals.missing` の import が正しく試行される。
   (`kamidana/_import.py` の拡張子 `.py` 判定によるもの)
 
+### 10deep-chain — 多段ネストの記録 (継承4段 → include連鎖 → macro → python filter)
+
+「多段にネストした関係がうまく記録できているか」の検証用に、意図的に深い
+チェーンを作った:
+
+```
+c0.html -(extends)-> c1.html -(extends)-> c2.html -(extends)-> base.html
+  ※ 各々が {% block content %}[cN] {{ super() }}{% endblock %} で中継
+base.html -(include)-> part1.html -(include)-> part2.html
+part2.html -(import/call)-> macros.html {% macro price() %}{{ 100|money }}...
+money (additionals.py) -> helpers.format_money -> helpers.lookup_rate -> KeyError
+```
+
+素の jinja2 traceback (`outputs/10deep-chain/jinja2.txt`) はテンプレートフレームを
+**11個すべて** 記録する (c0/c1/c2/base の top-level 4つ + block 'content' 4つ +
+part1 + part2 + macro の1つ)。フレームの順序 (outermost→innermost) も正しい。
+
+これに対して kamidana の出力 (`outputs/10deep-chain/kamidana.txt`) は **5窓しか
+出ない**: c2 の block、base の block(include行)、part1、part2、macros。
+前半の c0/c1/c2 の top-level フレーム、c0/c1 の block フレーム、base の
+top-level フレームが丸ごと欠けている。
+
+原因は `gentleerror.Renderer.on_error` の `level=5` による切り捨て
+(`detail.jinja2_frames[-level:]`)。つまり:
+
+- **記録自体は正しい**: 抽出・dedup・順序は生 traceback と一致する (残った5窓は
+  jinja2 側の末尾5フレームと一致)。
+- **しかし深いチェーンでは先頭が捨てられる**: 実行者が呼んだエントリの
+  テンプレート (`c0.html`) すら表示されず、「どこから辿ってきたか」が失われる。
+- **切り捨ては暗黙**: 「あとNフレーム省略」のような表示がなく、切られたことに
+  気付けない。
+- `level` は CLI から変更できない (`translate_error` → `on_error` のデフォルト
+  `level=5` に固定)。
+
+同じチェーンを素の jinja2 で見ると全工程が残るので、**深いネストではむしろ
+生 traceback の方が完全な記録になる** — 現状の kamidana 側の最大の弱点。
+
 ## jinja2 生 traceback 側の観察メモ
 
 - `^^^^` マーカー行が fake traceback ではズレる/独立行になるケースがある
@@ -146,6 +185,9 @@ jinja2 に対応物がないので kamidana の出力だけを見た:
 3. `-a <name>.py` で存在しないファイルを渡すと fallback 先をファイルパスとして
    解釈してしまい、メッセージが `kamidana.additionals.<name>.py` という存在しない
    ファイル名になる (case 09)。ユーザーの typo を誤導する。
+4. テンプレートフレームが `level=5` で暗黙に切り捨てられるため、多段ネストでは
+   チェーン先頭 (エントリのテンプレートを含む) が失われ、省略表示もない
+   (case 10)。CLI から変更する手段もない。
 
 ## 総評
 
@@ -153,4 +195,6 @@ jinja2 に対応物がないので kamidana の出力だけを見た:
 は今も健在で、少なくとも syntax error 系・継承系では素の jinja2 出力より確実に
 読みやすい。一方で jinja2 標準だけでも「場所の特定」自体は可能なので、この機能の
 差分は「情報がある/ない」ではなく「読みやすさ+αのヒント」に移っている。
-維持するなら上記の `where:` の精度や `-a` fallback のバグを直すと価値が上がる。
+維持するなら上記の `where:` の精度、`-a` fallback のバグ、そしてフレームの
+切り捨て (例: 全フレーム出すか、省略時にマーカーを出すか `level` を設定可能にする)
+を直すと価値が上がる。

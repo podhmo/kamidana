@@ -48,6 +48,8 @@ run_case 06extends-syntax-error ./child.html child.html
 run_case 07macro-caller ./child2.html child2.html
 run_case 08include-chain ./main.html main.html
 
+run_case 10deep-chain ./c0.html c0.html -a additionals.py
+
 # kamidana-only CLI errors (no jinja2 counterpart)
 run 09cli-errors missing-template.txt $K ./no-such.html
 run 09cli-errors missing-data.txt $K -d ./missing.json ./hello.html
