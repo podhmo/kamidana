@@ -78,21 +78,24 @@ in the dependency-update change; the rest are open.
   f-string for readability.
 - [ ] `gentleerror._get_info_from_exception` is marked `xxx: remove it` —
   fold into `errors.py` consolidation (architecture doc §3).
-- [ ] `color.is_colorful` tests `sys.stdout.isatty()` but all callers print to
-  stderr — should test `sys.stderr`.
+- [x] `color.is_colorful` now tests `sys.stderr.isatty()` — all callers
+  print to stderr.
 - [ ] No unit tests for `debug/` at all — coverage is only the examples
   fixtures. Extract golden cases into `kamidana/tests/` so jinja2 upgrades
   fail in `pytest`, not only in `make ci`.
 
 ## kamidana/commands/
 
-- [ ] Duplicated parser/prologue between `onefile.py` and `manyfiles.py`
-  (architecture doc §6).
+- [x] Duplicated parser/prologue extracted into `commands/_args.py`:
+  `make_common_parser()` (shared options), `setup_logging()`,
+  `build_loader()` (`--loader` resolution + `jinja2.ext.` prefixing), and
+  `build_driver()` (construction + `--strict-undefined`). `manyfiles` gains
+  the `-d` short flag for `--data` as a side effect of sharing the parser.
 - [ ] `logging._nameToLevel` is private API — `logging.getLevelNamesMapping()`
   exists on >= 3.11; switch when the floor moves past 3.10 (3.10 EOLs Oct
   2026).
-- [ ] `onefile.py` `--list-info` writes a hardcoded `\x1b[1m` ANSI bold header
-  to stderr without checking `is_colorful()`.
+- [x] `onefile.py` `--list-info` ANSI bold header is now emitted only when
+  `is_colorful()` (i.e. stderr is a tty).
 - [ ] `import_symbol` failures (a bad `--loader` path) are caught by
   `error_handler` and reported as gentle errors — good — but non-template
   exceptions re-raise a raw traceback; consider routing all errors through a

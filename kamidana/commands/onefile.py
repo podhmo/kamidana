@@ -1,37 +1,20 @@
 import sys
-import argparse
 import logging
-import jinja2
 from kamidana._import import import_symbol
-from kamidana.debug import error_handler
-from dictknife.loading import get_formats, dumpfile
+from kamidana.debug import error_handler, is_colorful
+from dictknife.loading import dumpfile
+from ._args import make_common_parser, setup_logging, build_loader, build_driver
 
 logger = logging.getLogger(__name__)
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = make_common_parser()
     parser.add_argument(
         "--driver",
         default="kamidana.driver:Driver",
         help="default: kamidana.driver:Driver",
     )
-    parser.add_argument(
-        "--loader",
-        default="kamidana.loader:TemplateLoader",
-        help="default: kamidana.loader:TemplateLoader",
-    )
-    parser.add_argument(
-        "-d", "--data", action="append", help="support yaml, json, toml", default=[]
-    )
-    parser.add_argument(
-        "--logging", choices=list(logging._nameToLevel.keys()), default="INFO"
-    )
-    parser.add_argument("-a", "--additionals", action="append", default=[])
-    parser.add_argument("-e", "--extension", action="append", default=[])
-
-    parser.add_argument("-i", "--input-format", default=None, choices=get_formats())
-    parser.add_argument("-o", "--output-format", default="raw")
     parser.add_argument(
         "--dump-context",
         action="store_true",
@@ -48,27 +31,13 @@ def main():
         help="template file ('./foo.j2', '../foo.j2', '/foo.j2') or a template"
         " in a python package ('<package>/<path>')",
     )
-    parser.add_argument(
-        "--strict-undefined",
-        action="store_true",
-        help="raise an error when an undefined variable is used (jinja2.StrictUndefined)",
-    )
-    parser.add_argument("--debug", action="store_true")
-    parser.add_argument("--quiet", action="store_true")
     parser.add_argument("--dst", default=None)
 
     args = parser.parse_args()
-    logging.basicConfig(level=getattr(logging, args.logging))
+    setup_logging(args)
 
     with error_handler(debug=args.debug, quiet=args.quiet):
-        loader_cls = import_symbol(args.loader, ns="kamidana.loader", cwd=True)
-        extensions = [
-            ("jinja2.ext.{}".format(ext) if "." not in ext else ext)
-            for ext in args.extension
-        ]
-        loader = loader_cls(
-            args.data, args.additionals, extensions, format=args.input_format
-        )
+        loader = build_loader(args)
 
         if args.template is None and not (args.dump_context or args.list_info):
             logger.info("template is not passed, running as --dump-context")
@@ -81,15 +50,15 @@ def main():
             output_format = args.output_format
             if output_format == "raw":
                 output_format = "json"
-            print(
-                "\x1b[1mextensions are used by `-e`, additional modules are used by `-a`.\x1b[0m",
-                file=sys.stderr,
+            header = (
+                "extensions are used by `-e`, additional modules are used by `-a`."
             )
+            if is_colorful():
+                header = "\x1b[1m{}\x1b[0m".format(header)
+            print(header, file=sys.stderr)
             dumpfile(listinfo.listinfo(), format=output_format)
             return print("")
         else:
             driver_cls = import_symbol(args.driver, ns="kamidana.driver", cwd=True)
-        driver = driver_cls(loader, format=args.output_format)
-        if args.strict_undefined:
-            driver.undefined = jinja2.StrictUndefined
+        driver = build_driver(driver_cls, loader, args)
         driver.run(args.template, args.dst)

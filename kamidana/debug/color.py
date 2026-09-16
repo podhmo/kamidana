@@ -2,7 +2,8 @@ import sys
 
 
 def is_colorful(*, colorful=None) -> bool:
-    return colorful or (colorful is None and sys.stdout.isatty())
+    # all callers print to stderr, so that is the stream to test
+    return colorful or (colorful is None and sys.stderr.isatty())
 
 
 def highlight(content: str, *, colorful: bool) -> str:
