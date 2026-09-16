@@ -111,8 +111,9 @@ Also `Driver` and `BatchCommandDriver` duplicate the same
 
 Direction:
 
-- Either formalize the plugin contract as `typing.Protocol` (structural,
-  matches reality) or drop the ABCs entirely.
+- [x] Formalize the plugin contract as `typing.Protocol` (structural,
+  matches reality) — done; `interfaces.py` now defines `IDriver` /
+  `ITemplateLoader` as protocols, checked non-blockingly by `make typecheck`.
 - Extract a shared `BaseDriver` holding `loader`, `format`, and the cached
   `environment`; `ContextDumpDriver` then becomes a two-method specialization.
 

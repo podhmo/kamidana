@@ -22,7 +22,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-testing = ["pytest"]
+testing = ["pytest", "mypy"]
 docs = ["sphinx", "sphinx_rtd_theme"]
 
 [project.urls]
@@ -42,3 +42,7 @@ exclude = ["kamidana.tests"]
 [tool.setuptools.dynamic]
 version = {file = ["VERSION"]}
 readme = {file = ["README.md", "CHANGES.txt"], content-type = "text/markdown"}
+
+[tool.mypy]
+python_version = "3.10"
+files = ["kamidana"]

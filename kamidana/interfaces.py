@@ -1,32 +1,26 @@
-import abc
+import typing as t
 
-# TODO: using typing_extensions.Protocol?
-
-
-class ITemplateLoader(metaclass=abc.ABCMeta):
-    @abc.abstractmethod
-    def load(self, filename):  # Tuple[str, str, Callable[[], bool]]
-        pass
-
-    @property
-    @abc.abstractmethod
-    def data(self):
-        pass
-
-    @abc.abstractmethod
-    def additionals(self):
-        pass
+# Structural contracts for --loader / --driver plugins (resolved via
+# import_symbol at runtime). See docs/refactoring-architecture.md section 4.
 
 
-class IDriver(metaclass=abc.ABCMeta):
-    @abc.abstractmethod
-    def load(self, template_file):
-        pass
+class ITemplateLoader(t.Protocol):
+    extensions: t.List[str]
+    data: t.Dict[str, t.Any]
+    additionals: t.Dict[str, t.Any]
 
-    @abc.abstractmethod
-    def dump(self, d, dst):
-        pass
+    def load(
+        self, filename: str
+    ) -> t.Tuple[str, str, t.Optional[t.Callable[[], bool]]]:
+        ...
 
-    @abc.abstractmethod
-    def run(self, src, dst):
-        pass
+
+class IDriver(t.Protocol):
+    def load(self, template_file: str) -> t.Any:
+        ...
+
+    def dump(self, d: t.Any, dst: t.Optional[str]) -> t.Any:
+        ...
+
+    def run(self, src: t.Optional[str], dst: t.Optional[str]) -> t.Any:
+        ...
