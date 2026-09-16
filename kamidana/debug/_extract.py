@@ -31,6 +31,9 @@ def _is_jinja2_internal_frame(fs: traceback.FrameSummary) -> bool:
 
 
 def _deduplicate(frames):
+    # collapse render-loop repetition: identical (filename, lineno) frames.
+    # same-file frames at different linenos are distinct call sites (e.g. a
+    # macro defined and called in one template) and must be kept.
     seen = set()
     r = []
     for f in reversed(frames):  # innermost -> outermost
@@ -38,8 +41,6 @@ def _deduplicate(frames):
         if k in seen:
             continue
         seen.add(k)
-        if r and r[-1].filename == f.filename:
-            continue
         r.append(f)
     return list(reversed(r))
 
