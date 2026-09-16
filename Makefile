@@ -2,7 +2,7 @@ default: readme docs
 MASK ?= 2>&1 | sed 's@$(shell cd ../../; pwd)@HERE@g; s@".*/site-packages@"SITE-PACKAGES@g; /SITE-PACKAGES/ s@, line [0-9][0-9]*@, line N@g; /^ *[\^~][\^~ ]*$$/d'
 
 readme:
-	COLUMNS=120 kamidana misc/readme.md.jinja2 --additionals reader ${MASK} > README.md
+	COLUMNS=120 kamidana ./misc/readme.md.jinja2 --additionals reader ${MASK} > README.md
 
 docs:
 	$(MAKE) html -C docs

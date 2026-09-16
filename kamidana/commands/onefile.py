@@ -41,7 +41,12 @@ def main():
         action="store_true",
         help="listting information (for available extensions and additional modules)",
     )
-    parser.add_argument("template", nargs="?")
+    parser.add_argument(
+        "template",
+        nargs="?",
+        help="template file ('./foo.j2', '/foo.j2') or a template in a python"
+        " package ('<package>/<path>')",
+    )
     parser.add_argument("--debug", action="store_true")
     parser.add_argument("--quiet", action="store_true")
     parser.add_argument("--dst", default=None)

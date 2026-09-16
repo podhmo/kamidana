@@ -10,7 +10,7 @@ dst:
 00: dst
 	python src/00*.py ${TEE} dst/00.output
 01: dst
-	kamidana ${OPTS} src/01use-naming.j2 -e "kamidana.extensions:NamingModuleExtension" ${TEE} dst/01.output
+	kamidana ${OPTS} ./src/01use-naming.j2 -e "kamidana.extensions:NamingModuleExtension" ${TEE} dst/01.output
 
 # :warning: external dependency: cookiecutter
 02: outdir := dst/02with-cookiecutter

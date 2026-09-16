@@ -5,6 +5,7 @@ kamidana is yet another jinja2's cli wrapper.
 features
 
 - using jinja2 file as template file (basic feature)
+- using a template bundled in a python package (e.g. `mypkg/templates/main.j2`)
 - various input formats support (json, yaml, toml, ...)
 - the way of lookup template is changed, relative to parent template path
 - gentle error message
@@ -22,7 +23,7 @@ usage: kamidana [-h] [--driver DRIVER] [--loader LOADER] [-d DATA]
                   [template]
 
   positional arguments:
-    template
+    template              template file ('./foo.j2', '/foo.j2') or a template in a python package ('<package>/<path>')
 
   options:
     -h, --help            show this help message and exit
@@ -42,13 +43,30 @@ usage: kamidana [-h] [--driver DRIVER] [--loader LOADER] [-d DATA]
 
 ```
 
+### template name
+
+a template name is interpreted as follows.
+
+- physical path: a name starting with `./` or `/` (e.g. `./main.j2`, `/tmp/main.j2`)
+- python package: otherwise (e.g. `mypkg/templates/main.j2`, resolved as the resource `templates/main.j2` inside the installed package `mypkg`)
+
+so, a file in the current directory must be passed with `./` prefix.
+
+```console
+$ kamidana main.j2        # NG: interpreted as a package template
+$ kamidana ./main.j2      # OK: physical path
+$ kamidana mypkg/main.j2  # OK: template "main.j2" in package "mypkg"
+```
+
+also, `{% extends %}` and `{% include %}` are resolved relative to the parent template, in both cases.
+
 ## examples
 
 ### example (basic)
 
 ```console
 
-$ kamidana examples/readme/src/00/nginx.jinja2 --data examples/readme/src/00/data.json
+$ kamidana ./examples/readme/src/00/nginx.jinja2 --data examples/readme/src/00/data.json
 server {
     listen 80;
     server_name localhost;
@@ -100,7 +118,7 @@ More over, passing data with stdin. (please doen't forget to add `--input-format
 
 ```console
 
-$ echo '{"nginx": {"logdir": "/tmp/logs/nginx"}}' | kamidana --input-format json examples/readme/src/00/nginx.jinja2 --data examples/readme/src/00/data.json
+$ echo '{"nginx": {"logdir": "/tmp/logs/nginx"}}' | kamidana --input-format json ./examples/readme/src/00/nginx.jinja2 --data examples/readme/src/00/data.json
 server {
     listen 80;
     server_name localhost;
@@ -121,8 +139,8 @@ if using include, but the included template is not found.
 
 ```console
 
-$ tree examples/readme/src/11
-examples/readme/src/11
+$ tree ./examples/readme/src/11
+./examples/readme/src/11
   ├── header.html.j2
   └── main.html.j2
 
@@ -133,7 +151,7 @@ examples/readme/src/11
 
 ```console
 
-$ kamidana examples/readme/src/11/main.html.j2
+$ kamidana ./examples/readme/src/11/main.html.j2
 ------------------------------------------------------------
   exception: kamidana._path.XTemplatePathNotFound
   message: [Errno 2] No such file or directory: 'footer-404.html.j2'
@@ -148,9 +166,11 @@ $ kamidana examples/readme/src/11/main.html.j2
   Traceback:
     File "SITE-PACKAGES/jinja2/loaders.py", line N, in get_source
       rv = self.load_func(template)
-    File "HERE/repos/kamidana/kamidana/loader.py", line 27, in load
+    File "HERE/repos/kamidana/kamidana/loader.py", line 30, in load
+      return self._load_from_file(filename)
+    File "HERE/repos/kamidana/kamidana/loader.py", line 39, in _load_from_file
       raise XTemplatePathNotFound(filename, exc=e).with_traceback(e.__traceback__)
-    File "HERE/repos/kamidana/kamidana/loader.py", line 23, in load
+    File "HERE/repos/kamidana/kamidana/loader.py", line 35, in _load_from_file
       with open(filename) as rf:
 
 
@@ -162,7 +182,7 @@ $ kamidana examples/readme/src/11/main.html.j2
 
 ```console
 
-$ kamidana --additionals=kamidana.additionals.naming examples/readme/src/01/use-naming.jinja2
+$ kamidana --additionals=kamidana.additionals.naming ./examples/readme/src/01/use-naming.jinja2
 singular, plurals
 
   - days|singularize -> day
@@ -213,7 +233,7 @@ or `kamidana -a naming` is also OK (shortcut).
 
 ```console
 
-$ kamidana --additionals=examples/readme/src/01/additionals.py --data=examples/readme/src/01/data.yaml examples/readme/src/01/hello.jinja2
+$ kamidana --additionals=examples/readme/src/01/additionals.py --data=examples/readme/src/01/data.yaml ./examples/readme/src/01/hello.jinja2
 
     bye, world!!
 
@@ -274,7 +294,7 @@ name: world
 
 ```console
 
-$ kamidana -e do -e loopcontrols examples/readme/src/02/use-extension.jinja2
+$ kamidana -e do -e loopcontrols ./examples/readme/src/02/use-extension.jinja2
 
   hello
     world
@@ -411,9 +431,9 @@ extensions are used by `-e`, additional modules are used by `-a`.
       "kamidana.extensions.CookiecutterAdditionalModulesExtension": "activate additional modules, see context['cookiecutter']['_additional_modules'], created from your cookiecutter.json"
     },
     "additional_modules": {
-      "kamidana.additionals.naming": "Naming helpers (e.g. snakecase, kebabcase, ... pluralize, singularize)",
       "kamidana.additionals.reader": "Reading from other resources (e.g. read_from_file, read_from_command)",
-      "kamidana.additionals.env": "accessing environemt variable, via env()"
+      "kamidana.additionals.env": "accessing environemt variable, via env()",
+      "kamidana.additionals.naming": "Naming helpers (e.g. snakecase, kebabcase, ... pluralize, singularize)"
     }
   }
 

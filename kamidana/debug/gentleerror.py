@@ -8,11 +8,18 @@ from io import StringIO
 
 import jinja2
 
-from .._path import XTemplatePathNotFound
+from .._path import XTemplatePathNotFound, is_physical_path
 from .color import highlight
 from ._extract import extract_detail
 
 logger = logging.getLogger(__name__)
+
+
+def _display_path(path):
+    # package-spec names are not filesystem paths
+    if is_physical_path(path):
+        return os.path.relpath(path, os.getcwd())
+    return path
 
 
 class Formatter:
@@ -81,7 +88,7 @@ class Renderer:
 
             lineno = f.lineno
             filename = f.filename
-            print("{}:".format(os.path.relpath(filename, os.getcwd())), file=buf)
+            print("{}:".format(_display_path(filename)), file=buf)
             start_lineno = max(1, lineno - self.n)
             end_lineno = min(len(linecache.getlines(filename)) + 1, lineno + self.n + 1)
             for i in range(start_lineno, end_lineno):
@@ -95,7 +102,7 @@ class Renderer:
             print("Traceback:", file=buf)
             print("".join(lines), file=buf)
 
-        d["where"] = os.path.relpath(filename, start=os.getcwd())  # xxx
+        d["where"] = _display_path(filename)  # xxx
         d["output"] = buf.getvalue()
         d.update(_get_info_from_exception(exc))
         return d
@@ -113,7 +120,7 @@ def _get_info_from_exception(exc: jinja2.TemplateError):
     if hasattr(exc, "original_context"):
         octx = exc.original_context
         if octx.where is not None:
-            d["where"] = os.path.relpath(octx.where, os.getcwd())
+            d["where"] = _display_path(octx.where)
         d["message"] = d["message"].replace(exc.args[0], octx.path)
     return d
 

@@ -12,7 +12,9 @@ src/11/main.html.j2:
 Traceback:
   File "SITE-PACKAGES/jinja2/loaders.py", line N, in get_source
     rv = self.load_func(template)
-  File "HERE/kamidana/loader.py", line 27, in load
+  File "HERE/kamidana/loader.py", line 30, in load
+    return self._load_from_file(filename)
+  File "HERE/kamidana/loader.py", line 39, in _load_from_file
     raise XTemplatePathNotFound(filename, exc=e).with_traceback(e.__traceback__)
-  File "HERE/kamidana/loader.py", line 23, in load
+  File "HERE/kamidana/loader.py", line 35, in _load_from_file
     with open(filename) as rf:
