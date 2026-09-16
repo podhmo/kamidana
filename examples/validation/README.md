@@ -7,6 +7,14 @@
 This example requires pydantic v2. pydantic is not a dependency of
 kamidana, so install it yourself (`pip install pydantic`).
 
+The template used below:
+
+```jinja
+{# template.j2 #}
+{{ greeting }}, {{ name }}!
+listening on port {{ port + 1 }}
+```
+
 From the repository root, render valid data. `port` is coerced to `int`
 and `greeting` falls back to its default:
 
@@ -17,7 +25,7 @@ port: "8080"
 ```
 
 ```console
-$ kamidana --driver=./examples/validation/validating_driver.py:ValidatingDriver -d data.yaml examples/validation/template.j2
+$ kamidana --driver=./examples/validation/validating_driver.py:ValidatingDriver -d data.yaml template.j2
 hello, foo!
 listening on port 8081
 ```
@@ -31,7 +39,7 @@ port: not-a-number
 ```
 
 ```console
-$ kamidana --driver=./examples/validation/validating_driver.py:ValidatingDriver -d data.yaml examples/validation/template.j2
+$ kamidana --driver=./examples/validation/validating_driver.py:ValidatingDriver -d data.yaml template.j2
 ```
 
 ```text
