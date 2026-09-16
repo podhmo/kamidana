@@ -1,4 +1,5 @@
 import os.path
+import sysconfig
 import traceback
 from collections import namedtuple
 
@@ -12,6 +13,11 @@ from .._path import is_physical_path
 Detail = namedtuple("Detail", "jinja2_frames, python_frames")
 
 _JINJA2_DIR = os.path.dirname(jinja2.__file__)
+_KAMIDANA_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_STDLIB_DIRS = {
+    os.path.realpath(p)
+    for p in {sysconfig.get_paths()["stdlib"], sysconfig.get_paths()["platstdlib"]}
+}
 
 # names given to the code objects that jinja2 generates for a template
 # (see jinja2.debug.rewrite_traceback_stack):
@@ -30,6 +36,20 @@ def _is_jinja2_frame(fs: traceback.FrameSummary) -> bool:
 
 def _is_jinja2_internal_frame(fs: traceback.FrameSummary) -> bool:
     return os.path.dirname(fs.filename) == _JINJA2_DIR
+
+
+def _is_internal_python_frame(fs: traceback.FrameSummary) -> bool:
+    # frames in stdlib, jinja2, or kamidana itself are not locations the
+    # user can act on (e.g. a RecursionError raised inside frozen
+    # posixpath during a recursive include)
+    if fs.filename.startswith("<frozen"):
+        return True
+    path = os.path.realpath(fs.filename)
+    if any(path.startswith(d + os.sep) for d in _STDLIB_DIRS):
+        return True
+    return _is_jinja2_internal_frame(fs) or path.startswith(
+        _KAMIDANA_DIR + os.sep
+    )
 
 
 def _deduplicate(frames):
