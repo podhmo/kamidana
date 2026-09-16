@@ -1,4 +1,5 @@
 import sys
+from pathlib import Path
 
 import jinja2
 import pytest
@@ -8,11 +9,13 @@ from kamidana.loader import TemplateLoader
 
 
 @pytest.fixture
-def loader():
+def loader() -> TemplateLoader:
     return TemplateLoader([], [], [])
 
 
-def test_strict_undefined_error_shows_location(loader, tmp_path, monkeypatch):
+def test_strict_undefined_error_shows_location(
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # https://github.com/podhmo/kamidana/issues/31
     # with StrictUndefined, using a variable that was not passed raises
     # UndefinedError, and the "gentle error" report shows where it happened.
@@ -34,8 +37,8 @@ def test_strict_undefined_error_shows_location(loader, tmp_path, monkeypatch):
 
 
 def test_undefined_in_included_template_shows_child_frame(
-    loader, tmp_path, monkeypatch
-):
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # when the undefined variable is used in an included template, `where`
     # points at the included file, and both template frames are shown.
     from kamidana.driver import _make_environment
@@ -56,7 +59,9 @@ def test_undefined_in_included_template_shows_child_frame(
     assert "->  1: x: {{ missing }}" in output
 
 
-def test_default_is_jinja2_undefined(loader, tmp_path, monkeypatch):
+def test_default_is_jinja2_undefined(
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # like jinja2 itself, an undefined variable renders as empty by default
     from kamidana.driver import _make_environment
 
@@ -67,7 +72,9 @@ def test_default_is_jinja2_undefined(loader, tmp_path, monkeypatch):
     assert env.get_template("./t.j2").render() == "age: "
 
 
-def test_undefined_debug_renders_placeholder(loader, tmp_path, monkeypatch):
+def test_undefined_debug_renders_placeholder(
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     from kamidana.driver import _make_environment
 
     monkeypatch.chdir(tmp_path)
@@ -78,7 +85,9 @@ def test_undefined_debug_renders_placeholder(loader, tmp_path, monkeypatch):
     assert env.get_template("./t.j2").render() == "age: {{ age }}"
 
 
-def test_driver_is_undefined_by_default(loader, tmp_path, monkeypatch):
+def test_driver_is_undefined_by_default(
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     from kamidana.driver import Driver
 
     monkeypatch.chdir(tmp_path)
@@ -87,7 +96,9 @@ def test_driver_is_undefined_by_default(loader, tmp_path, monkeypatch):
     assert driver.environment.undefined is jinja2.Undefined
 
 
-def test_driver_honors_undefined_attribute(loader, tmp_path, monkeypatch):
+def test_driver_honors_undefined_attribute(
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     from kamidana.driver import Driver
 
     monkeypatch.chdir(tmp_path)
@@ -99,7 +110,11 @@ def test_driver_honors_undefined_attribute(loader, tmp_path, monkeypatch):
         driver.run("./t.j2", None)
 
 
-def test_cli_strict_undefined_option(tmp_path, monkeypatch, capsys):
+def test_cli_strict_undefined_option(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
     # the --strict-undefined option must be passable from the cli
     from kamidana.commands.onefile import main
 
@@ -128,7 +143,11 @@ def test_cli_strict_undefined_option(tmp_path, monkeypatch, capsys):
     assert "->  2: age: {{ age }}" in err
 
 
-def test_cli_batch_strict_undefined_option(tmp_path, monkeypatch, capsys):
+def test_cli_batch_strict_undefined_option(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
     from kamidana.commands.manyfiles import main
 
     monkeypatch.chdir(tmp_path)

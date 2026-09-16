@@ -1,7 +1,8 @@
 import sys
+import typing as t
 
 
-def is_colorful(*, colorful=None) -> bool:
+def is_colorful(*, colorful: t.Optional[bool] = None) -> bool:
     # all callers print to stderr, so that is the stream to test
     return colorful or (colorful is None and sys.stderr.isatty())
 

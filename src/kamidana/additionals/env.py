@@ -7,5 +7,5 @@ from kamidana import as_filter, as_global
 
 @as_filter
 @as_global
-def env(envname, *, default=""):
+def env(envname: str, *, default: str = "") -> str:
     return os.environ.get(envname, default)

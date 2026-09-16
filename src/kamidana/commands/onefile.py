@@ -8,7 +8,7 @@ from ._args import make_common_parser, setup_logging, build_loader, build_driver
 logger = logging.getLogger(__name__)
 
 
-def main():
+def main() -> None:
     parser = make_common_parser()
     parser.add_argument(
         "--driver",

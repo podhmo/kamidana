@@ -1,13 +1,21 @@
 import typing as t
 
+import jinja2
+
 # Structural contracts for --loader / --driver plugins (resolved via
 # import_symbol at runtime, so duck typing is the real contract).
 
 
 class ITemplateLoader(t.Protocol):
     extensions: t.List[str]
-    data: t.Dict[str, t.Any]
-    additionals: t.Dict[str, t.Any]
+
+    @property
+    def data(self) -> t.Dict[str, t.Any]:
+        ...
+
+    @property
+    def additionals(self) -> t.Dict[str, t.Any]:
+        ...
 
     def load(
         self, filename: str
@@ -16,7 +24,9 @@ class ITemplateLoader(t.Protocol):
 
 
 class IDriver(t.Protocol):
-    def load(self, template_file: str) -> t.Any:
+    undefined: t.Type[jinja2.Undefined]
+
+    def load(self, template_file: t.Optional[str]) -> t.Any:
         ...
 
     def dump(self, d: t.Any, dst: t.Optional[str]) -> t.Any:

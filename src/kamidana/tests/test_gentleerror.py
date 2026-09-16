@@ -1,4 +1,6 @@
 import textwrap
+import typing as t
+from pathlib import Path
 
 import pytest
 
@@ -8,11 +10,13 @@ from kamidana.loader import TemplateLoader
 
 
 @pytest.fixture
-def loader():
+def loader() -> TemplateLoader:
     return TemplateLoader([], [], [])
 
 
-def test_direct_not_found_omits_where(loader, tmp_path, monkeypatch):
+def test_direct_not_found_omits_where(
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # regression: https://github.com/podhmo/kamidana/issues/61
     monkeypatch.chdir(tmp_path)
     with pytest.raises(XTemplatePathNotFound) as e:
@@ -23,7 +27,9 @@ def test_direct_not_found_omits_where(loader, tmp_path, monkeypatch):
     assert "where:" not in output
 
 
-def test_include_not_found_shows_parent_in_where(loader, tmp_path, monkeypatch):
+def test_include_not_found_shows_parent_in_where(
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # when a template is included/extended from another template, `where`
     # points at the template that referenced the missing one.
     from kamidana.driver import _make_environment
@@ -37,7 +43,9 @@ def test_include_not_found_shows_parent_in_where(loader, tmp_path, monkeypatch):
     assert "where: parent.j2" in output
 
 
-def test_deep_chain_shows_all_template_frames(loader, tmp_path, monkeypatch):
+def test_deep_chain_shows_all_template_frames(
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # regression: https://github.com/podhmo/kamidana/issues/63
     # a chain deeper than 5 frames was silently truncated to the last 5,
     # losing the head of the chain (the template the user invoked).
@@ -70,7 +78,7 @@ def test_deep_chain_shows_all_template_frames(loader, tmp_path, monkeypatch):
         "{% macro price() %}\n  price: {{ 100|money }}\n{% endmacro %}\n"
     )
 
-    def money(amount):
+    def money(amount: t.Any) -> t.NoReturn:
         raise KeyError("JPY")
 
     env = _make_environment(loader.load, {"filters": {"money": money}}, [])
@@ -96,7 +104,9 @@ def test_deep_chain_shows_all_template_frames(loader, tmp_path, monkeypatch):
     assert "frames omitted" in output
 
 
-def test_same_file_macro_keeps_caller_frame(loader, tmp_path, monkeypatch):
+def test_same_file_macro_keeps_caller_frame(
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # regression: https://github.com/podhmo/kamidana/issues/64
     # when a macro is defined and called in the same template file, the
     # caller-side frame (the `{{ price() }}` line) must be shown along with
@@ -111,7 +121,7 @@ def test_same_file_macro_keeps_caller_frame(loader, tmp_path, monkeypatch):
         "{{ price() }}\n"
     )
 
-    def money(amount):
+    def money(amount: t.Any) -> t.NoReturn:
         raise KeyError("JPY")
 
     env = _make_environment(loader.load, {"filters": {"money": money}}, [])
@@ -124,7 +134,9 @@ def test_same_file_macro_keeps_caller_frame(loader, tmp_path, monkeypatch):
     assert "->  2:   price: {{ 100|money }}" in output
 
 
-def test_mutual_include_same_file_shown_once(loader, tmp_path, monkeypatch):
+def test_mutual_include_same_file_shown_once(
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # regression: https://github.com/podhmo/kamidana/issues/65
     # the entry template keeps its literal CLI path ("./ping.html") while
     # includes resolve to absolute paths, so the same file used to appear
@@ -145,8 +157,8 @@ def test_mutual_include_same_file_shown_once(loader, tmp_path, monkeypatch):
 
 
 def test_stdlib_raise_where_falls_back_to_template_frame(
-    loader, tmp_path, monkeypatch
-):
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # regression: https://github.com/podhmo/kamidana/issues/72
     # a RecursionError raised inside frozen stdlib internals made `where`
     # point at "<frozen posixpath>:NN"; the actionable site is the
@@ -168,8 +180,8 @@ def test_stdlib_raise_where_falls_back_to_template_frame(
 
 
 def test_python_side_error_where_points_at_raise_site(
-    loader, tmp_path, monkeypatch
-):
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # regression: https://github.com/podhmo/kamidana/issues/60
     # when the exception is raised inside python code (e.g. a filter),
     # `where` points at the raise site, not the template call site.
@@ -196,7 +208,7 @@ def test_python_side_error_where_points_at_raise_site(
     monkeypatch.syspath_prepend(str(tmp_path))
     import helpers  # type: ignore[import-not-found]
 
-    def money(amount):
+    def money(amount: t.Any) -> t.Any:
         return helpers.format_money(amount, "JPY")
 
     env = _make_environment(loader.load, {"filters": {"money": money}}, [])

@@ -2,6 +2,7 @@
 
 import os.path
 import posixpath
+import typing as t
 import jinja2
 from collections import namedtuple
 
@@ -16,7 +17,7 @@ def is_physical_path(name: str) -> bool:
     return name.startswith((".", "/"))
 
 
-def split_package_spec(name: str):
+def split_package_spec(name: str) -> t.Tuple[str, str]:
     """split a package template spec into (package, resource path)
 
     e.g. "mypkg/templates/main.j2" -> ("mypkg", "templates/main.j2")
@@ -26,30 +27,34 @@ def split_package_spec(name: str):
 
 
 class XTemplatePathNotFound(Exception):
-    def __init__(self, msg, *, exc=None):
+    def __init__(self, msg: str, *, exc: t.Optional[Exception] = None) -> None:
         super().__init__(msg)
         self.exc = exc
 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.exc)
 
     @property
-    def original_context(self):
+    def original_context(self) -> _Original:
         return x_get_original_context(self.args[0])
 
 
 class _TemplatePath(str):
-    pass
+    original: t.Optional[_Original]
 
 
-def TemplatePath(path, *, original=None):
-    path = _TemplatePath(path)
-    path.original = original
-    return path
+def TemplatePath(
+    path: str, *, original: t.Optional[_Original] = None
+) -> _TemplatePath:
+    p = _TemplatePath(path)
+    p.original = original
+    return p
 
 
-def x_get_original_context(path):
-    return getattr(path, "original", None) or _Original(path=path, where=None)
+def x_get_original_context(path: str) -> _Original:
+    return t.cast(
+        _Original, getattr(path, "original", None) or _Original(path=path, where=None)
+    )
 
 
 class ResolvingByRelativePathEnvironment(jinja2.Environment):
