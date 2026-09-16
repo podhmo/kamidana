@@ -3,6 +3,7 @@ import argparse
 from kamidana._import import import_symbol
 from dictknife.loading import get_formats
 from kamidana.debug import error_handler
+from kamidana.driver import UNDEFINED_TYPES
 
 
 def main():
@@ -22,6 +23,12 @@ def main():
     parser.add_argument("-e", "--extension", action="append", default=[])
     parser.add_argument("-i", "--input-format", default=None, choices=get_formats())
     parser.add_argument("-o", "--output-format", default="raw")
+    parser.add_argument(
+        "--undefined",
+        choices=list(UNDEFINED_TYPES.keys()),
+        default="strict",
+        help="handling of undefined variables (jinja2 Undefined type). default: strict",
+    )
     parser.add_argument("--debug", action="store_true")
     parser.add_argument("--quiet", action="store_true")
     parser.add_argument(
@@ -45,4 +52,5 @@ def main():
         )
         driver_cls = import_symbol("kamidana.driver:BatchCommandDriver", cwd=True)
         driver = driver_cls(loader, format=args.output_format)
+        driver.undefined = UNDEFINED_TYPES[args.undefined]
         driver.run(args.batch, args.outdir)
