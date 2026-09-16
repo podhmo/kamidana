@@ -1,6 +1,7 @@
 import sys
 import argparse
 import logging
+import jinja2
 from kamidana._import import import_symbol
 from kamidana.debug import error_handler
 from dictknife.loading import get_formats, dumpfile
@@ -47,6 +48,11 @@ def main():
         help="template file ('./foo.j2', '../foo.j2', '/foo.j2') or a template"
         " in a python package ('<package>/<path>')",
     )
+    parser.add_argument(
+        "--strict-undefined",
+        action="store_true",
+        help="raise an error when an undefined variable is used (jinja2.StrictUndefined)",
+    )
     parser.add_argument("--debug", action="store_true")
     parser.add_argument("--quiet", action="store_true")
     parser.add_argument("--dst", default=None)
@@ -84,4 +90,6 @@ def main():
         else:
             driver_cls = import_symbol(args.driver, ns="kamidana.driver", cwd=True)
         driver = driver_cls(loader, format=args.output_format)
+        if args.strict_undefined:
+            driver.undefined = jinja2.StrictUndefined
         driver.run(args.template, args.dst)

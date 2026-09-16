@@ -1,5 +1,6 @@
 import logging
 import argparse
+import jinja2
 from kamidana._import import import_symbol
 from dictknife.loading import get_formats
 from kamidana.debug import error_handler
@@ -22,6 +23,11 @@ def main():
     parser.add_argument("-e", "--extension", action="append", default=[])
     parser.add_argument("-i", "--input-format", default=None, choices=get_formats())
     parser.add_argument("-o", "--output-format", default="raw")
+    parser.add_argument(
+        "--strict-undefined",
+        action="store_true",
+        help="raise an error when an undefined variable is used (jinja2.StrictUndefined)",
+    )
     parser.add_argument("--debug", action="store_true")
     parser.add_argument("--quiet", action="store_true")
     parser.add_argument(
@@ -45,4 +51,6 @@ def main():
         )
         driver_cls = import_symbol("kamidana.driver:BatchCommandDriver", cwd=True)
         driver = driver_cls(loader, format=args.output_format)
+        if args.strict_undefined:
+            driver.undefined = jinja2.StrictUndefined
         driver.run(args.batch, args.outdir)

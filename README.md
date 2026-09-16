@@ -19,7 +19,7 @@ features
 usage: kamidana [-h] [--driver DRIVER] [--loader LOADER] [-d DATA]
                   [--logging {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}] [-a ADDITIONALS] [-e EXTENSION]
                   [-i {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}] [-o OUTPUT_FORMAT] [--dump-context]
-                  [--list-info] [--debug] [--quiet] [--dst DST]
+                  [--list-info] [--strict-undefined] [--debug] [--quiet] [--dst DST]
                   [template]
 
   positional arguments:
@@ -38,6 +38,7 @@ usage: kamidana [-h] [--driver DRIVER] [--loader LOADER] [-d DATA]
     -o OUTPUT_FORMAT, --output-format OUTPUT_FORMAT
     --dump-context        dumping loading data (used by jinja2 template)
     --list-info           listting information (for available extensions and additional modules)
+    --strict-undefined    raise an error when an undefined variable is used (jinja2.StrictUndefined)
     --debug
     --quiet
     --dst DST

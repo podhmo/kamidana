@@ -18,10 +18,10 @@ def _render_with_newline(t, data):
     return r + "\n"
 
 
-def _make_environment(load, additionals, extensions):
+def _make_environment(load, additionals, extensions, *, undefined=None):
     env = ResolvingByRelativePathEnvironment(
         loader=jinja2.FunctionLoader(load),
-        undefined=jinja2.StrictUndefined,
+        undefined=undefined or jinja2.Undefined,
         trim_blocks=False,
         lstrip_blocks=True,
         extensions=extensions,
@@ -33,6 +33,8 @@ def _make_environment(load, additionals, extensions):
 
 
 class Driver(IDriver):
+    undefined = jinja2.Undefined
+
     def __init__(self, loader, format):
         self.loader = loader
         self.format = format
@@ -40,7 +42,10 @@ class Driver(IDriver):
     @reify
     def environment(self):
         return _make_environment(
-            self.loader.load, self.loader.additionals, self.loader.extensions
+            self.loader.load,
+            self.loader.additionals,
+            self.loader.extensions,
+            undefined=self.undefined,
         )
 
     def transform(self, t):
@@ -82,6 +87,8 @@ class ContextDumpDriver(IDriver):
 
 
 class BatchCommandDriver(IDriver):
+    undefined = jinja2.Undefined
+
     def __init__(self, loader, format):
         self.loader = loader
         self.format = format
@@ -90,7 +97,10 @@ class BatchCommandDriver(IDriver):
     @reify
     def environment(self):
         return _make_environment(
-            self.loader.load, self.loader.additionals, self.loader.extensions
+            self.loader.load,
+            self.loader.additionals,
+            self.loader.extensions,
+            undefined=self.undefined,
         )
 
     def load(self, batch_file):
