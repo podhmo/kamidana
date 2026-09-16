@@ -37,9 +37,7 @@ class TemplateLoader(ITemplateLoader):
                 return rf.read(), filename, None
         except FileNotFoundError as e:
             exc = FileNotFoundError("{}. ({})".format(e, _SPEC_NOTE))
-            raise XTemplatePathNotFound(filename, exc=exc).with_traceback(
-                e.__traceback__
-            )
+            raise XTemplatePathNotFound(filename, exc=exc).with_traceback(e.__traceback__)
 
     def _load_from_package(self, filename):
         package, resource = split_package_spec(filename)
@@ -48,9 +46,8 @@ class TemplateLoader(ITemplateLoader):
         try:
             anchor = importlib.resources.files(package)
         except (ImportError, TypeError, AttributeError) as e:
-            raise XTemplatePathNotFound(
-                filename, exc=_package_not_found_exc(package, filename, e)
-            ).with_traceback(e.__traceback__)
+            exc = _package_not_found_exc(package, filename, e)
+            raise XTemplatePathNotFound(filename, exc=exc).with_traceback(e.__traceback__)
 
         target = anchor
         for part in resource.split("/"):
@@ -58,10 +55,8 @@ class TemplateLoader(ITemplateLoader):
         try:
             source = target.read_text(encoding="utf-8")
         except (FileNotFoundError, IsADirectoryError, NotADirectoryError) as e:
-            raise XTemplatePathNotFound(
-                filename,
-                exc=_resource_not_found_exc(package, resource, anchor),
-            ).with_traceback(e.__traceback__)
+            exc = _resource_not_found_exc(package, resource, anchor)
+            raise XTemplatePathNotFound(filename, exc=exc).with_traceback(e.__traceback__)
 
         logger.debug("load: %s (package=%s)", filename, package)
         # make the source visible to linecache, for gentle error reporting

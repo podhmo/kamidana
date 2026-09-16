@@ -7,6 +7,7 @@ from collections import namedtuple
 
 _Original = namedtuple("_Original", "path, where")
 
+
 def is_physical_path(name: str) -> bool:
     """a physical file path starts with './', '../' or '/'"""
     return name.startswith((".", "/"))
