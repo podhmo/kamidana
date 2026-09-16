@@ -167,6 +167,36 @@ top-level フレームが丸ごと欠けている。
 同じチェーンを素の jinja2 で見ると全工程が残るので、**深いネストではむしろ
 生 traceback の方が完全な記録になる** — 現状の kamidana 側の最大の弱点。
 
+### 11recursive — 再帰と `level=5` 制限の存在意義
+
+`level=5` の理由はコミット履歴にも明記されていない (a6b5b5a "More gentle error
+(#29)" で導入、以降の rework でもそのまま維持)。無限ループ対策ではないかと
+仮説を立て、再帰ケースで検証した (`level.py` で `level` を可変にして比較):
+
+- **素の jinja2 の爆発は実在する**: 相互 include (ping⇄pong) では生 traceback が
+  **約3000行** になる (`mutual-include-jinja2.txt`)。2ファイル周期のため Python の
+  "Previous line repeated N more times" 畳み込みが効かない。自己 include では
+  同じフレームの繰り返しなので畳まれて29行 (`self-include-jinja2.txt`)。
+  → 「繰り返しフレームで出力が爆発する」問題は本物で、間引き自体には意義がある。
+- **ただし現在は dedup がガード役**: `_extract._deduplicate` (#33 で後から追加)
+  が同一 `(filename, lineno)` を潰すので、kamidana 側は `level=50` にしても
+  相互 include は25行に収まる (`mutual-include-level50.txt`)。つまり爆発防止の
+  観点では level=5 は既に冗長。
+- **制限を外した場合の実害は「縦に長い」だけ**: case 10 を `level=50` で出すと
+  全11フレームが正しく表示される (`10deep-chain/kamidana-level50.txt`)。
+  フレームの抽出・記録自体は完全で、捨てているのは表示段階のみ。
+
+むしろ検証で dedup 側のバグが2つ見つかった:
+
+- **同一ファイル内の呼出元が消える**: `r[-1].filename == f.filename` で連続する
+  同一ファイルのフレームを落とすため、同一テンプレート内の macro 呼出では
+  caller 側 (`samemacro.html:4` の `{{ price() }}`) が表示されない
+  (`same-file-macro.txt` — 素の jinja2 では両方出る)。
+- **`"./x.html"` と絶対パスが別キーになる**: エントリのテンプレートは
+  `"./ping.html"`、include 解決後は絶対パスなので、同一ファイルが dedup を
+  すり抜けて2窓に重複表示される (`mutual-include.txt` で `ping.html` が
+  2回出るのはこれ)。正規化してから dedup すべき。
+
 ## jinja2 生 traceback 側の観察メモ
 
 - `^^^^` マーカー行が fake traceback ではズレる/独立行になるケースがある
@@ -187,7 +217,14 @@ top-level フレームが丸ごと欠けている。
    ファイル名になる (case 09)。ユーザーの typo を誤導する。
 4. テンプレートフレームが `level=5` で暗黙に切り捨てられるため、多段ネストでは
    チェーン先頭 (エントリのテンプレートを含む) が失われ、省略表示もない
-   (case 10)。CLI から変更する手段もない。
+   (case 10)。CLI から変更する手段もない。なお再帰での出力爆発を防ぐ意義は
+   あるものの、現在は dedup がその役を果たしており level=5 はほぼ冗長
+   (case 11)。
+5. dedup が連続する同一ファイルのフレームを落とすため、同一テンプレート内の
+   macro 呼出で caller 側の行が表示されない (case 11)。
+6. dedup のキーがファイル名文字列のままなので、エントリの `"./x.html"` と
+   include 解決後の絶対パスが別扱いになり、同一ファイルが重複表示される
+   (case 11)。
 
 ## 総評
 

@@ -1,0 +1,23 @@
+$ kamidana --logging=WARNING ./samemacro.html -a additionals.py
+------------------------------------------------------------
+exception: builtins.KeyError
+message: 'JPY'
+where: samemacro.html
+------------------------------------------------------------
+samemacro.html:
+      1: {% macro price() %}
+  ->  2:   price: {{ 100|money }}
+      3: {% endmacro %}
+      4: {{ price() }}
+
+Traceback:
+  File "additionals.py", line 7, in money
+    return helpers.format_money(amount, "JPY")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/11recursive/helpers.py", line 9, in format_money
+    rate = lookup_rate(currency)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/11recursive/helpers.py", line 5, in lookup_rate
+    return _RATES[currency]
+           ~~~~~~^^^^^^^^^^
+[exit 1]

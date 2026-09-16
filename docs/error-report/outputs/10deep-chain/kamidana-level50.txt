@@ -1,0 +1,74 @@
+$ python ../../level.py ./c0.html 50 -a additionals.py
+------------------------------------------------------------
+exception: builtins.KeyError
+message: 'JPY'
+where: macros.html
+------------------------------------------------------------
+c0.html:
+  ->  1: {% extends "c1.html" %}
+      2: {% block content %}[c0] {{ super() }}{% endblock %}
+
+c1.html:
+  ->  1: {% extends "c2.html" %}
+      2: {% block content %}[c1] {{ super() }}{% endblock %}
+
+c2.html:
+  ->  1: {% extends "base.html" %}
+      2: {% block content %}[c2] {{ super() }}{% endblock %}
+
+base.html:
+      1: <html>
+      2: <body>
+  ->  3: {% block content %}
+      4: {% include "./part1.html" %}
+      5: {% endblock %}
+      6: </body>
+
+c0.html:
+      1: {% extends "c1.html" %}
+  ->  2: {% block content %}[c0] {{ super() }}{% endblock %}
+
+c1.html:
+      1: {% extends "c2.html" %}
+  ->  2: {% block content %}[c1] {{ super() }}{% endblock %}
+
+c2.html:
+      1: {% extends "base.html" %}
+  ->  2: {% block content %}[c2] {{ super() }}{% endblock %}
+
+base.html:
+      1: <html>
+      2: <body>
+      3: {% block content %}
+  ->  4: {% include "./part1.html" %}
+      5: {% endblock %}
+      6: </body>
+      7: </html>
+
+part1.html:
+      1: <div class="part1">
+  ->  2: {% include "./part2.html" %}
+      3: </div>
+
+part2.html:
+      1: {% import "./macros.html" as m %}
+      2: <div class="part2">
+  ->  3: {{ m.price() }}
+      4: </div>
+
+macros.html:
+      1: {% macro price() %}
+  ->  2:   price: {{ 100|money }}
+      3: {% endmacro %}
+
+Traceback:
+  File "additionals.py", line 7, in money
+    return helpers.format_money(amount, "JPY")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/10deep-chain/helpers.py", line 11, in format_money
+    rate = lookup_rate(currency)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/10deep-chain/helpers.py", line 7, in lookup_rate
+    return _RATES[currency]
+           ~~~~~~^^^^^^^^^^
+[exit 1]

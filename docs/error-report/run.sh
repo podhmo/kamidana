@@ -49,6 +49,18 @@ run_case 07macro-caller ./child2.html child2.html
 run_case 08include-chain ./main.html main.html
 
 run_case 10deep-chain ./c0.html c0.html -a additionals.py
+run 10deep-chain kamidana-level50.txt python ../../level.py ./c0.html 50 -a additionals.py
+
+# recursion / same-file dedup probes (level=5 default vs level=50)
+run 11recursive self-include.txt $K ./loop.html
+run 11recursive self-include-level50.txt python ../../level.py ./loop.html 50
+run 11recursive self-include-jinja2.txt python ../../j2.py loop.html
+run 11recursive mutual-include.txt $K ./ping.html
+run 11recursive mutual-include-level50.txt python ../../level.py ./ping.html 50
+run 11recursive mutual-include-jinja2.txt python ../../j2.py ping.html
+run 11recursive same-file-macro.txt $K ./samemacro.html -a additionals.py
+run 11recursive same-file-macro-level50.txt python ../../level.py ./samemacro.html 50 -a additionals.py
+run 11recursive same-file-macro-jinja2.txt python ../../j2.py samemacro.html
 
 # kamidana-only CLI errors (no jinja2 counterpart)
 run 09cli-errors missing-template.txt $K ./no-such.html
