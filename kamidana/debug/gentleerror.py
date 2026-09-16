@@ -68,10 +68,10 @@ class Renderer:
         self.n = n
         self.formatter = formatter or Formatter(n, colorful=colorful)
 
-    def render(self, exc: Exception) -> str:
-        return self.formatter.format(self.on_error(exc))
+    def render(self, exc: Exception, *, level=None) -> str:
+        return self.formatter.format(self.on_error(exc, level=level))
 
-    def on_error(self, exc: Exception, *, level: int = 5) -> dict:
+    def on_error(self, exc: Exception, *, level=None) -> dict:
         d = vars(exc).copy()
         detail = extract_detail(exc)
         if detail.jinja2_frames is None:
@@ -82,9 +82,18 @@ class Renderer:
 
         logger.debug("jinja2 frames: %r", detail.jinja2_frames)
 
+        frames = detail.jinja2_frames  # outermost -> innermost
+        n_omitted = 0
+        if level is not None and len(frames) > level > 0:
+            n_omitted = len(frames) - level
+            frames = frames[n_omitted:]
+
         buf = StringIO()
+        if n_omitted:
+            print("... ({} frames omitted)".format(n_omitted), file=buf)
+            print("", file=buf)
         first = True
-        for f in detail.jinja2_frames[-level:]:  # outermost -> innermost
+        for f in frames:
             if first:
                 first = False
             else:
@@ -134,5 +143,7 @@ def _get_info_from_exception(exc: jinja2.TemplateError):
     return d
 
 
-def translate_error(exc: Exception, *, renderer=Renderer, n=3, colorful=False) -> str:
-    return renderer(n=n, colorful=colorful).render(exc)
+def translate_error(
+    exc: Exception, *, renderer=Renderer, n=3, colorful=False, level=None
+) -> str:
+    return renderer(n=n, colorful=colorful).render(exc, level=level)
