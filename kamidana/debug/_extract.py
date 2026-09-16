@@ -4,6 +4,8 @@ from collections import namedtuple
 
 import jinja2
 
+from .._path import is_physical_path
+
 # the output shape is a pair of
 # - template frames (deduplicated, outermost -> innermost)
 # - trailing python frames, dropped when the innermost frame is inside jinja2
@@ -34,10 +36,15 @@ def _deduplicate(frames):
     # collapse render-loop repetition: identical (filename, lineno) frames.
     # same-file frames at different linenos are distinct call sites (e.g. a
     # macro defined and called in one template) and must be kept.
+    # physical paths are canonicalized: the entry template may appear as
+    # "./x.html" while resolved includes carry absolute paths.
     seen = set()
     r = []
     for f in reversed(frames):  # innermost -> outermost
-        k = (f.filename, f.lineno)
+        filename = f.filename
+        if is_physical_path(filename):
+            filename = os.path.realpath(filename)
+        k = (filename, f.lineno)
         if k in seen:
             continue
         seen.add(k)

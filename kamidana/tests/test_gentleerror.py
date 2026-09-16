@@ -124,6 +124,26 @@ def test_same_file_macro_keeps_caller_frame(loader, tmp_path, monkeypatch):
     assert "->  2:   price: {{ 100|money }}" in output
 
 
+def test_mutual_include_same_file_shown_once(loader, tmp_path, monkeypatch):
+    # regression: https://github.com/podhmo/kamidana/issues/65
+    # the entry template keeps its literal CLI path ("./ping.html") while
+    # includes resolve to absolute paths, so the same file used to appear
+    # twice in the frame list.
+    from kamidana.driver import _make_environment
+
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "ping.html").write_text('{% include "./pong.html" %}\n')
+    (tmp_path / "pong.html").write_text('{% include "./ping.html" %}\n')
+
+    env = _make_environment(loader.load, {}, [])
+    with pytest.raises(RecursionError) as e:
+        env.get_template("./ping.html").render()
+
+    output = translate_error(e.value)
+    assert output.count("ping.html:") == 1
+    assert output.count("pong.html:") == 1
+
+
 def test_python_side_error_where_points_at_raise_site(
     loader, tmp_path, monkeypatch
 ):
