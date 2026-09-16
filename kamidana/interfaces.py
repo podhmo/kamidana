@@ -1,7 +1,7 @@
 import typing as t
 
 # Structural contracts for --loader / --driver plugins (resolved via
-# import_symbol at runtime). See docs/refactoring-architecture.md section 4.
+# import_symbol at runtime, so duck typing is the real contract).
 
 
 class ITemplateLoader(t.Protocol):

@@ -17,7 +17,7 @@ _path.py                template path resolution for error reporting
 debug/                  gentle error rendering (traceback surgery)
 listinfo.py             --list-info implementation
 _import.py              minimal module/symbol importer (added; replaced magicalimport)
-interfaces.py           IDriver / ITemplateLoader ABCs
+interfaces.py           IDriver / ITemplateLoader protocols
 __init__.py             marker decorators: as_filter / as_global / as_test / as_globals_generator
 ```
 
@@ -100,24 +100,7 @@ Direction: consolidate into one small module (e.g. `kamidana/errors.py`) that
 owns the path decoration, the exception, and the message rewrite, so the
 feature can be tested and deleted in one place.
 
-### 4. `IDriver` / `ITemplateLoader` interfaces earn little
-
-`interfaces.py` defines ABCs, but nothing else subclasses them, and
-`--driver`/`--loader` are resolved by `import_symbol` at runtime — the
-abstractmethods do not actually constrain plugins (duck typing is already the
-real contract: `driver.run(src, dst)` and `loader.load/data/additionals`).
-Also `Driver` and `BatchCommandDriver` duplicate the same
-`environment` `@reify` property.
-
-Direction:
-
-- [x] Formalize the plugin contract as `typing.Protocol` (structural,
-  matches reality) — done; `interfaces.py` now defines `IDriver` /
-  `ITemplateLoader` as protocols, checked non-blockingly by `make typecheck`.
-- Extract a shared `BaseDriver` holding `loader`, `format`, and the cached
-  `environment`; `ContextDumpDriver` then becomes a two-method specialization.
-
-### 5. Lazy state via `@reify` + stdin side effects
+### 4. Lazy state via `@reify` + stdin side effects
 
 `TemplateLoader.data` is `@reify` (cached property) and reads **stdin** on
 first access when `--input-format` is set — i.e., the loader consumes stdin
@@ -129,34 +112,17 @@ make the laziness explicit in the interface docs. This also removes the need
 for `dictknife.langhelpers.reify` (`functools.cached_property` is equivalent
 on Python >= 3.8).
 
-### 6. Two CLI entry points duplicate ~all argument parsing
+### 5. Batch spec shape is informal
 
-`commands/onefile.py` and `commands/manyfiles.py` share the option set
-(`-d/--data`, `--loader`, `--logging`, `-a`, `-e`, `-i`, `-o`, `--debug`,
-`--quiet`) and the same prologue (import_symbol for loader/driver,
-`jinja2.ext.` prefixing for `-e`, `error_handler`).
+`BatchCommandDriver.load` validates required keys by hand (raising on missing
+`template`/`dst`, warning on unknown keys) and documents the
+`deepmerge(data, core_data)` precedence inline — command-line `-d` data wins
+on scalar conflicts, lists are unioned, dicts merged recursively.
 
-Direction: extract `commands/_args.py` with a `make_common_parser()` and a
-`build_loader()` helper; keep the two `main()`s as thin shells. Alternatively
-expose subcommands from one entry point (`kamidana render`, `kamidana batch`)
-while keeping the legacy console scripts.
+Direction: define the batch spec as a typed shape (dataclass or TypedDict)
+and validate once, instead of the hand-rolled checks.
 
-### 7. Batch spec handling is ad hoc
-
-`BatchCommandDriver.load` validates required keys by hand, silently accepts
-unknown keys, treats `data` as "name | dict | list of either", and merges with
-`deepmerge(data, core_data)` whose argument order decides precedence without
-`override=True` — check dictknife's default merge semantics (conflict policy)
-before relying on it.
-
-`self.cache` is also a dead field: the real caches are the local `cache` dict
-created inside `load()` per call. Either per-command data should persist
-across calls or the field should go.
-
-Direction: define the batch spec as a typed shape (dataclass or
-TypedDict), validate once, and document key precedence.
-
-### 8. `collect_marked_items` merges by `v.__name__`
+### 6. `collect_marked_items` merges by `v.__name__`
 
 `as_filter`/`as_global`/`as_test` collect functions into
 `{"filters": ..., "globals": ..., "tests": ...}` keyed by `v.__name__`, so two
@@ -167,22 +133,14 @@ Direction: allow `@as_filter(name=...)` to override the key, and make
 generator evaluation lazy (defer `v()` until the environment is built) or
 document the eager behavior.
 
-### 9. Packaging is pre-pyproject
+### 7. Version/changelog workflow is manual
 
-Done in this change: dropped `fastentrypoints` (import-time side effect in
-`setup.py`, and an undeclared build-time dependency), `importlib_resources`
-(3.10+ has `importlib.resources`), `tests_require`/`test_suite` (removed by
-setuptools), `setup.cfg [bdist_wheel] universal=1` (Python-3-only package),
-and `recommonmark` (dead; no `.md` sources exist).
+`VERSION` file + `CHANGES.txt` are manual; consider
+`hatch-vcs`/`setuptools-scm` or a `bumpversion` workflow.
 
-Still open:
+## Dependency notes
 
-- `VERSION` file + `CHANGES.txt` are manual; consider `hatch-vcs`/`setuptools-scm`
-  or a `bumpversion` workflow.
-
-## Dependency notes (after this change)
-
-Runtime deps are now `jinja2>=3.1`, `dictknife[load]>=0.14`,
+Runtime deps are `jinja2>=3.1`, `dictknife[load]>=0.14`,
 `inflection>=0.5` — three direct deps plus transitives `MarkupSafe`,
 `ruamel.yaml`, `tomlkit`.
 
