@@ -1,9 +1,11 @@
+from __future__ import annotations
+
 import unittest
 from collections import namedtuple
 
 
 class Tests(unittest.TestCase):
-    def test_it(self):
+    def test_it(self) -> None:
         from kamidana.additionals.naming import camelcase, snakecase, kebabcase
 
         C = namedtuple("C", "input, fn, output")

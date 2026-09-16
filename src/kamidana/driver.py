@@ -1,11 +1,14 @@
+from __future__ import annotations
+
 import logging
 import os.path
 import json
+import typing as t
 import jinja2
-from dictknife import deepmerge
+from dictknife.deepmerge import deepmerge
 from dictknife import loading
-from dictknife.langhelpers import reify
-from .interfaces import IDriver
+from functools import cached_property
+from .interfaces import IDriver, ITemplateLoader
 from ._path import ResolvingByRelativePathEnvironment
 
 logger = logging.getLogger(__name__)
@@ -20,14 +23,14 @@ RAW_FORMAT = "raw"
 _COMMAND_KEYS = frozenset(["template", "dst", "data", "format"])
 
 
-def _render_with_newline(t, data):
-    r = t.render(**data)
+def _render_with_newline(tmpl: jinja2.Template, data: t.Mapping[str, t.Any]) -> str:
+    r = tmpl.render(**data)
     if r.endswith("\n"):
         return r
     return r + "\n"
 
 
-def _load_for_dump(rendered, fmt):
+def _load_for_dump(rendered: str, fmt: t.Optional[str]) -> t.Any:
     # "raw" writes the rendered text verbatim; any other format parses it
     # back to data so dictknife can re-dump it (e.g. "-o yaml")
     if fmt == RAW_FORMAT:
@@ -35,7 +38,15 @@ def _load_for_dump(rendered, fmt):
     return loading.loads(rendered, format=fmt)
 
 
-def _make_environment(load, additionals, extensions, *, undefined=None):
+def _make_environment(
+    load: t.Callable[
+        [str], t.Tuple[str, t.Optional[str], t.Optional[t.Callable[[], bool]]]
+    ],
+    additionals: t.Mapping[str, t.Mapping[str, t.Any]],
+    extensions: t.Sequence[str],
+    *,
+    undefined: t.Optional[t.Type[jinja2.Undefined]] = None,
+) -> ResolvingByRelativePathEnvironment:
     env = ResolvingByRelativePathEnvironment(
         loader=jinja2.FunctionLoader(load),
         undefined=undefined or jinja2.Undefined,
@@ -50,14 +61,14 @@ def _make_environment(load, additionals, extensions, *, undefined=None):
 
 
 class BaseDriver(IDriver):
-    undefined = jinja2.Undefined
+    undefined: t.Type[jinja2.Undefined] = jinja2.Undefined
 
-    def __init__(self, loader, format):
+    def __init__(self, loader: ITemplateLoader, format: t.Optional[str]) -> None:
         self.loader = loader
         self.format = format
 
-    @reify
-    def environment(self):
+    @cached_property
+    def environment(self) -> ResolvingByRelativePathEnvironment:
         return _make_environment(
             self.loader.load,
             self.loader.additionals,
@@ -65,43 +76,52 @@ class BaseDriver(IDriver):
             undefined=self.undefined,
         )
 
-    def transform(self, t):
-        return t
+    def transform(self, d: t.Any) -> t.Any:
+        return d
 
-    def run(self, src, dst):
+    def run(self, src: t.Optional[str], dst: t.Optional[str]) -> t.Any:
         return self.dump(self.transform(self.load(src)), dst)
 
 
 class Driver(BaseDriver):
-    def transform(self, t):
-        return _render_with_newline(t, self.loader.data)
+    def transform(self, tmpl: jinja2.Template) -> str:
+        return _render_with_newline(tmpl, self.loader.data)
 
-    def load(self, template_file):
+    def load(self, template_file: t.Optional[str]) -> jinja2.Template:
+        # run() is only reached with a template name; onefile.py falls back
+        # to --dump-context when no template is given.
+        assert template_file is not None
         return self.environment.get_or_select_template(template_file)
 
-    def dump(self, d, dst):
+    def dump(self, d: str, dst: t.Optional[str]) -> t.Any:
         return loading.dumpfile(
-            _load_for_dump(d, self.format), dst, format=self.format
+            _load_for_dump(d, self.format),
+            t.cast(str, dst),
+            format=t.cast(str, self.format),
         )
 
 
 class ContextDumpDriver(BaseDriver):
-    def load(self, src):
+    def load(self, src: t.Optional[str]) -> t.Optional[str]:
         return src
 
-    def transform(self, src):
+    def transform(self, src: t.Optional[str]) -> t.Dict[str, t.Any]:
         d = self.loader.data.copy()
         d["template_filename"] = src
         return d
 
-    def dump(self, d, dst):
+    def dump(self, d: t.Dict[str, t.Any], dst: t.Optional[str]) -> t.Any:
         # "raw" has no meaning for a context dict; dump it as json
         fmt = "json" if self.format == RAW_FORMAT else self.format
-        return loading.dumpfile(d, dst, format=fmt)
+        return loading.dumpfile(d, t.cast(str, dst), format=t.cast(str, fmt))
 
 
 class BatchCommandDriver(BaseDriver):
-    def load(self, batch_file):
+    def load(
+        self, batch_file: t.Optional[str]
+    ) -> t.List[t.Tuple[jinja2.Template, t.Dict[str, t.Any], t.Any]]:
+        # "batch" is a required positional argument of kamidana-batch.
+        assert batch_file is not None
         commands = loading.loadfile(batch_file)
         if not isinstance(commands, (list, tuple)):
             commands = [commands]
@@ -112,8 +132,8 @@ class BatchCommandDriver(BaseDriver):
         # scalars winning -- so command-line data overrides per-command
         # data on conflicts.
         core_data = self.loader.data
-        cache = {}
-        r = []
+        cache: t.Dict[str, t.Any] = {}
+        r: t.List[t.Tuple[jinja2.Template, t.Dict[str, t.Any], t.Any]] = []
         for cmd in commands:
             if not isinstance(cmd, dict):
                 raise RuntimeError(
@@ -138,13 +158,13 @@ class BatchCommandDriver(BaseDriver):
 
             data = self._load_data(cmd.get("data"), cache=cache)
             tname = cmd["template"]
-            t = cache.get(tname)
-            if t is None:
-                t = cache[tname] = self.environment.get_or_select_template(tname)
-            r.append((t, cmd, deepmerge(data, core_data)))
+            tmpl = cache.get(tname)
+            if tmpl is None:
+                tmpl = cache[tname] = self.environment.get_or_select_template(tname)
+            r.append((tmpl, cmd, deepmerge(data, core_data)))
         return r
 
-    def _load_data(self, name_or_data, *, cache):
+    def _load_data(self, name_or_data: t.Any, *, cache: t.Dict[str, t.Any]) -> t.Any:
         if name_or_data is None:
             return {}
         elif isinstance(name_or_data, (list, tuple)):
@@ -157,14 +177,18 @@ class BatchCommandDriver(BaseDriver):
                 r = cache[name_or_data] = loading.loadfile(name_or_data)
             return r
 
-    def dump(self, commands, outdir):
+    def dump(
+        self,
+        commands: t.List[t.Tuple[jinja2.Template, t.Dict[str, t.Any], t.Any]],
+        outdir: t.Optional[str],
+    ) -> None:
         outdir = outdir or "."
-        for t, cmd, data in commands:
-            result = _render_with_newline(t, data)
+        for tmpl, cmd, data in commands:
+            result = _render_with_newline(tmpl, data)
             # "dst" is joined under outdir without sanitizing ".."
             # segments, so a command can write outside of outdir.
             # acceptable for a user-run CLI: the batch file is trusted input.
             outpath = os.path.join(outdir, cmd["dst"])
-            logger.info("rendering %s (template=%s)", outpath, t.name)
+            logger.info("rendering %s (template=%s)", outpath, tmpl.name)
             fmt = cmd.get("format") or self.format or RAW_FORMAT
             loading.dumpfile(_load_for_dump(result, fmt), outpath, format=fmt)

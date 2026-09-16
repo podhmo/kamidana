@@ -1,10 +1,18 @@
+from __future__ import annotations
+
 import argparse
 import logging
+from typing import TYPE_CHECKING
 
 import jinja2
 from dictknife.loading import get_formats
 
 from kamidana._import import import_symbol
+
+if TYPE_CHECKING:
+    import typing as t
+
+    from kamidana.interfaces import IDriver, ITemplateLoader
 
 
 def make_common_parser() -> argparse.ArgumentParser:
@@ -36,23 +44,28 @@ def make_common_parser() -> argparse.ArgumentParser:
     return parser
 
 
-def setup_logging(args) -> None:
+def setup_logging(args: argparse.Namespace) -> None:
     logging.basicConfig(level=getattr(logging, args.logging))
 
 
-def build_loader(args):
+def build_loader(args: argparse.Namespace) -> ITemplateLoader:
     """resolve --loader and build the template loader."""
     loader_cls = import_symbol(args.loader, ns="kamidana.loader", cwd=True)
     extensions = [
         ("jinja2.ext.{}".format(ext) if "." not in ext else ext)
         for ext in args.extension
     ]
-    return loader_cls(
+    loader: ITemplateLoader = loader_cls(
         args.data, args.additionals, extensions, format=args.input_format
     )
+    return loader
 
 
-def build_driver(driver_cls, loader, args):
+def build_driver(
+    driver_cls: t.Callable[..., IDriver],
+    loader: ITemplateLoader,
+    args: argparse.Namespace,
+) -> IDriver:
     driver = driver_cls(loader, format=args.output_format)
     if args.strict_undefined:
         driver.undefined = jinja2.StrictUndefined

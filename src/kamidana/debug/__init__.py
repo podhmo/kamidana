@@ -1,11 +1,19 @@
+from __future__ import annotations
+
 import sys
 import contextlib
+from typing import TYPE_CHECKING
 from . import gentleerror
 from .color import is_colorful, highlight
 
+if TYPE_CHECKING:
+    import typing as t
+
+__all__ = ["error_handler", "gentleerror", "highlight", "is_colorful"]
+
 
 @contextlib.contextmanager
-def error_handler(*, quiet: bool, debug: bool):
+def error_handler(*, quiet: bool, debug: bool) -> t.Iterator[None]:
     try:
         yield
     except Exception as e:

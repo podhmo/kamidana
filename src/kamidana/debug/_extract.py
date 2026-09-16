@@ -1,11 +1,17 @@
+from __future__ import annotations
+
 import os.path
 import sysconfig
 import traceback
 from collections import namedtuple
+from typing import TYPE_CHECKING
 
 import jinja2
 
 from .._path import is_physical_path
+
+if TYPE_CHECKING:
+    import typing as t
 
 # the output shape is a pair of
 # - template frames (deduplicated, outermost -> innermost)
@@ -52,13 +58,15 @@ def _is_internal_python_frame(fs: traceback.FrameSummary) -> bool:
     )
 
 
-def _deduplicate(frames):
+def _deduplicate(
+    frames: t.List[traceback.FrameSummary],
+) -> t.List[traceback.FrameSummary]:
     # collapse render-loop repetition: identical (filename, lineno) frames.
     # same-file frames at different linenos are distinct call sites (e.g. a
     # macro defined and called in one template) and must be kept.
     # physical paths are canonicalized: the entry template may appear as
     # "./x.html" while resolved includes carry absolute paths.
-    seen = set()
+    seen: t.Set[t.Tuple[str, t.Optional[int]]] = set()
     r = []
     for f in reversed(frames):  # innermost -> outermost
         filename = f.filename

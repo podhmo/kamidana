@@ -1,16 +1,23 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import pytest
 
 from kamidana.loader import TemplateLoader
 from kamidana._path import XTemplatePathNotFound
 
+if TYPE_CHECKING:
+    from pathlib import Path
+
 
 @pytest.fixture
-def loader():
+def loader() -> TemplateLoader:
     return TemplateLoader([], [], [])
 
 
 @pytest.fixture
-def package(tmp_path, monkeypatch):
+def package(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     pkg = tmp_path / "mypkg"
     (pkg / "templates" / "sub").mkdir(parents=True)
     (pkg / "__init__.py").write_text("")
@@ -22,20 +29,26 @@ def package(tmp_path, monkeypatch):
     return pkg
 
 
-def test_load_physical_path(loader, tmp_path, monkeypatch):
+def test_load_physical_path(
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     monkeypatch.chdir(tmp_path)
     (tmp_path / "hello.j2").write_text("hello\n")
     source, filename, _ = loader.load("./hello.j2")
     assert source == "hello\n"
 
 
-def test_load_physical_path_not_found(loader, tmp_path, monkeypatch):
+def test_load_physical_path_not_found(
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     monkeypatch.chdir(tmp_path)
     with pytest.raises(XTemplatePathNotFound):
         loader.load("./notfound.j2")
 
 
-def test_bare_name_is_package_spec(loader, tmp_path, monkeypatch):
+def test_bare_name_is_package_spec(
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # a name without './' or '/' prefix is a package template spec, so a
     # file in the current directory needs an explicit "./" prefix.
     monkeypatch.chdir(tmp_path)
@@ -45,25 +58,31 @@ def test_bare_name_is_package_spec(loader, tmp_path, monkeypatch):
     assert '"./hello.j2"' in str(e.value)
 
 
-def test_load_from_package(loader, package):
+def test_load_from_package(loader: TemplateLoader, package: Path) -> None:
     source, filename, _ = loader.load("mypkg/templates/hello.j2")
     assert source == "hello\n"
 
 
-def test_load_from_package_not_found(loader, tmp_path, monkeypatch):
+def test_load_from_package_not_found(
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     monkeypatch.syspath_prepend(str(tmp_path))
     with pytest.raises(XTemplatePathNotFound) as e:
         loader.load("nosuchpkg/templates/hello.j2")
     assert 'package "nosuchpkg" is not found' in str(e.value)
 
 
-def test_load_from_package_resource_not_found(loader, package):
+def test_load_from_package_resource_not_found(
+    loader: TemplateLoader, package: Path
+) -> None:
     with pytest.raises(XTemplatePathNotFound) as e:
         loader.load("mypkg/templates/notfound.j2")
     assert '"templates/notfound.j2" is not found in package "mypkg"' in str(e.value)
 
 
-def test_additionals_from_file_path(loader, tmp_path, monkeypatch):
+def test_additionals_from_file_path(
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     monkeypatch.chdir(tmp_path)
     (tmp_path / "myfilter.py").write_text(
         "from kamidana import as_filter\n\n\n@as_filter\ndef shout(s):\n"
@@ -73,13 +92,17 @@ def test_additionals_from_file_path(loader, tmp_path, monkeypatch):
     assert loader.additionals["filters"]["shout"]("hi") == "HI"
 
 
-def test_additionals_fallback_to_package_module(loader):
+def test_additionals_fallback_to_package_module(
+    loader: TemplateLoader,
+) -> None:
     # '-a naming' resolves to the bundled kamidana.additionals.naming module.
     loader.additional_path_list.append("naming")
     assert "snakecase" in loader.additionals["filters"]
 
 
-def test_additionals_missing_py_module(loader, tmp_path, monkeypatch):
+def test_additionals_missing_py_module(
+    loader: TemplateLoader, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     # the fallback module name must not keep the '.py' suffix, otherwise it
     # is looked up as a file path and the error message is confusing.
     monkeypatch.chdir(tmp_path)
@@ -91,7 +114,7 @@ def test_additionals_missing_py_module(loader, tmp_path, monkeypatch):
     assert "kamidana.additionals.missing.py" not in str(e.value)
 
 
-def test_join_path_in_package(loader, package):
+def test_join_path_in_package(loader: TemplateLoader, package: Path) -> None:
     # {% extends %}/{% include %} are resolved relative to the parent
     # template, also inside a package.
     from kamidana.driver import _make_environment

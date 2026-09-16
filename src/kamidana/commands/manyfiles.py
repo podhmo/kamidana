@@ -1,9 +1,11 @@
+from __future__ import annotations
+
 from kamidana._import import import_symbol
 from kamidana.debug import error_handler
 from ._args import make_common_parser, setup_logging, build_loader, build_driver
 
 
-def main():
+def main() -> None:
     parser = make_common_parser()
     parser.add_argument(
         "batch",

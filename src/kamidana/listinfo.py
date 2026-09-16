@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import typing as t
 import inspect
 import os.path
@@ -10,9 +12,11 @@ Description = t.NewType("Description", str)
 
 
 def collect_extensions_info(
-    *, _candidates=["jinja2.ext", "kamidana.extensions"]
+    *, _candidates: t.List[str] = ["jinja2.ext", "kamidana.extensions"]
 ) -> t.Dict[str, Description]:
-    extensions = defaultdict(list)
+    extensions: t.DefaultDict[t.Type[jinja2.ext.Extension], t.List[str]] = (
+        defaultdict(list)
+    )
     for modname in _candidates:
         m = import_module(modname)
         for name, v in m.__dict__.items():
@@ -24,7 +28,7 @@ def collect_extensions_info(
                 continue
             extensions[v].append(f"{modname}.{name}")
 
-    info = {}
+    info: t.Dict[str, Description] = {}
     for cls, fullnames in extensions.items():
         fullname = sorted(fullnames, key=lambda x: len(x))[0]
         doc = inspect.getdoc(cls) or ""
@@ -33,7 +37,7 @@ def collect_extensions_info(
 
 
 def collect_additional_modules_info() -> t.Dict[str, Description]:
-    info = {}
+    info: t.Dict[str, Description] = {}
     contents = resources.files("kamidana.additionals")
     for resource in contents.iterdir():
         filename = resource.name
@@ -47,8 +51,8 @@ def collect_additional_modules_info() -> t.Dict[str, Description]:
     return info
 
 
-def listinfo():
-    d = {}
+def listinfo() -> t.Dict[str, t.Dict[str, Description]]:
+    d: t.Dict[str, t.Dict[str, Description]] = {}
     d["extensions"] = collect_extensions_info()
     d["additional_modules"] = collect_additional_modules_info()
     return d

@@ -13,9 +13,9 @@ src/02include/main-notfound.html.j2:
 Traceback:
   File "SITE-PACKAGES/jinja2/loaders.py", line N, in get_source
     rv = self.load_func(template)
-  File "HERE/src/kamidana/loader.py", line 30, in load
+  File "HERE/src/kamidana/loader.py", line 46, in load
     return self._load_from_file(filename)
-  File "HERE/src/kamidana/loader.py", line 40, in _load_from_file
+  File "HERE/src/kamidana/loader.py", line 58, in _load_from_file
     raise XTemplatePathNotFound(filename, exc=exc).with_traceback(e.__traceback__)
-  File "HERE/src/kamidana/loader.py", line 35, in _load_from_file
+  File "HERE/src/kamidana/loader.py", line 53, in _load_from_file
     with open(filename) as rf:

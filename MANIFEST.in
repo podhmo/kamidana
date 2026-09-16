@@ -1,1 +1,2 @@
 include src/kamidana/data.txt
+include src/kamidana/py.typed

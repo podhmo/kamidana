@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 import textwrap
 import traceback
@@ -5,6 +7,10 @@ import linecache
 import logging
 from collections import defaultdict
 from io import StringIO
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import typing as t
 
 from .._path import XTemplatePathNotFound, is_physical_path
 from .color import highlight
@@ -13,7 +19,7 @@ from ._extract import extract_detail, _is_internal_python_frame
 logger = logging.getLogger(__name__)
 
 
-def _display_path(path):
+def _display_path(path: str) -> str:
     # package-spec names are not filesystem paths
     if is_physical_path(path):
         return os.path.relpath(path, os.getcwd())
@@ -32,7 +38,7 @@ class Formatter:
             return highlight("  -> {}".format(text), colorful=self.colorful)
         return "     {}".format(text)
 
-    def format(self, d) -> str:
+    def format(self, d: t.Mapping[str, t.Any]) -> str:
         d = defaultdict(lambda: None, d)
         fmt = textwrap.dedent(
             """
@@ -62,14 +68,22 @@ class Formatter:
 
 
 class Renderer:
-    def __init__(self, *, n: int, colorful: bool = False, formatter=None):
+    def __init__(
+        self,
+        *,
+        n: int,
+        colorful: bool = False,
+        formatter: t.Optional[Formatter] = None,
+    ) -> None:
         self.n = n
         self.formatter = formatter or Formatter(n, colorful=colorful)
 
-    def render(self, exc: Exception, *, level=None) -> str:
+    def render(self, exc: Exception, *, level: t.Optional[int] = None) -> str:
         return self.formatter.format(self.on_error(exc, level=level))
 
-    def on_error(self, exc: Exception, *, level=None) -> dict:
+    def on_error(
+        self, exc: Exception, *, level: t.Optional[int] = None
+    ) -> t.Dict[str, t.Any]:
         d = vars(exc).copy()
         detail = extract_detail(exc)
         if detail.jinja2_frames is None:
@@ -130,7 +144,7 @@ class Renderer:
 
 
 # xxx: remove it
-def _get_info_from_exception(exc: Exception):
+def _get_info_from_exception(exc: Exception) -> t.Dict[str, t.Any]:
     d = {
         "exc_class": "{}.{}".format(
             getattr(exc, "__module__", "builtins"), exc.__class__.__name__
@@ -147,6 +161,11 @@ def _get_info_from_exception(exc: Exception):
 
 
 def translate_error(
-    exc: Exception, *, renderer=Renderer, n=3, colorful=False, level=None
+    exc: Exception,
+    *,
+    renderer: t.Type[Renderer] = Renderer,
+    n: int = 3,
+    colorful: bool = False,
+    level: t.Optional[int] = None,
 ) -> str:
     return renderer(n=n, colorful=colorful).render(exc, level=level)

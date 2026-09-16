@@ -1,6 +1,8 @@
 """
 Naming helpers (e.g. snakecase, kebabcase, ... pluralize, singularize)
 """
+from __future__ import annotations
+
 import re
 import inflection
 from kamidana import as_filter
@@ -11,13 +13,13 @@ singularize = as_filter(inflection.singularize)
 
 @as_filter
 def snakecase(
-    name,
-    rx0=re.compile("(.)([A-Z][a-z]+)"),
-    rx1=re.compile("([a-z0-9])([A-Z])"),
-    rx2=re.compile("[A-Z]+"),
-    separator="_",
-    from_separator="-",
-):
+    name: str,
+    rx0: re.Pattern[str] = re.compile("(.)([A-Z][a-z]+)"),
+    rx1: re.Pattern[str] = re.compile("([a-z0-9])([A-Z])"),
+    rx2: re.Pattern[str] = re.compile("[A-Z]+"),
+    separator: str = "_",
+    from_separator: str = "-",
+) -> str:
     if from_separator in name:
         if rx2.search(name) is None:
             return name.replace(from_separator, separator)
@@ -41,27 +43,27 @@ def snakecase(
 
 
 @as_filter
-def kebabcase(name):
+def kebabcase(name: str) -> str:
     return snakecase(name, separator="-", from_separator="_")
 
 
 @as_filter
-def lispcase(name):  # alias
+def lispcase(name: str) -> str:  # alias
     return snakecase(name, separator="-", from_separator="_")
 
 
 @as_filter
-def camelcase(name):
+def camelcase(name: str) -> str:
     return untitleize(pascalcase(name))
 
 
 @as_filter
-def pascalcase(name, rx=re.compile(r"[\-_ ]")):
+def pascalcase(name: str, rx: re.Pattern[str] = re.compile(r"[\-_ ]")) -> str:
     return "".join(titleize(x) for x in rx.split(name))
 
 
 @as_filter
-def titleize(name):
+def titleize(name: str) -> str:
     if not name:
         return name
     name = str(name)
@@ -69,7 +71,7 @@ def titleize(name):
 
 
 @as_filter
-def untitleize(name):
+def untitleize(name: str) -> str:
     if not name:
         return name
     return "{}{}".format(name[0].lower(), name[1:])

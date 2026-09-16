@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import sys
 import logging
 from kamidana._import import import_symbol
@@ -8,7 +10,7 @@ from ._args import make_common_parser, setup_logging, build_loader, build_driver
 logger = logging.getLogger(__name__)
 
 
-def main():
+def main() -> None:
     parser = make_common_parser()
     parser.add_argument(
         "--driver",

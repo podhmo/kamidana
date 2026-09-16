@@ -37,6 +37,9 @@ include-package-data = true
 zip-safe = false
 package-dir = {"" = "src"}
 
+[tool.setuptools.package-data]
+kamidana = ["py.typed", "data.txt"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
 exclude = ["kamidana.tests"]
@@ -48,3 +51,4 @@ readme = {file = ["README.md", "CHANGES.txt"], content-type = "text/markdown"}
 [tool.mypy]
 python_version = "3.10"
 files = ["src/kamidana"]
+strict = true
