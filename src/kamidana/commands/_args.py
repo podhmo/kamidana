@@ -1,12 +1,18 @@
+from __future__ import annotations
+
 import argparse
 import logging
-import typing as t
+from typing import TYPE_CHECKING
 
 import jinja2
 from dictknife.loading import get_formats
 
 from kamidana._import import import_symbol
-from kamidana.interfaces import IDriver, ITemplateLoader
+
+if TYPE_CHECKING:
+    import typing as t
+
+    from kamidana.interfaces import IDriver, ITemplateLoader
 
 
 def make_common_parser() -> argparse.ArgumentParser:
@@ -49,12 +55,10 @@ def build_loader(args: argparse.Namespace) -> ITemplateLoader:
         ("jinja2.ext.{}".format(ext) if "." not in ext else ext)
         for ext in args.extension
     ]
-    return t.cast(
-        ITemplateLoader,
-        loader_cls(
-            args.data, args.additionals, extensions, format=args.input_format
-        ),
+    loader: ITemplateLoader = loader_cls(
+        args.data, args.additionals, extensions, format=args.input_format
     )
+    return loader
 
 
 def build_driver(

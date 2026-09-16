@@ -1,12 +1,17 @@
+from __future__ import annotations
+
 import textwrap
-import typing as t
-from pathlib import Path
+from typing import TYPE_CHECKING
 
 import pytest
 
 from kamidana._path import XTemplatePathNotFound
 from kamidana.debug.gentleerror import translate_error
 from kamidana.loader import TemplateLoader
+
+if TYPE_CHECKING:
+    import typing as t
+    from pathlib import Path
 
 
 @pytest.fixture

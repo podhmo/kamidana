@@ -1,5 +1,10 @@
+from __future__ import annotations
+
 import sys
-import typing as t
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import typing as t
 
 
 def is_colorful(*, colorful: t.Optional[bool] = None) -> bool:

@@ -1,12 +1,17 @@
+from __future__ import annotations
+
 import os.path
 import sysconfig
 import traceback
-import typing as t
 from collections import namedtuple
+from typing import TYPE_CHECKING
 
 import jinja2
 
 from .._path import is_physical_path
+
+if TYPE_CHECKING:
+    import typing as t
 
 # the output shape is a pair of
 # - template frames (deduplicated, outermost -> innermost)

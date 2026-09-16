@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import sys
 import logging
 from kamidana._import import import_symbol

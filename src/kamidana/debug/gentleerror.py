@@ -1,11 +1,16 @@
+from __future__ import annotations
+
 import os
 import textwrap
 import traceback
 import linecache
 import logging
-import typing as t
 from collections import defaultdict
 from io import StringIO
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import typing as t
 
 from .._path import XTemplatePathNotFound, is_physical_path
 from .color import highlight

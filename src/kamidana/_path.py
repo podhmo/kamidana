@@ -1,10 +1,15 @@
 # xxx: hack for template name resolution by relative path from current template.
 
+from __future__ import annotations
+
 import os.path
 import posixpath
-import typing as t
 import jinja2
 from collections import namedtuple
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import typing as t
 
 _Original = namedtuple("_Original", "path, where")
 
@@ -52,9 +57,10 @@ def TemplatePath(
 
 
 def x_get_original_context(path: str) -> _Original:
-    return t.cast(
-        _Original, getattr(path, "original", None) or _Original(path=path, where=None)
-    )
+    original = getattr(path, "original", None)
+    if isinstance(original, _Original):
+        return original
+    return _Original(path=path, where=None)
 
 
 class ResolvingByRelativePathEnvironment(jinja2.Environment):

@@ -1,13 +1,17 @@
 """
 Reading from other resources (e.g. read_from_file, read_from_command)
 """
+from __future__ import annotations
 
 import re
 import os.path
 import subprocess
+from typing import TYPE_CHECKING
 from kamidana import as_filter
 from jinja2 import pass_context
-from jinja2.runtime import Context
+
+if TYPE_CHECKING:
+    from jinja2.runtime import Context
 
 
 @as_filter

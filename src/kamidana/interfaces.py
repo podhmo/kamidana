@@ -1,6 +1,9 @@
+from __future__ import annotations
+
 import typing as t
 
-import jinja2
+if t.TYPE_CHECKING:
+    import jinja2
 
 # Structural contracts for --loader / --driver plugins (resolved via
 # import_symbol at runtime, so duck typing is the real contract).

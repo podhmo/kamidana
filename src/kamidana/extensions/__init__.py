@@ -1,13 +1,18 @@
+from __future__ import annotations
+
 import logging
-import typing as t
 from functools import partial
-from types import ModuleType
 from jinja2.ext import Extension
 from jinja2.environment import Environment
 from jinja2 import utils as j2utils
 from dictknife.deepmerge import deepmerge
+from typing import TYPE_CHECKING
 from .. import collect_marked_items
 from .._import import import_module
+
+if TYPE_CHECKING:
+    import typing as t
+    from types import ModuleType
 
 logger = logging.getLogger(__name__)
 

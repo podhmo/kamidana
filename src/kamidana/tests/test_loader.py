@@ -1,9 +1,14 @@
-from pathlib import Path
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 import pytest
 
 from kamidana.loader import TemplateLoader
 from kamidana._path import XTemplatePathNotFound
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 
 @pytest.fixture

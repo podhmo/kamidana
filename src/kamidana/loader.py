@@ -1,13 +1,14 @@
+from __future__ import annotations
+
 import sys
 import os.path
 import linecache
 import logging
-import typing as t
-import importlib.abc
 import importlib.resources
 from functools import cached_property
 from dictknife.deepmerge import deepmerge
 from dictknife import loading
+from typing import TYPE_CHECKING
 from ._import import import_module
 from . import collect_marked_items
 from .interfaces import ITemplateLoader
@@ -16,6 +17,10 @@ from ._path import (
     is_physical_path,
     split_package_spec,
 )
+
+if TYPE_CHECKING:
+    import typing as t
+    import importlib.abc
 
 logger = logging.getLogger(__name__)
 

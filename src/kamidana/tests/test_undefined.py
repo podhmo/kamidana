@@ -1,11 +1,16 @@
+from __future__ import annotations
+
 import sys
-from pathlib import Path
+from typing import TYPE_CHECKING
 
 import jinja2
 import pytest
 
 from kamidana.debug.gentleerror import translate_error
 from kamidana.loader import TemplateLoader
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 
 @pytest.fixture

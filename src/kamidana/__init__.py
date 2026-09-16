@@ -1,7 +1,11 @@
 # -*- coding:utf-8 -*-
+from __future__ import annotations
+
 import typing as t
 from collections import defaultdict
-from types import ModuleType
+
+if t.TYPE_CHECKING:
+    from types import ModuleType
 
 MARKER_TAG = "_kamidana_marker"
 IS_GENERATOR_TAG = "_kamidana_is_generator"
