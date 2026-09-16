@@ -1,5 +1,4 @@
 ------------------------------------------------------------
 exception: kamidana._path.XTemplatePathNotFound
 message: [Errno 2] No such file or directory: './src/01*/notfound.j2'. (a template name is a file if it starts with './', '../' or '/'; otherwise it is a template in a python package ('<package>/<path>'))
-where: None
 ------------------------------------------------------------
