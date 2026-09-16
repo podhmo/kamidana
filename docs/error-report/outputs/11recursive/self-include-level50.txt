@@ -2,13 +2,8 @@ $ python ../../level.py ./loop.html 50
 ------------------------------------------------------------
 exception: builtins.RecursionError
 message: maximum recursion depth exceeded
-where: loop.html
+where: <frozen posixpath>:63
 ------------------------------------------------------------
-loop.html:
-      1: <div>
-  ->  2: {% include "./loop.html" %}
-      3: </div>
-
 loop.html:
       1: <div>
   ->  2: {% include "./loop.html" %}

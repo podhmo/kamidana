@@ -2,12 +2,8 @@ $ kamidana --logging=WARNING ./ping.html
 ------------------------------------------------------------
 exception: builtins.RecursionError
 message: maximum recursion depth exceeded
-where: pong.html
+where: <frozen posixpath>:63
 ------------------------------------------------------------
-ping.html:
-      1: [p]
-  ->  2: {% include "./pong.html" %}
-
 ping.html:
       1: [p]
   ->  2: {% include "./pong.html" %}

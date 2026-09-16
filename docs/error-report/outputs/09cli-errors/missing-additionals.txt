@@ -10,7 +10,7 @@ Traceback (most recent call last):
     raise ModuleNotFoundError("module file is not found: {}".format(path))
 ModuleNotFoundError: module file is not found: missing.py
 
-During handling of the above exception, another exception occurred:
+The above exception was the direct cause of the following exception:
 
 Traceback (most recent call last):
   File "~/.pyenv/versions/3.12.13/bin/kamidana", line 6, in <module>
@@ -33,13 +33,7 @@ Traceback (most recent call last):
   File "<site-packages>/dictknife/langhelpers.py", line 43, in __get__
     val = self.wrapped(inst)
           ^^^^^^^^^^^^^^^^^^
-  File "~/repos/kamidana/kamidana/loader.py", line 85, in additionals
-    m = import_module("kamidana.additionals.{}".format(path), cwd=True)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "~/repos/kamidana/kamidana/_import.py", line 21, in import_module
-    return _import_from_path(module_path, here=here, cwd=cwd)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "~/repos/kamidana/kamidana/_import.py", line 38, in _import_from_path
-    raise ModuleNotFoundError("module file is not found: {}".format(path))
-ModuleNotFoundError: module file is not found: kamidana.additionals.missing.py
+  File "~/repos/kamidana/kamidana/loader.py", line 90, in additionals
+    raise ImportError(
+ImportError: module not found: missing.py (also tried kamidana.additionals.missing)
 [exit 1]

@@ -2,7 +2,7 @@ $ kamidana --logging=WARNING ./main.jinja2 -a additionals.py
 ------------------------------------------------------------
 exception: builtins.KeyError
 message: 'JPY'
-where: main.jinja2
+where: helpers.py:7
 ------------------------------------------------------------
 main.jinja2:
       1: # price list

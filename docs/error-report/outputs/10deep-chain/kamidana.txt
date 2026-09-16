@@ -2,8 +2,36 @@ $ kamidana --logging=WARNING ./c0.html -a additionals.py
 ------------------------------------------------------------
 exception: builtins.KeyError
 message: 'JPY'
-where: macros.html
+where: helpers.py:7
 ------------------------------------------------------------
+c0.html:
+  ->  1: {% extends "c1.html" %}
+      2: {% block content %}[c0] {{ super() }}{% endblock %}
+
+c1.html:
+  ->  1: {% extends "c2.html" %}
+      2: {% block content %}[c1] {{ super() }}{% endblock %}
+
+c2.html:
+  ->  1: {% extends "base.html" %}
+      2: {% block content %}[c2] {{ super() }}{% endblock %}
+
+base.html:
+      1: <html>
+      2: <body>
+  ->  3: {% block content %}
+      4: {% include "./part1.html" %}
+      5: {% endblock %}
+      6: </body>
+
+c0.html:
+      1: {% extends "c1.html" %}
+  ->  2: {% block content %}[c0] {{ super() }}{% endblock %}
+
+c1.html:
+      1: {% extends "c2.html" %}
+  ->  2: {% block content %}[c1] {{ super() }}{% endblock %}
+
 c2.html:
       1: {% extends "base.html" %}
   ->  2: {% block content %}[c2] {{ super() }}{% endblock %}

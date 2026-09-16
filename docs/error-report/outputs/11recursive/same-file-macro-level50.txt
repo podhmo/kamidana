@@ -2,8 +2,14 @@ $ python ../../level.py ./samemacro.html 50 -a additionals.py
 ------------------------------------------------------------
 exception: builtins.KeyError
 message: 'JPY'
-where: samemacro.html
+where: helpers.py:5
 ------------------------------------------------------------
+samemacro.html:
+      1: {% macro price() %}
+      2:   price: {{ 100|money }}
+      3: {% endmacro %}
+  ->  4: {{ price() }}
+
 samemacro.html:
       1: {% macro price() %}
   ->  2:   price: {{ 100|money }}

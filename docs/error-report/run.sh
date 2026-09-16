@@ -50,8 +50,9 @@ run_case 08include-chain ./main.html main.html
 
 run_case 10deep-chain ./c0.html c0.html -a additionals.py
 run 10deep-chain kamidana-level50.txt python ../../level.py ./c0.html 50 -a additionals.py
+run 10deep-chain kamidana-level5.txt python ../../level.py ./c0.html 5 -a additionals.py
 
-# recursion / same-file dedup probes (level=5 default vs level=50)
+# recursion / same-file dedup probes (unlimited default vs level=50)
 run 11recursive self-include.txt $K ./loop.html
 run 11recursive self-include-level50.txt python ../../level.py ./loop.html 50
 run 11recursive self-include-jinja2.txt python ../../j2.py loop.html

@@ -2,6 +2,5 @@ $ kamidana --logging=WARNING ./no-such.html
 ------------------------------------------------------------
 exception: kamidana._path.XTemplatePathNotFound
 message: [Errno 2] No such file or directory: './no-such.html'. (a template name is a file if it starts with './', '../' or '/'; otherwise it is a template in a python package ('<package>/<path>'))
-where: None
 ------------------------------------------------------------
 [exit 1]
