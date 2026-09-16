@@ -33,18 +33,22 @@ in the dependency-update change; the rest are open.
 
 - [x] `optimized=False` now set explicitly (required assumption for template
   frame introspection).
-- [ ] `_make_environment` duplicated by `Driver.environment` and
-  `BatchCommandDriver.environment` — extract `BaseDriver`.
-- [ ] `BatchCommandDriver.self.cache` is dead code (real cache is the local
+- [x] `BaseDriver` extracted: owns `loader`/`format`/`environment` plus a
+  shared `run` (`dump(transform(load(src)), dst)`); `Driver.transform`
+  renders, `ContextDumpDriver.transform` builds the context dict,
+  `BatchCommandDriver` uses the identity default.
+- [x] `BatchCommandDriver.self.cache` removed (real cache is the local
   `cache` in `load()`).
-- [ ] `BatchCommandDriver.load()` — ad-hoc validation of `template`/`dst`;
-  unknown keys pass silently; `deepmerge(data, core_data)` precedence +
-  missing `override=` needs a documented decision.
-- [ ] `dump()` joins `cmd["dst"]` under `outdir` without sanitizing `..` —
-  acceptable for a user-run CLI, worth a comment.
-- [ ] `-o raw` vs format dispatch: `fmt == "raw"` checks are scattered across
-  `Driver.dump`, `ContextDumpDriver.dump`, `BatchCommandDriver.dump` — a
-  `RawFormat` pseudo-format in one place would centralize it.
+- [x] `BatchCommandDriver.load()` — non-dict commands and missing
+  `template`/`dst` raise; unknown keys log a warning; the
+  `deepmerge(data, core_data)` precedence is documented (addtoset: lists
+  unioned, dicts merged recursively, CLI `-d` data wins on scalar
+  conflicts).
+- [x] `dump()` — comment added that `cmd["dst"]` is joined under `outdir`
+  without sanitizing `..` (trusted input for a user-run CLI).
+- [x] `-o raw` centralized: module-level `RAW_FORMAT` constant plus
+  `_load_for_dump()` helper cover all three `dump` methods
+  (`ContextDumpDriver` still maps raw -> json since it dumps a dict).
 
 ## kamidana/extensions/__init__.py
 
