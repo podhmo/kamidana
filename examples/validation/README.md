@@ -7,10 +7,17 @@
 This example requires pydantic v2. pydantic is not a dependency of
 kamidana, so install it yourself (`pip install pydantic`).
 
-From the repository root, render valid data:
+From the repository root, render valid data. `port` is coerced to `int`
+and `greeting` falls back to its default:
+
+```yaml
+# data.yaml
+name: foo
+port: "8080"
+```
 
 ```console
-$ kamidana --driver=./examples/validation/validating_driver.py:ValidatingDriver -d examples/validation/data.ok.yaml examples/validation/template.j2
+$ kamidana --driver=./examples/validation/validating_driver.py:ValidatingDriver -d data.yaml examples/validation/template.j2
 hello, foo!
 listening on port 8081
 ```
@@ -18,8 +25,13 @@ listening on port 8081
 With data that lacks the required `name` and has a `port` of the wrong
 type, pydantic's `ValidationError` is raised and nothing is rendered:
 
+```yaml
+# data.yaml
+port: not-a-number
+```
+
 ```console
-$ kamidana --driver=./examples/validation/validating_driver.py:ValidatingDriver -d examples/validation/data.ng.yaml examples/validation/template.j2
+$ kamidana --driver=./examples/validation/validating_driver.py:ValidatingDriver -d data.yaml examples/validation/template.j2
 ```
 
 ```text
