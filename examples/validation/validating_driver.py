@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from kamidana.driver import Driver, _render_with_newline
+from kamidana.driver import Driver
 
 
 class Params(BaseModel):
@@ -14,4 +14,7 @@ class ValidatingDriver(Driver):
     # pydantic's ValidationError propagates as-is and the command stops.
     def transform(self, t):
         params = Params.model_validate(self.loader.data)
-        return _render_with_newline(t, params.model_dump())
+        r = t.render(**params.model_dump())
+        if r.endswith("\n"):
+            return r
+        return r + "\n"
