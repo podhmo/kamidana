@@ -96,6 +96,34 @@ def test_deep_chain_shows_all_template_frames(loader, tmp_path, monkeypatch):
     assert "frames omitted" in output
 
 
+def test_same_file_macro_keeps_caller_frame(loader, tmp_path, monkeypatch):
+    # regression: https://github.com/podhmo/kamidana/issues/64
+    # when a macro is defined and called in the same template file, the
+    # caller-side frame (the `{{ price() }}` line) must be shown along with
+    # the macro body frame that raised.
+    from kamidana.driver import _make_environment
+
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "samemacro.html").write_text(
+        "{% macro price() %}\n"
+        "  price: {{ 100|money }}\n"
+        "{% endmacro %}\n"
+        "{{ price() }}\n"
+    )
+
+    def money(amount):
+        raise KeyError("JPY")
+
+    env = _make_environment(loader.load, {"filters": {"money": money}}, [])
+    with pytest.raises(KeyError) as e:
+        env.get_template("./samemacro.html").render()
+
+    output = translate_error(e.value)
+    assert output.count("samemacro.html:") == 2
+    assert "->  4: {{ price() }}" in output
+    assert "->  2:   price: {{ 100|money }}" in output
+
+
 def test_python_side_error_where_points_at_raise_site(
     loader, tmp_path, monkeypatch
 ):
