@@ -41,12 +41,16 @@ class Formatter:
             ------------------------------------------------------------
             exception: {d[exc_class]}
             message: {d[message]}
-            where: {d[where]}
             ------------------------------------------------------------
             """.lstrip(
                 "\n"
             )
         )
+        if d["where"] is not None:
+            fmt = fmt.replace(
+                "message: {d[message]}\n",
+                "message: {d[message]}\nwhere: {d[where]}\n",
+            )
         fmt2 = textwrap.dedent(
             """
             {d[output]}
