@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os.path
 import sys
 import textwrap
 from types import ModuleType
@@ -219,6 +220,54 @@ def test_package_member_by_absolute_path(tmp_path: Path) -> None:
 
     m = import_module(str(pkg / "feature.py"))
     assert m.VALUE == 1
+
+
+def test_package_member_wins_over_earlier_syspath_entries(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # the package root is on sys.path but sits behind a directory
+    # holding a same-named package: the requested file must still win.
+    monkeypatch.chdir(tmp_path)
+    pkg = tmp_path / "mypkg"
+    pkg.mkdir()
+    (pkg / "__init__.py").write_text("")
+    (pkg / "feature.py").write_text("MARKER = 'real'\n")
+    shadow = tmp_path / "shadow"
+    (shadow / "mypkg").mkdir(parents=True)
+    (shadow / "mypkg" / "__init__.py").write_text("")
+    (shadow / "mypkg" / "feature.py").write_text("MARKER = 'shadow'\n")
+
+    monkeypatch.syspath_prepend(str(tmp_path))
+    monkeypatch.syspath_prepend(str(shadow))
+
+    m = import_module("mypkg/feature.py")
+    assert m.MARKER == "real"
+    assert os.path.realpath(str(m.__file__)) == os.path.realpath(
+        str(pkg / "feature.py")
+    )
+
+
+def test_package_member_replaces_foreign_cached_package(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # a same-named package already imported from elsewhere must not
+    # shadow the requested file via sys.modules.
+    shadow = tmp_path / "shadow"
+    (shadow / "mypkg").mkdir(parents=True)
+    (shadow / "mypkg" / "__init__.py").write_text("")
+    (shadow / "mypkg" / "feature.py").write_text("MARKER = 'shadow'\n")
+    monkeypatch.syspath_prepend(str(shadow))
+    foreign = import_module("mypkg.feature")
+    assert foreign.MARKER == "shadow"
+
+    pkg = tmp_path / "mypkg"
+    pkg.mkdir()
+    (pkg / "__init__.py").write_text("")
+    (pkg / "feature.py").write_text("MARKER = 'real'\n")
+
+    m = import_module(str(pkg / "feature.py"))
+    assert m.MARKER == "real"
+    assert sys.modules["mypkg.feature"] is m
 
 
 def test_relative_import_in_standalone_file_fails(

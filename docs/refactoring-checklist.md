@@ -20,11 +20,6 @@ open; completed items are removed.
 - [ ] `load()` re-reads the template file on every call — jinja2 asks the
   loader again for `{% extends %}`/`{% include %}` targets; add `mtime`-keyed
   caching if profiling shows it matters.
-- [ ] `additionals` falls back `ImportError -> kamidana.additionals.<name>` —
-  catches the *inner* import errors of the user module too (a buggy
-  additional module that itself fails to import is retried under the
-  `kamidana.additionals` namespace, producing a confusing error). Narrow to
-  `ModuleNotFoundError` where `e.name` matches the requested top-level name.
 
 ## kamidana/extensions/__init__.py
 
@@ -51,10 +46,6 @@ open; completed items are removed.
 - [ ] `logging._nameToLevel` is private API — `logging.getLevelNamesMapping()`
   exists on >= 3.11; switch when the floor moves past 3.10 (3.10 EOLs Oct
   2026).
-- [ ] `import_symbol` failures (a bad `--loader` path) are caught by
-  `error_handler` and reported as gentle errors — good — but non-template
-  exceptions re-raise a raw traceback; consider routing all errors through a
-  consistent policy.
 
 ## kamidana/listinfo.py
 

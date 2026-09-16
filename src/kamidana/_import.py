@@ -96,10 +96,26 @@ def _import_as_package_member(
         root = os.path.dirname(root)
 
     root_realpath = os.path.realpath(root)
-    if not any(
-        os.path.realpath(p) == root_realpath for p in sys.path if isinstance(p, str)
-    ):
+    # the requested file must win over same-named packages sitting
+    # earlier on sys.path (e.g. a stale PYTHONPATH entry): root goes
+    # first, any earlier spelling of it is dropped.
+    indices = [
+        i
+        for i, p in enumerate(sys.path)
+        if isinstance(p, str) and os.path.realpath(p) == root_realpath
+    ]
+    if indices != [0]:
+        for i in reversed(indices):
+            del sys.path[i]
         sys.path.insert(0, root)
+    # a same-named package already imported from somewhere else shadows
+    # the requested file in sys.modules; evict it so the real one loads.
+    top = parts[0]
+    pkg_dir = os.path.join(root_realpath, top)
+    cached = sys.modules.get(top)
+    if cached is not None and not _owns_dir(cached, pkg_dir):
+        for name in [n for n in sys.modules if n == top or n.startswith(top + ".")]:
+            del sys.modules[name]
     # finder caches are keyed by the sys.path spelling: a leftover
     # FileFinder for "." / "./mypkg" keeps a directory listing (and a
     # path) from an older cwd.  drop every cached finder under this
@@ -121,6 +137,13 @@ def _import_as_package_member(
             )
         )
     return module
+
+
+def _owns_dir(module: ModuleType, pkg_dir_realpath: str) -> bool:
+    paths = getattr(module, "__path__", None)
+    if paths is None:
+        return False
+    return any(os.path.realpath(p) == pkg_dir_realpath for p in paths)
 
 
 def _import_as_standalone(path: str, lookup_path: str) -> ModuleType:
