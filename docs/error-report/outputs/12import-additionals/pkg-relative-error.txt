@@ -1,0 +1,18 @@
+$ kamidana --logging=WARNING ./hello.html -a pkg/additionals.py
+------------------------------------------------------------
+exception: builtins.KeyError
+message: 'JPY'
+where: pkg/helpers.py:7
+------------------------------------------------------------
+hello.html:
+  ->  1: - apple: {{ 100|money }}
+      2: - orange: {{ 80|money }}
+
+Traceback:
+  File "pkg/additionals.py", line 7, in money
+    return helpers.format_money(amount, "JPY")
+  File "pkg/helpers.py", line 11, in format_money
+    rate = lookup_rate(currency)
+  File "pkg/helpers.py", line 7, in lookup_rate
+    return _RATES[currency]
+[exit 1]

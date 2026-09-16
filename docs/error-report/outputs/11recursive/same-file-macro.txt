@@ -19,11 +19,8 @@ samemacro.html:
 Traceback:
   File "additionals.py", line 7, in money
     return helpers.format_money(amount, "JPY")
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "HERE/cases/11recursive/helpers.py", line 9, in format_money
+  File "helpers.py", line 9, in format_money
     rate = lookup_rate(currency)
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "HERE/cases/11recursive/helpers.py", line 5, in lookup_rate
+  File "helpers.py", line 5, in lookup_rate
     return _RATES[currency]
-           ~~~~~~^^^^^^^^^^
 [exit 1]

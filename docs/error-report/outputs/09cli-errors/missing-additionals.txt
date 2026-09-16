@@ -1,39 +1,23 @@
 $ kamidana --logging=WARNING -a missing.py ./hello.html
-Traceback (most recent call last):
-  File "~/repos/kamidana/kamidana/loader.py", line 83, in additionals
-    m = import_module(path, cwd=True)
-        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "~/repos/kamidana/kamidana/_import.py", line 21, in import_module
-    return _import_from_path(module_path, here=here, cwd=cwd)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "~/repos/kamidana/kamidana/_import.py", line 38, in _import_from_path
-    raise ModuleNotFoundError("module file is not found: {}".format(path))
-ModuleNotFoundError: module file is not found: missing.py
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "~/.pyenv/versions/3.12.13/bin/kamidana", line 6, in <module>
-    sys.exit(main())
-             ^^^^^^
-  File "~/repos/kamidana/kamidana/commands/onefile.py", line 87, in main
+------------------------------------------------------------
+exception: builtins.ImportError
+message: module not found: missing.py (also tried kamidana.additionals.missing)
+------------------------------------------------------------
+Traceback:
+  File "~/repos/kamidana/src/kamidana/debug/__init__.py", line 18, in error_handler
+    yield
+  File "~/repos/kamidana/src/kamidana/commands/onefile.py", line 66, in main
     driver.run(args.template, args.dst)
-  File "~/repos/kamidana/kamidana/driver.py", line 59, in run
-    template = self.load(src)
-               ^^^^^^^^^^^^^^
-  File "~/repos/kamidana/kamidana/driver.py", line 50, in load
+  File "~/repos/kamidana/src/kamidana/driver.py", line 83, in run
+    return self.dump(self.transform(self.load(src)), dst)
+  File "~/repos/kamidana/src/kamidana/driver.py", line 94, in load
     return self.environment.get_or_select_template(template_file)
-           ^^^^^^^^^^^^^^^^
-  File "<site-packages>/dictknife/langhelpers.py", line 43, in __get__
-    val = self.wrapped(inst)
-          ^^^^^^^^^^^^^^^^^^
-  File "~/repos/kamidana/kamidana/driver.py", line 43, in environment
-    self.loader.load, self.loader.additionals, self.loader.extensions
-                      ^^^^^^^^^^^^^^^^^^^^^^^
-  File "<site-packages>/dictknife/langhelpers.py", line 43, in __get__
-    val = self.wrapped(inst)
-          ^^^^^^^^^^^^^^^^^^
-  File "~/repos/kamidana/kamidana/loader.py", line 90, in additionals
+  File "~/.pyenv/versions/3.12.13/lib/python3.12/functools.py", line 998, in __get__
+    val = self.func(instance)
+  File "~/repos/kamidana/src/kamidana/driver.py", line 74, in environment
+    self.loader.additionals,
+  File "~/.pyenv/versions/3.12.13/lib/python3.12/functools.py", line 998, in __get__
+    val = self.func(instance)
+  File "~/repos/kamidana/src/kamidana/loader.py", line 115, in additionals
     raise ImportError(
-ImportError: module not found: missing.py (also tried kamidana.additionals.missing)
 [exit 1]

@@ -14,13 +14,10 @@ main.html:
 Traceback:
   File "<site-packages>/jinja2/loaders.py", line 494, in get_source
     rv = self.load_func(template)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "~/repos/kamidana/kamidana/loader.py", line 30, in load
+  File "~/repos/kamidana/src/kamidana/loader.py", line 46, in load
     return self._load_from_file(filename)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "~/repos/kamidana/kamidana/loader.py", line 40, in _load_from_file
+  File "~/repos/kamidana/src/kamidana/loader.py", line 58, in _load_from_file
     raise XTemplatePathNotFound(filename, exc=exc).with_traceback(e.__traceback__)
-  File "~/repos/kamidana/kamidana/loader.py", line 35, in _load_from_file
+  File "~/repos/kamidana/src/kamidana/loader.py", line 53, in _load_from_file
     with open(filename) as rf:
-         ^^^^^^^^^^^^^^
 [exit 1]

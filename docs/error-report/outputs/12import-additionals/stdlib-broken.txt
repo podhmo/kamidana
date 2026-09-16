@@ -1,0 +1,16 @@
+$ kamidana --logging=WARNING ./hello-ok.html -a stdlib_broken.py
+------------------------------------------------------------
+exception: json.decoder.JSONDecodeError
+message: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+where: stdlib_broken.py:5
+------------------------------------------------------------
+stdlib_broken.py:
+      2: # so where: points at this file and the raise site is filtered out.
+      3: import json
+      4: 
+  ->  5: json.loads("{broken")
+
+Traceback:
+  File "stdlib_broken.py", line 5, in <module>
+    json.loads("{broken")
+[exit 1]

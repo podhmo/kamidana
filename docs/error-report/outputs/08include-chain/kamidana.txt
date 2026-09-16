@@ -1,4 +1,4 @@
-$ kamidana --logging=WARNING ./main.html
+$ kamidana --logging=WARNING ./main.html --strict-undefined
 ------------------------------------------------------------
 exception: jinja2.exceptions.UndefinedError
 message: 'user_name' is undefined

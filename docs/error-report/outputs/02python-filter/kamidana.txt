@@ -13,11 +13,8 @@ main.jinja2:
 Traceback:
   File "additionals.py", line 7, in money
     return helpers.format_money(amount, "JPY")
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "HERE/cases/02python-filter/helpers.py", line 11, in format_money
+  File "helpers.py", line 11, in format_money
     rate = lookup_rate(currency)
-           ^^^^^^^^^^^^^^^^^^^^^
-  File "HERE/cases/02python-filter/helpers.py", line 7, in lookup_rate
+  File "helpers.py", line 7, in lookup_rate
     return _RATES[currency]
-           ~~~~~~^^^^^^^^^^
 [exit 1]

@@ -1,19 +1,19 @@
-$ kamidana --logging=WARNING --debug ./main.html
+$ kamidana --logging=WARNING --debug ./main.html --strict-undefined
 Traceback (most recent call last):
   File "~/.pyenv/versions/3.12.13/bin/kamidana", line 6, in <module>
     sys.exit(main())
              ^^^^^^
-  File "~/repos/kamidana/kamidana/commands/onefile.py", line 87, in main
+  File "~/repos/kamidana/src/kamidana/commands/onefile.py", line 66, in main
     driver.run(args.template, args.dst)
-  File "~/repos/kamidana/kamidana/driver.py", line 60, in run
-    result = self.transform(template)
-             ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "~/repos/kamidana/kamidana/driver.py", line 47, in transform
-    return _render_with_newline(t, self.loader.data)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "~/repos/kamidana/kamidana/driver.py", line 15, in _render_with_newline
-    r = t.render(**data)
-        ^^^^^^^^^^^^^^^^
+  File "~/repos/kamidana/src/kamidana/driver.py", line 83, in run
+    return self.dump(self.transform(self.load(src)), dst)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/repos/kamidana/src/kamidana/driver.py", line 88, in transform
+    return _render_with_newline(tmpl, self.loader.data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/repos/kamidana/src/kamidana/driver.py", line 27, in _render_with_newline
+    r = tmpl.render(**data)
+        ^^^^^^^^^^^^^^^^^^^
   File "<site-packages>/jinja2/environment.py", line 1295, in render
     self.environment.handle_exception()
   File "<site-packages>/jinja2/environment.py", line 942, in handle_exception

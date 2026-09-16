@@ -1,0 +1,15 @@
+$ kamidana --logging=WARNING ./hello-ok.html -a standalone_relative.py
+------------------------------------------------------------
+exception: builtins.ImportError
+message: attempted relative import with no known parent package
+where: standalone_relative.py:3
+------------------------------------------------------------
+standalone_relative.py:
+      1: # a standalone (non-package) module cannot use relative imports;
+      2: # the real ImportError should be shown, not a "module not found".
+  ->  3: from . import helpers
+
+Traceback:
+  File "standalone_relative.py", line 3, in <module>
+    from . import helpers
+[exit 1]
