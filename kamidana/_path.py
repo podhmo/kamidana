@@ -9,7 +9,10 @@ _Original = namedtuple("_Original", "path, where")
 
 
 def is_physical_path(name: str) -> bool:
-    """a physical file path starts with './', '../' or '/'"""
+    """a physical file path starts with './', '../' or '/'
+
+    (i.e. any name starting with '.' or '/')
+    """
     return name.startswith((".", "/"))
 
 

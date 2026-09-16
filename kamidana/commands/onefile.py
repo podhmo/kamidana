@@ -44,8 +44,8 @@ def main():
     parser.add_argument(
         "template",
         nargs="?",
-        help="template file ('./foo.j2', '/foo.j2') or a template in a python"
-        " package ('<package>/<path>')",
+        help="template file ('./foo.j2', '../foo.j2', '/foo.j2') or a template"
+        " in a python package ('<package>/<path>')",
     )
     parser.add_argument("--debug", action="store_true")
     parser.add_argument("--quiet", action="store_true")

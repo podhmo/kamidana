@@ -23,7 +23,8 @@ usage: kamidana [-h] [--driver DRIVER] [--loader LOADER] [-d DATA]
                   [template]
 
   positional arguments:
-    template              template file ('./foo.j2', '/foo.j2') or a template in a python package ('<package>/<path>')
+    template              template file ('./foo.j2', '../foo.j2', '/foo.j2') or a template in a python package
+                          ('<package>/<path>')
 
   options:
     -h, --help            show this help message and exit
@@ -47,8 +48,9 @@ usage: kamidana [-h] [--driver DRIVER] [--loader LOADER] [-d DATA]
 
 a template name is interpreted as follows.
 
-- **physical path**: a name starting with `./` or `/` is a file path
+- **physical path**: a name starting with `./`, `../` or `/` is a file path
   - `./main.j2` -> the file `main.j2` in the current directory
+  - `../main.j2` -> the file `main.j2` in the parent directory
   - `/tmp/main.j2` -> the file `/tmp/main.j2`
 - **python package**: otherwise, the name is a template in a python package, in `<package>/<path>` form
   - `mypkg/templates/main.j2` -> the resource `templates/main.j2` inside the installed package `mypkg`
@@ -165,7 +167,7 @@ $ tree ./examples/readme/src/11
 $ kamidana ./examples/readme/src/11/main.html.j2
 ------------------------------------------------------------
   exception: kamidana._path.XTemplatePathNotFound
-  message: [Errno 2] No such file or directory: 'footer-404.html.j2'. (a template name is a file if it starts with './' or '/'; otherwise it is a template in a python package ('<package>/<path>'))
+  message: [Errno 2] No such file or directory: 'footer-404.html.j2'. (a template name is a file if it starts with './', '../' or '/'; otherwise it is a template in a python package ('<package>/<path>'))
   where: examples/readme/src/11/main.html.j2
   ------------------------------------------------------------
   examples/readme/src/11/main.html.j2:
@@ -180,7 +182,7 @@ $ kamidana ./examples/readme/src/11/main.html.j2
     File "HERE/repos/kamidana/kamidana/loader.py", line 30, in load
       return self._load_from_file(filename)
     File "HERE/repos/kamidana/kamidana/loader.py", line 40, in _load_from_file
-      raise XTemplatePathNotFound(filename, exc=exc).with_traceback(
+      raise XTemplatePathNotFound(filename, exc=exc).with_traceback(e.__traceback__)
     File "HERE/repos/kamidana/kamidana/loader.py", line 35, in _load_from_file
       with open(filename) as rf:
 

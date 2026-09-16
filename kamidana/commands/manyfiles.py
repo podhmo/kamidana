@@ -26,8 +26,9 @@ def main():
     parser.add_argument("--quiet", action="store_true")
     parser.add_argument(
         "batch",
-        help="batch file. 'template' in each command accepts a file ('./foo.j2',"
-        " '/foo.j2') or a template in a python package ('<package>/<path>')",
+        help="batch file. 'template' in each command accepts a file"
+        " ('./foo.j2', '../foo.j2', '/foo.j2') or a template in a python"
+        " package ('<package>/<path>')",
     )
     parser.add_argument("--outdir", default=None)
 
