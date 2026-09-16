@@ -15,6 +15,6 @@ Traceback:
   File "HERE/kamidana/loader.py", line 30, in load
     return self._load_from_file(filename)
   File "HERE/kamidana/loader.py", line 40, in _load_from_file
-    raise XTemplatePathNotFound(filename, exc=exc).with_traceback(
+    raise XTemplatePathNotFound(filename, exc=exc).with_traceback(e.__traceback__)
   File "HERE/kamidana/loader.py", line 35, in _load_from_file
     with open(filename) as rf:
