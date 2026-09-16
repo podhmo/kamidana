@@ -1,6 +1,6 @@
 ------------------------------------------------------------
 exception: kamidana._path.XTemplatePathNotFound
-message: [Errno 2] No such file or directory: 'missing-404.j2'
+message: [Errno 2] No such file or directory: 'missing-404.j2'. (a template name is a file if it starts with './' or '/'; otherwise it is a template in a python package ('<package>/<path>'))
 where: src/02include/main-notfound.html.j2
 ------------------------------------------------------------
 src/02include/main-notfound.html.j2:
@@ -15,7 +15,7 @@ Traceback:
     rv = self.load_func(template)
   File "HERE/kamidana/loader.py", line 30, in load
     return self._load_from_file(filename)
-  File "HERE/kamidana/loader.py", line 39, in _load_from_file
-    raise XTemplatePathNotFound(filename, exc=e).with_traceback(e.__traceback__)
+  File "HERE/kamidana/loader.py", line 40, in _load_from_file
+    raise XTemplatePathNotFound(filename, exc=exc).with_traceback(
   File "HERE/kamidana/loader.py", line 35, in _load_from_file
     with open(filename) as rf:
