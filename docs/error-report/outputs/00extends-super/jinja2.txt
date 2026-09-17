@@ -1,0 +1,26 @@
+$ python ../../j2.py child.html
+Traceback (most recent call last):
+  File "HERE/cases/00extends-super/../../j2.py", line 42, in <module>
+    main()
+  File "HERE/cases/00extends-super/../../j2.py", line 37, in main
+    sys.stdout.write(t.render())
+                     ^^^^^^^^^^
+  File "<site-packages>/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "<site-packages>/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "child.html", line 1, in top-level template code
+    {% extends "layout.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "layout.html", line 4, in top-level template code
+    {% block head %}
+  File "child.html", line 4, in block 'head'
+    {{ super() }}
+  File "layout.html", line 5, in block 'head'
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<site-packages>/jinja2/utils.py", line 92, in from_obj
+    if hasattr(obj, "jinja_pass_arg"):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'url_for' is undefined
+[exit 1]

@@ -1,0 +1,24 @@
+$ python ../../j2.py main.html
+Traceback (most recent call last):
+  File "HERE/cases/05syntax-error-html/../../j2.py", line 42, in <module>
+    main()
+  File "HERE/cases/05syntax-error-html/../../j2.py", line 36, in main
+    t = env.get_template(template_name)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<site-packages>/jinja2/environment.py", line 1016, in get_template
+    return self._load_template(name, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<site-packages>/jinja2/environment.py", line 975, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<site-packages>/jinja2/loaders.py", line 138, in load
+    code = environment.compile(source, name, filename)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<site-packages>/jinja2/environment.py", line 771, in compile
+    self.handle_exception(source=source_hint)
+  File "<site-packages>/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "main.html", line 3, in template
+    hello {{ name }
+jinja2.exceptions.TemplateSyntaxError: unexpected '}'
+[exit 1]

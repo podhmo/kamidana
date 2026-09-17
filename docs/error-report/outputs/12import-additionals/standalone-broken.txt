@@ -1,0 +1,15 @@
+$ kamidana --logging=WARNING ./hello-ok.html -a standalone_broken.py
+------------------------------------------------------------
+exception: builtins.ModuleNotFoundError
+message: No module named 'no_such_module_xyz'
+where: standalone_broken.py:3
+------------------------------------------------------------
+standalone_broken.py:
+      1: # the file exists but fails while being imported; the real
+      2: # ModuleNotFoundError should surface instead of the builtin fallback.
+  ->  3: import no_such_module_xyz
+
+Traceback:
+  File "standalone_broken.py", line 3, in <module>
+    import no_such_module_xyz
+[exit 1]

@@ -1,0 +1,17 @@
+$ kamidana --logging=WARNING --loader ./broken_loader.py:MyLoader ./hello-ok.html
+------------------------------------------------------------
+exception: builtins.ModuleNotFoundError
+message: No module named 'no_such_module_xyz'
+where: broken_loader.py:2
+------------------------------------------------------------
+broken_loader.py:
+      1: # a --loader target that fails while being imported.
+  ->  2: import no_such_module_xyz
+      3: from kamidana.loader import TemplateLoader
+      4: 
+      5: MyLoader = TemplateLoader
+
+Traceback:
+  File "broken_loader.py", line 2, in <module>
+    import no_such_module_xyz
+[exit 1]

@@ -1,0 +1,20 @@
+$ kamidana --logging=WARNING ./main.jinja2 -a additionals.py
+------------------------------------------------------------
+exception: builtins.KeyError
+message: 'JPY'
+where: helpers.py:7
+------------------------------------------------------------
+main.jinja2:
+      1: # price list
+      2: 
+  ->  3: - apple: {{ 100|money }}
+      4: - orange: {{ 80|money }}
+
+Traceback:
+  File "additionals.py", line 7, in money
+    return helpers.format_money(amount, "JPY")
+  File "helpers.py", line 11, in format_money
+    rate = lookup_rate(currency)
+  File "helpers.py", line 7, in lookup_rate
+    return _RATES[currency]
+[exit 1]

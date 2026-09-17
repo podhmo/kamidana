@@ -1,0 +1,18 @@
+$ kamidana --logging=WARNING ./main.html --strict-undefined
+------------------------------------------------------------
+exception: jinja2.exceptions.UndefinedError
+message: 'user_name' is undefined
+where: part.html
+------------------------------------------------------------
+main.html:
+      1: <html>
+      2: <body>
+  ->  3: {% include "./part.html" %}
+      4: </body>
+      5: </html>
+
+part.html:
+      1: <div class="greeting">
+  ->  2:   hello {{ user_name }}
+      3: </div>
+[exit 1]

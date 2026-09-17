@@ -1,0 +1,2998 @@
+$ python ../../j2.py ping.html
+Traceback (most recent call last):
+  File "HERE/cases/11recursive/../../j2.py", line 42, in <module>
+    main()
+  File "HERE/cases/11recursive/../../j2.py", line 37, in main
+    sys.stdout.write(t.render())
+                     ^^^^^^^^^^
+  File "<site-packages>/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "<site-packages>/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "pong.html", line 2, in top-level template code
+    {% include "./ping.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "ping.html", line 2, in top-level template code
+    {% include "./pong.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<site-packages>/jinja2/environment.py", line 1496, in is_up_to_date
+    return self._uptodate()
+           ^^^^^^^^^^^^^^^^
+  File "<site-packages>/jinja2/loaders.py", line 221, in uptodate
+    return os.path.getmtime(filename) == mtime
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+RecursionError: maximum recursion depth exceeded
+[exit 1]
