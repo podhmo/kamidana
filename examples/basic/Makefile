@@ -25,8 +25,10 @@ clean:
 	kamidana ${OPTS} ./src/01*/broken.j2 ${MASK} ${TEE} dst/01/broken.output || exit 0
 	# unknown filter
 	kamidana ${OPTS} ./src/01*/unknown-filter.j2 ${MASK} ${TEE} dst/01/unknown-filter.output || exit 0
-	# undefined variable (--strict-undefined)
-	kamidana ${OPTS} --strict-undefined ./src/01*/undefined.j2 ${MASK} ${TEE} dst/01/undefined.output || exit 0
+	# undefined variable (strict by default)
+	kamidana ${OPTS} ./src/01*/undefined.j2 ${MASK} ${TEE} dst/01/undefined.output || exit 0
+	# --no-strict-undefined renders missing variables as empty
+	kamidana ${OPTS} --no-strict-undefined ./src/01*/undefined.j2 ${TEE} dst/01/undefined-lenient.output
 
 
 # include

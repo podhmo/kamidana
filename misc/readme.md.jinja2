@@ -48,6 +48,28 @@ for example, `{% extends "base.j2" %}` inside `mypkg/templates/main.j2` loads `t
 
 in `kamidana-batch`, the `template` field of each command follows the same rule.
 
+### undefined variables
+
+by default, using a variable that was not passed raises an error
+(jinja2.StrictUndefined), and the gentle error shows where it happened.
+
+```console
+{% with cmd="kamidana ./examples/readme/src/12/person.j2 -d examples/readme/src/12/data.yaml" %}
+$ {{cmd}}
+{{cmd|read_from_command(relative_self=False, check=False)|indent(2)}}
+{% endwith %}
+```
+
+pass `--no-strict-undefined` to render missing variables as empty instead
+(jinja2's own default behavior).
+
+```console
+{% with cmd="kamidana ./examples/readme/src/12/person.j2 -d examples/readme/src/12/data.yaml --no-strict-undefined" %}
+$ {{cmd}}
+{{cmd|read_from_command(relative_self=False)|indent(2)}}
+{% endwith %}
+```
+
 ## examples
 
 ### example (basic)
