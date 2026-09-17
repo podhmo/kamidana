@@ -9,6 +9,7 @@ from functools import cached_property
 from dictknife.deepmerge import deepmerge
 from dictknife import loading
 from typing import TYPE_CHECKING
+import typing as t
 from ._import import import_module
 from . import collect_marked_items
 from .interfaces import ITemplateLoader
@@ -19,16 +20,19 @@ from ._path import (
 )
 
 if TYPE_CHECKING:
-    import typing as t
     import importlib.abc
 
 logger = logging.getLogger(__name__)
+
+# a data source is a plain file path, or a (kind, value) tuple produced by the
+# CLI: ("file", path) for -d/--data and ("json", parsed-object) for --data-json.
+DataSource = t.Union[str, t.Tuple[str, t.Any]]
 
 
 class TemplateLoader(ITemplateLoader):
     def __init__(
         self,
-        data_path_list: t.List[str],
+        data_path_list: t.List[DataSource],
         additional_path_list: t.List[str],
         extensions: t.List[str],
         format: t.Optional[str] = None,
@@ -86,9 +90,15 @@ class TemplateLoader(ITemplateLoader):
 
     @cached_property
     def data(self) -> t.Dict[str, t.Any]:
-        data: t.Dict[str, t.Any] = deepmerge(
-            *[loading.loadfile(d) for d in self.data_path_list], override=True
-        )
+        ds: t.List[t.Dict[str, t.Any]] = []
+        for source in self.data_path_list:
+            if isinstance(source, str):
+                ds.append(loading.loadfile(source))
+            elif source[0] == "json":
+                ds.append(source[1])
+            else:
+                ds.append(loading.loadfile(source[1]))
+        data: t.Dict[str, t.Any] = deepmerge(*ds, override=True)
         if self.format is not None:
             data = deepmerge(
                 data, loading.load(sys.stdin, format=self.format), override=True

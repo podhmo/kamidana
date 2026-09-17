@@ -128,6 +128,52 @@ def test_additionals_existing_file_error_is_not_masked(
     assert "kamidana.additionals" not in str(e.value)
 
 
+def test_data_from_json_literal() -> None:
+    loader = TemplateLoader([("json", {"user_name": "world"})], [], [])
+    assert loader.data == {"user_name": "world"}
+
+
+def test_data_json_overrides_file(tmp_path: Path) -> None:
+    # ("file", ...) then ("json", ...): the later entry wins.
+    (tmp_path / "a.yaml").write_text("x: 1\ny: 2\n")
+    loader = TemplateLoader(
+        [("file", str(tmp_path / "a.yaml")), ("json", {"x": 10})], [], []
+    )
+    assert loader.data == {"x": 10, "y": 2}
+
+
+def test_data_file_overrides_json(tmp_path: Path) -> None:
+    # the reverse order: the file wins.
+    (tmp_path / "a.yaml").write_text("x: 1\ny: 2\n")
+    loader = TemplateLoader(
+        [("json", {"x": 10, "z": 3}), ("file", str(tmp_path / "a.yaml"))], [], []
+    )
+    assert loader.data == {"x": 1, "y": 2, "z": 3}
+
+
+def test_data_plain_path_is_a_file(tmp_path: Path) -> None:
+    # a bare string entry is treated as a data file path.
+    (tmp_path / "a.yaml").write_text("x: 1\n")
+    loader = TemplateLoader([str(tmp_path / "a.yaml")], [], [])
+    assert loader.data == {"x": 1}
+
+
+def test_data_stdin_keeps_final_precedence(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    import io
+
+    (tmp_path / "a.yaml").write_text("x: 1\n")
+    monkeypatch.setattr("sys.stdin", io.StringIO('{"x": 99}'))
+    loader = TemplateLoader(
+        [("file", str(tmp_path / "a.yaml")), ("json", {"x": 5, "z": 3})],
+        [],
+        [],
+        format="json",
+    )
+    assert loader.data == {"x": 99, "z": 3}
+
+
 def test_join_path_in_package(loader: TemplateLoader, package: Path) -> None:
     # {% extends %}/{% include %} are resolved relative to the parent
     # template, also inside a package.
