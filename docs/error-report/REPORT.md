@@ -296,19 +296,19 @@ API 引数経由のみ。
 
 ## 残る観察点 (v2 で新たに気付いた点・未修正)
 
-- **`-a`/`-d` 系エラーの `where:` が省略されることがある**: 非テンプレート
+- **`-a`/`-d` 系エラーの `where:` が省略されることがある** (issue #87): 非テンプレート
   エラーで actionable なフレーム (stdlib/jinja2/kamidana/ site-packages 以外)
   が1つもない場合、`where:` 行自体が出ない (`09cli-errors/missing-data.txt`,
   `missing-additionals.txt`)。例外メッセージは出るので実害は小さいが、
   「直すべき場所」情報がケースにより出たり出なかったりする。
-- **`Traceback:` 節のフィルタ方針がテンプレート有無で非対称**: テンプレート
+- **`Traceback:` 節のフィルタ方針がテンプレート有無で非対称** (issue #87): テンプレート
   フレームがあるエラーでは python フレームを全て表示するが、非テンプレート
   エラーでは「internal」(stdlib・jinja2・kamidana・site-packages) フレームが
   落とされ、ユーザーフレームだけになる (`12import-additionals/stdlib-broken.txt`
   では raise 箇所の `json/decoder.py` フレーム自体が出ない)。原因は
   `sysconfig` の stdlib パスが site-packages の親なので site-packages 全体が
   internal 扱いになること。raise 箇所が依存ライブラリ内でも見えなくなる
-  ケースがあり得るので、方針を確認したい (issue 化候補)。
+  ケースがあり得るので、方針を確認したい (issue #87)。
 - **`level` は CLI から変えられない** (issue #73): 省略マーカー付きの上限機能は
   `translate_error`/`on_error` の引数経由のみ。上限をユーザーが使いたい場面は
   dedup があるので実質ほぼないが、API だけの隠れ機能になっている。
