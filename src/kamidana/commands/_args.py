@@ -85,8 +85,10 @@ def make_common_parser() -> argparse.ArgumentParser:
     parser.add_argument("-o", "--output-format", default="raw")
     parser.add_argument(
         "--strict-undefined",
-        action="store_true",
-        help="raise an error when an undefined variable is used (jinja2.StrictUndefined)",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="raise an error when an undefined variable is used "
+        "(jinja2.StrictUndefined; --no-strict-undefined renders it empty)",
     )
     parser.add_argument("--debug", action="store_true")
     parser.add_argument("--quiet", action="store_true")
@@ -116,6 +118,7 @@ def build_driver(
     args: argparse.Namespace,
 ) -> IDriver:
     driver = driver_cls(loader, format=args.output_format)
-    if args.strict_undefined:
-        driver.undefined = jinja2.StrictUndefined
+    driver.undefined = (
+        jinja2.StrictUndefined if args.strict_undefined else jinja2.Undefined
+    )
     return driver

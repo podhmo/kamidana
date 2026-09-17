@@ -49,7 +49,7 @@ def _make_environment(
 ) -> ResolvingByRelativePathEnvironment:
     env = ResolvingByRelativePathEnvironment(
         loader=jinja2.FunctionLoader(load),
-        undefined=undefined or jinja2.Undefined,
+        undefined=undefined or jinja2.StrictUndefined,
         trim_blocks=False,
         lstrip_blocks=True,
         extensions=extensions,
@@ -61,7 +61,7 @@ def _make_environment(
 
 
 class BaseDriver(IDriver):
-    undefined: t.Type[jinja2.Undefined] = jinja2.Undefined
+    undefined: t.Type[jinja2.Undefined] = jinja2.StrictUndefined
 
     def __init__(self, loader: ITemplateLoader, format: t.Optional[str]) -> None:
         self.loader = loader

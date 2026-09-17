@@ -18,8 +18,9 @@ features
 ```console
 usage: kamidana [-h] [--loader LOADER] [-d FILE] [--data-json JSON]
                   [--logging {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}] [-a ADDITIONALS] [-e EXTENSION]
-                  [-i {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}] [-o OUTPUT_FORMAT] [--strict-undefined]
-                  [--debug] [--quiet] [--driver DRIVER] [--dump-context] [--list-info] [--dst DST]
+                  [-i {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}] [-o OUTPUT_FORMAT]
+                  [--strict-undefined | --no-strict-undefined] [--debug] [--quiet] [--driver DRIVER] [--dump-context]
+                  [--list-info] [--dst DST]
                   [template]
 
   positional arguments:
@@ -36,7 +37,9 @@ usage: kamidana [-h] [--loader LOADER] [-d FILE] [--data-json JSON]
     -e EXTENSION, --extension EXTENSION
     -i {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}, --input-format {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}
     -o OUTPUT_FORMAT, --output-format OUTPUT_FORMAT
-    --strict-undefined    raise an error when an undefined variable is used (jinja2.StrictUndefined)
+    --strict-undefined, --no-strict-undefined
+                          raise an error when an undefined variable is used (jinja2.StrictUndefined; --no-strict-
+                          undefined renders it empty) (default: True)
     --debug
     --quiet
     --driver DRIVER       default: kamidana.driver:Driver
@@ -74,6 +77,38 @@ also, `{% extends %}` and `{% include %}` are resolved relative to the parent te
 for example, `{% extends "base.j2" %}` inside `mypkg/templates/main.j2` loads `templates/base.j2` from the same package.
 
 in `kamidana-batch`, the `template` field of each command follows the same rule.
+
+### undefined variables
+
+by default, using a variable that was not passed raises an error
+(jinja2.StrictUndefined), and the gentle error shows where it happened.
+
+```console
+
+$ kamidana ./examples/readme/src/12/person.j2 -d examples/readme/src/12/data.yaml
+------------------------------------------------------------
+  exception: jinja2.exceptions.UndefinedError
+  message: 'age' is undefined
+  where: examples/readme/src/12/person.j2
+  ------------------------------------------------------------
+  examples/readme/src/12/person.j2:
+        1: name: {{ name }}
+    ->  2: age: {{ age }}
+
+
+```
+
+pass `--no-strict-undefined` to render missing variables as empty instead
+(jinja2's own default behavior).
+
+```console
+
+$ kamidana ./examples/readme/src/12/person.j2 -d examples/readme/src/12/data.yaml --no-strict-undefined
+name: foo
+  age: 
+
+
+```
 
 ## examples
 
