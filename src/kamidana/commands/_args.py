@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import logging
 from typing import TYPE_CHECKING
 
@@ -15,6 +16,40 @@ if TYPE_CHECKING:
     from kamidana.interfaces import IDriver, ITemplateLoader
 
 
+class _DataAction(argparse.Action):
+    """keep -d/--data and --data-json in argv order.
+
+    entries are ("file", path) or ("json", parsed-object) tuples collected in
+    one list, so the loader can merge them in command-line order.
+    """
+
+    def __call__(
+        self,
+        parser: argparse.ArgumentParser,
+        namespace: argparse.Namespace,
+        values: t.Union[str, t.Sequence[t.Any], None],
+        option_string: t.Optional[str] = None,
+    ) -> None:
+        entries: t.Optional[t.List[t.Tuple[str, t.Any]]] = getattr(
+            namespace, self.dest, None
+        )
+        if entries is None:
+            entries = []
+            setattr(namespace, self.dest, entries)
+        if option_string == "--data-json":
+            try:
+                obj = json.loads(str(values))
+            except json.JSONDecodeError as e:
+                parser.error("argument --data-json: invalid JSON: {}".format(e))
+            if not isinstance(obj, dict):
+                parser.error(
+                    "argument --data-json: expected a JSON object, got {!r}".format(obj)
+                )
+            entries.append(("json", obj))
+        else:
+            entries.append(("file", values))
+
+
 def make_common_parser() -> argparse.ArgumentParser:
     """the option set shared by the kamidana and kamidana-batch commands."""
     parser = argparse.ArgumentParser()
@@ -24,7 +59,21 @@ def make_common_parser() -> argparse.ArgumentParser:
         help="default: kamidana.loader:TemplateLoader",
     )
     parser.add_argument(
-        "-d", "--data", action="append", help="support yaml, json, toml", default=[]
+        "-d",
+        "--data",
+        action=_DataAction,
+        metavar="FILE",
+        help="data file (yaml, json, toml). merged with --data-json in argv"
+        " order; later wins",
+        default=[],
+    )
+    parser.add_argument(
+        "--data-json",
+        dest="data",
+        action=_DataAction,
+        metavar="JSON",
+        help="literal JSON object (e.g. '{\"name\": \"foo\"}'). same merge"
+        " tier as -d/--data",
     )
     # logging._nameToLevel is private; getLevelNamesMapping() replaces it on 3.11+
     parser.add_argument(
