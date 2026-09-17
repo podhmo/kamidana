@@ -118,6 +118,7 @@ def build_driver(
     args: argparse.Namespace,
 ) -> IDriver:
     driver = driver_cls(loader, format=args.output_format)
-    if not args.strict_undefined:
-        driver.undefined = jinja2.Undefined
+    driver.undefined = (
+        jinja2.StrictUndefined if args.strict_undefined else jinja2.Undefined
+    )
     return driver
