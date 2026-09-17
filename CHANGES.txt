@@ -1,8 +1,3 @@
-unreleased
-
-- default to jinja2.StrictUndefined again: using an undefined variable now
-  raises an error; pass --no-strict-undefined to render it as empty (#85)
-
 0.10.0
 
 - add --data-json option: pass a literal JSON object as template data; -d/--data and --data-json merge in argv order, -i stdin still wins (#86)
