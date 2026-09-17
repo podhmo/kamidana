@@ -247,8 +247,9 @@ def test_python_only_error_is_rendered_gently(
     assert "message: boom" in output
     assert "where: bad.py:1" in output
     assert "bad.py:" in output
-    # internal frames are not locations the user can act on
-    assert "kamidana" not in output
+    # internal frames are not `where` candidates, but they stay in the
+    # Traceback: body so the raise site is never lost (#87)
+    assert "_import.py" in output
 
 
 def test_python_only_error_without_actionable_frames_falls_back(
@@ -266,3 +267,51 @@ def test_python_only_error_without_actionable_frames_falls_back(
     assert "exception: builtins.ModuleNotFoundError" in output
     assert "not-there.py" in output
     assert "Traceback:" in output
+    # `where` still names the raise site (internal, but real) (#87)
+    (where_line,) = [l for l in output.splitlines() if l.startswith("where:")]
+    assert "_import.py" in where_line
+
+
+def test_python_only_error_keeps_stdlib_raise_site_in_traceback(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # regression: https://github.com/podhmo/kamidana/issues/87
+    # an additional module failing inside stdlib used to show only the
+    # user's call site; the frame that actually raised (json/decoder.py)
+    # was filtered out of the traceback.
+    import json
+
+    monkeypatch.chdir(tmp_path)
+    (tmp_path / "stdlib_broken.py").write_text(
+        'import json\njson.loads("{broken")\n'
+    )
+
+    def run() -> None:
+        from kamidana._import import import_module
+
+        import_module("stdlib_broken.py")
+
+    with pytest.raises(json.JSONDecodeError) as e:
+        run()
+
+    output = translate_error(e.value)
+    assert "where: stdlib_broken.py:2" in output
+    assert "decoder.py" in output  # the real raise site
+
+
+def test_python_only_error_all_internal_where_points_at_raise_site() -> None:
+    # regression: https://github.com/podhmo/kamidana/issues/87
+    # when every traceback frame is internal (stdlib/site-packages),
+    # `where` used to be omitted entirely; it now falls back to the
+    # innermost frame -- the actual raise site.
+    import json
+
+    def run() -> None:
+        json.loads("{broken")
+
+    with pytest.raises(json.JSONDecodeError) as e:
+        run()
+
+    output = translate_error(e.value)
+    (where_line,) = [l for l in output.splitlines() if l.startswith("where:")]
+    assert "decoder.py" in where_line
