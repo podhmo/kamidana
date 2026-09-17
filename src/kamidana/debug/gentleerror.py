@@ -172,11 +172,18 @@ class Renderer:
             d["where"] = "{}:{}".format(
                 _display_path(innermost.filename), innermost.lineno
             )
+        elif frames and frames[-1].lineno is not None:
+            # nothing the user can act on, but the raise site is still
+            # worth naming rather than omitting `where` entirely
+            f = frames[-1]
+            d["where"] = "{}:{}".format(_display_path(f.filename), f.lineno)
 
-        shown = actionable or frames
-        if shown:
+        # internal filtering applies to `where`, not to the traceback
+        # body: the real raise site may live inside stdlib/site-packages
+        # (e.g. json.decoder) and dropping it loses the error's origin
+        if frames:
             print("Traceback:", file=buf)
-            print(_format_traceback(shown), file=buf, end="")
+            print(_format_traceback(frames), file=buf, end="")
 
         d["output"] = buf.getvalue()
         d.update(_get_info_from_exception(exc))
