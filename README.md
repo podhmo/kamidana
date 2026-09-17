@@ -16,10 +16,11 @@ features
 ## usage
 
 ```console
-usage: kamidana [-h] [--loader LOADER] [-d DATA] [--logging {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}]
-                  [-a ADDITIONALS] [-e EXTENSION] [-i {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}]
-                  [-o OUTPUT_FORMAT] [--strict-undefined | --no-strict-undefined] [--debug] [--quiet] [--driver DRIVER]
-                  [--dump-context] [--list-info] [--dst DST]
+usage: kamidana [-h] [--loader LOADER] [-d FILE] [--data-json JSON]
+                  [--logging {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}] [-a ADDITIONALS] [-e EXTENSION]
+                  [-i {yaml,json,toml,csv,tsv,raw,env,md,markdown,spreadsheet}] [-o OUTPUT_FORMAT]
+                  [--strict-undefined | --no-strict-undefined] [--debug] [--quiet] [--driver DRIVER] [--dump-context]
+                  [--list-info] [--dst DST]
                   [template]
 
   positional arguments:
@@ -29,7 +30,8 @@ usage: kamidana [-h] [--loader LOADER] [-d DATA] [--logging {CRITICAL,FATAL,ERRO
   options:
     -h, --help            show this help message and exit
     --loader LOADER       default: kamidana.loader:TemplateLoader
-    -d DATA, --data DATA  support yaml, json, toml
+    -d FILE, --data FILE  data file (yaml, json, toml). merged with --data-json in argv order; later wins
+    --data-json JSON      literal JSON object (e.g. '{"name": "foo"}'). same merge tier as -d/--data
     --logging {CRITICAL,FATAL,ERROR,WARN,WARNING,INFO,DEBUG,NOTSET}
     -a ADDITIONALS, --additionals ADDITIONALS
     -e EXTENSION, --extension EXTENSION
@@ -181,6 +183,42 @@ server {
 
 ```
 
+#### literal JSON data (--data-json)
+
+a small one-off value can be passed directly as a JSON object, without writing a data file.
+
+```console
+
+$ kamidana ./examples/readme/src/00/nginx.jinja2 --data examples/readme/src/00/data.json --data-json '{"nginx": {"logdir": "/tmp/logs/nginx"}}'
+server {
+    listen 80;
+    server_name localhost;
+
+    root /var/www/project;
+    index index.htm;
+
+    access_log /tmp/logs/nginx/http.access.log combined;
+    error_log  /tmp/logs/nginx/http.error.log;
+  }
+
+
+```
+
+`-d/--data` and `--data-json` are the same tier: they are merged strictly in command-line order, and the later one wins. whichever comes first acts as the default values. (both are repeatable)
+
+```console
+$ kamidana ./t.j2 -d defaults.yaml --data-json '{"user_name": "world"}'   # defaults.yaml is the default, JSON overrides
+$ kamidana ./t.j2 --data-json '{"user_name": "world"}' -d override.yaml   # the reverse order also works
+```
+
+`-i/--input-format` (stdin) is always merged last, so it has the highest precedence.
+
+```
+[-d | --data-json]  in argv order  ->  -i stdin   (later wins)
+```
+
+note: `--data-json` must be a JSON object (e.g. `{"x": 1}`). and when two data sources set the same key, the later value wins; array values are replaced, not concatenated.
+
 ### gentle error message
 
 if using include, but the included template is not found.
@@ -214,11 +252,11 @@ $ kamidana ./examples/readme/src/11/main.html.j2
   Traceback:
     File "SITE-PACKAGES/jinja2/loaders.py", line N, in get_source
       rv = self.load_func(template)
-    File "src/kamidana/loader.py", line 46, in load
+    File "src/kamidana/loader.py", line 50, in load
       return self._load_from_file(filename)
-    File "src/kamidana/loader.py", line 58, in _load_from_file
+    File "src/kamidana/loader.py", line 62, in _load_from_file
       raise XTemplatePathNotFound(filename, exc=exc).with_traceback(e.__traceback__)
-    File "src/kamidana/loader.py", line 53, in _load_from_file
+    File "src/kamidana/loader.py", line 57, in _load_from_file
       with open(filename) as rf:
 
 
