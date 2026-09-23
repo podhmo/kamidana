@@ -11,7 +11,15 @@ features
 - gentle error message
 - batch execution for speed-up (via `kamidana-batch`)
 - rendering with individual filters (via `--additionals` option)
-- (useful additionals modules (e.g. `kamidana.additionals.naming` ...)
+- useful additionals modules (e.g. `kamidana.additionals.naming` ...)
+
+## install
+
+```console
+$ pip install kamidana
+```
+
+(python >= 3.10 is required)
 
 ## usage
 
@@ -39,7 +47,7 @@ usage: kamidana [-h] [--loader LOADER] [-d FILE] [--data-json JSON]
     -o OUTPUT_FORMAT, --output-format OUTPUT_FORMAT
     --strict-undefined, --no-strict-undefined
                           raise an error when an undefined variable is used (jinja2.StrictUndefined; --no-strict-
-                          undefined renders it empty) (default: True)
+                          undefined renders it empty)
     --debug
     --quiet
     --driver DRIVER       default: kamidana.driver:Driver
@@ -433,7 +441,48 @@ examples/readme/src/02/use-extension.jinja2
 
 ### example4 (batch execution)
 
-TODO. [see this](./examples/batch)
+`kamidana-batch` renders many files in one run. a batch file is a JSON list of commands, and each command is a mapping of `{"template", "dst", "data", "format"}`.
+
+- `template` -- required. the same naming rule as `kamidana` (`./foo.j2` for a file, `mypkg/path` for a package template)
+- `dst` -- required. the output path, relative to `--outdir`
+- `data` -- optional. a data object, a data-file path, or a list of them (a list is merged in order)
+- `format` -- optional. parse the rendered text back as data and re-dump it (e.g. `yaml`, `json`); omit it to write the raw text
+
+examples/batch/src/01batch.json
+
+```json
+[
+    {"template": "./src/00hello.j2", "data": {"name": "foo"}, "dst": "foo.hello"},
+    {"template": "./src/00hello.j2", "data": [{"name": "bar"}], "dst": "bar.hello"},
+    {"template": "./src/00hello.j2", "data": "me.json", "dst": "me.hello"}
+  ]
+
+```
+
+```console
+
+$ cd examples/batch && kamidana-batch src/01batch.json --logging=WARNING --outdir=/tmp/kamidana-batch-readme
+
+
+```
+
+the rendered files are written under `--outdir`.
+
+```console
+
+$ cd examples/batch && for f in /tmp/kamidana-batch-readme/*; do echo "== $f"; cat "$f"; done
+== /tmp/kamidana-batch-readme/bar.hello
+  hello bar
+  == /tmp/kamidana-batch-readme/foo.hello
+  hello foo
+  == /tmp/kamidana-batch-readme/me.hello
+  hello me
+
+
+```
+
+`-d/--data` passed on the command line is merged over each command's own `data`.
+(see [examples/batch](./examples/batch))
 
 ## debugging
 
@@ -528,3 +577,19 @@ extensions are used by `-e`, additional modules are used by `-a`.
 ## with other packages
 
 - use kamidana's additional modules with [cookiecutter](https://pypi.org/project/cookiecutter/) . (see [examples/extensions/src/02with-cookiecutter](https://github.com/podhmo/kamidana/blob/master/examples/extensions/src/02with-cookiecutter))
+
+## development
+
+- tests: `pytest`; examples regression: `make ci`
+- lint: `flake8`; typecheck: `make typecheck` (mypy --strict)
+- README.md is generated from `misc/readme.md.jinja2` (kamidana renders itself). edit the template and run `make readme`
+
+### release
+
+the version lives in `VERSION`, and the changelog is `CHANGES.txt` (it is also part of the package readme on PyPI). to cut a release, update both, tag the commit, then build and upload.
+
+```console
+$ git tag "$(cat VERSION)"   # e.g. 0.11.0
+$ make build                 # python -m build -> dist/
+$ make upload                # twine check + twine upload
+```
