@@ -23,7 +23,6 @@ dependencies = [
 
 [project.optional-dependencies]
 testing = ["pytest", "mypy"]
-docs = ["sphinx", "sphinx_rtd_theme"]
 
 [project.urls]
 Homepage = "https://github.com/podhmo/kamidana"
