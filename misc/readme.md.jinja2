@@ -1,6 +1,6 @@
 # kamidana
 
-kamidana is a cli wrapper around jinja2.
+kamidana is yet another jinja2 cli wrapper (cf. [j2cli](https://github.com/kolypto/j2cli)).
 
 features
 
