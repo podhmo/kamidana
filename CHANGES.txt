@@ -1,12 +1,24 @@
-0.10.0
+0.11.0
 
 - add --data-json option: pass a literal JSON object as template data; -d/--data and --data-json merge in argv order, -i stdin still wins (#86)
-- drop python <3.10 support (3.9 is EOL; CI covers 3.10-3.14)
+- add --strict-undefined option (#31); default to StrictUndefined, --no-strict-undefined opts out (#85)
+- load templates from python packages (#34); document '../' physical-path prefix and the template name spec
+- gentle error: rework traceback extraction for jinja2 3.x frame names (Environment optimized=False); 'where:' points at the actual raise site, skips stdlib/tool-internal frames, and internal frames stay in the Traceback body (#60, #63, #64, #65, #72, #87)
+- gentle error: clearer message when a -a/--additionals module is missing (#62); better not-found template errors
+- replace magicalimport with the in-repo importer kamidana._import (relative imports inside packages); drop fastentrypoints and importlib_resources
 - update dependencies: jinja2>=3.1, dictknife[load]>=0.14, inflection>=0.5
-- drop dependencies: magicalimport (inlined as kamidana._import), fastentrypoints, importlib_resources
-- rework kamidana.debug traceback extraction for jinja2 3.x frame names
-- set jinja2 Environment(optimized=False) explicitly
+- drop python <3.10 support (3.9 is EOL; CI covers 3.10-3.14)
+- packaging: move to src layout and pyproject.toml, README.md in markdown, ship py.typed
+- typing: typing.Protocol interfaces, full annotations, mypy --strict enforced in CI
 - run examples regression (make ci) on CI
+- remove Sphinx/ReadTheDocs scaffolding (#91)
+
+0.10.0
+
+- follow jinja2 3.x API changes (#51)
+- yaml/toml loading via dictknife[load] extras (ruamel.yaml, tomlkit)
+- add LICENSE file (MIT) (#48)
+- set up GitHub Actions CI (#50)
 
 0.9.1
 
@@ -60,6 +72,10 @@
 
 - kamidana.additionals.naming
 
+0.5.1
+
+- fix read_from_command with a relative path; adjust logging messages
+
 0.5.0
 
 - new kamidana-batch command
@@ -86,6 +102,10 @@
 
 - --loader option is added
 - interfaces are defined
+
+0.1.1
+
+- fix install requires
 
 0.1.0
 
