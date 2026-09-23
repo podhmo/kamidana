@@ -1,17 +1,17 @@
 # kamidana
 
-kamidana is yet another jinja2's cli wrapper.
+kamidana is a cli wrapper around jinja2.
 
 features
 
-- using jinja2 file as template file (basic feature)
-- using a template bundled in a python package (e.g. `mypkg/templates/main.j2`)
-- various input formats support (json, yaml, toml, ...)
-- the way of lookup template is changed, relative to parent template path
-- gentle error message
-- batch execution for speed-up (via `kamidana-batch`)
-- rendering with individual filters (via `--additionals` option)
-- useful additionals modules (e.g. `kamidana.additionals.naming` ...)
+- render a jinja2 template file from the command line
+- load a template bundled in a python package (e.g. `mypkg/templates/main.j2`)
+- read data in various formats (json, yaml, toml, ...)
+- resolve extends/include relative to the parent template
+- gentle error messages when rendering fails
+- render many files in one run (`kamidana-batch`)
+- register your own filters, tests and globals (`--additionals`)
+- builtin additionals modules (e.g. `kamidana.additionals.naming`)
 
 ## install
 
@@ -59,7 +59,7 @@ usage: kamidana [-h] [--loader LOADER] [-d FILE] [--data-json JSON]
 
 ### template name
 
-a template name is interpreted as follows.
+a template name is resolved in one of two ways.
 
 - **physical path**: a name starting with `./`, `../` or `/` is a file path
   - `./main.j2` -> the file `main.j2` in the current directory
@@ -69,7 +69,7 @@ a template name is interpreted as follows.
   - `mypkg/templates/main.j2` -> the resource `templates/main.j2` inside the installed package `mypkg`
   - `mypkg.sub/templates/main.j2` -> a dotted package name is also ok (resolved via `importlib.resources`)
 
-this is consistent with how `-a/--additionals` accepts either a file path (`foo/bar.py`) or a module name (`foo.bar`).
+the same rule applies to `-a/--additionals`, which accepts a file path (`foo/bar.py`) or a module name (`foo.bar`).
 
 ```console
 $ kamidana main.j2                   # NG: interpreted as a package template
@@ -77,19 +77,19 @@ $ kamidana ./main.j2                 # OK: the file main.j2
 $ kamidana mypkg/templates/main.j2   # OK: the template "templates/main.j2" in package "mypkg"
 ```
 
-so, a file in the current directory must be passed with `./` prefix.
-when a template name cannot be resolved, the error message explains this rule
+so a file in the current directory needs the `./` prefix.
+when a template name cannot be resolved, the error message explains the rule
 (e.g. `"main.j2" exists in the current directory, but "main.j2" is interpreted as a template in a python package. to load the file, pass "./main.j2"`).
 
-also, `{% extends %}` and `{% include %}` are resolved relative to the parent template, in both cases.
-for example, `{% extends "base.j2" %}` inside `mypkg/templates/main.j2` loads `templates/base.j2` from the same package.
+in both cases, `{% extends %}` and `{% include %}` resolve relative to the parent template —
+`{% extends "base.j2" %}` inside `mypkg/templates/main.j2` loads `templates/base.j2` from the same package.
 
-in `kamidana-batch`, the `template` field of each command follows the same rule.
+in `kamidana-batch`, each command's `template` field follows the same rule.
 
 ### undefined variables
 
-by default, using a variable that was not passed raises an error
-(jinja2.StrictUndefined), and the gentle error shows where it happened.
+by default, referencing a variable that was not passed raises an error
+(jinja2.StrictUndefined), and the gentle error message shows where it happened.
 
 ```console
 
@@ -107,7 +107,7 @@ $ kamidana ./examples/readme/src/12/person.j2 -d examples/readme/src/12/data.yam
 ```
 
 pass `--no-strict-undefined` to render missing variables as empty instead
-(jinja2's own default behavior).
+(jinja2's own default).
 
 ```console
 
@@ -172,7 +172,7 @@ examples/readme/src/00/data.json
 ```
 
 
-More over, passing data with stdin. (please doen't forget to add `--input-format` option)
+data can also be read from stdin (don't forget `--input-format`).
 
 ```console
 
@@ -193,7 +193,7 @@ server {
 
 #### literal JSON data (--data-json)
 
-a small one-off value can be passed directly as a JSON object, without writing a data file.
+a small one-off value can be passed directly as a JSON object, without a data file.
 
 ```console
 
@@ -212,7 +212,7 @@ server {
 
 ```
 
-`-d/--data` and `--data-json` are the same tier: they are merged strictly in command-line order, and the later one wins. whichever comes first acts as the default values. (both are repeatable)
+`-d/--data` and `--data-json` are on the same tier: they merge in command-line order and the later one wins — whatever comes first acts as the defaults. (both are repeatable)
 
 ```console
 $ kamidana ./t.j2 -d defaults.yaml --data-json '{"user_name": "world"}'   # defaults.yaml is the default, JSON overrides
@@ -225,11 +225,11 @@ $ kamidana ./t.j2 --data-json '{"user_name": "world"}' -d override.yaml   # the 
 [-d | --data-json]  in argv order  ->  -i stdin   (later wins)
 ```
 
-note: `--data-json` must be a JSON object (e.g. `{"x": 1}`). and when two data sources set the same key, the later value wins; array values are replaced, not concatenated.
+note: `--data-json` takes a JSON object (e.g. `{"x": 1}`). when two sources set the same key, the later one wins; arrays are replaced, not concatenated.
 
 ### gentle error message
 
-if using include, but the included template is not found.
+when an included template is not found, the error shows where it happened:
 
 ```console
 
@@ -272,7 +272,7 @@ $ kamidana ./examples/readme/src/11/main.html.j2
 
 ### example2 (--additionals)
 
-#### builtin addtional modules
+#### builtin additional modules
 
 ```console
 
@@ -321,9 +321,9 @@ singular, plurals
 ```
 
 
-or `kamidana -a naming` is also OK (shortcut).
+the shortcut `kamidana -a naming` works too.
 
-#### individual additional modules
+#### custom additional modules
 
 ```console
 
@@ -441,11 +441,11 @@ examples/readme/src/02/use-extension.jinja2
 
 ### example4 (batch execution)
 
-`kamidana-batch` renders many files in one run. a batch file is a JSON list of commands, and each command is a mapping of `{"template", "dst", "data", "format"}`.
+`kamidana-batch` renders many files in one run. a batch file is a JSON list of commands; each command is a mapping with `template`, `dst`, `data` and `format` keys.
 
 - `template` -- required. the same naming rule as `kamidana` (`./foo.j2` for a file, `mypkg/path` for a package template)
 - `dst` -- required. the output path, relative to `--outdir`
-- `data` -- optional. a data object, a data-file path, or a list of them (a list is merged in order)
+- `data` -- optional. a data object, a data-file path, or a list of them (a list merges its entries in order)
 - `format` -- optional. parse the rendered text back as data and re-dump it (e.g. `yaml`, `json`); omit it to write the raw text
 
 examples/batch/src/01batch.json
@@ -486,10 +486,11 @@ $ cd examples/batch && for f in /tmp/kamidana-batch-readme/*; do echo "== $f"; c
 
 ## debugging
 
-- `--dump-context`
-- `--debug`
+- `--dump-context` -- dump the merged data instead of rendering
+- `--debug` -- re-raise errors with the full traceback (skip the gentle error)
+- `--quiet` -- print only the exception line on error
 
-### dump context
+### dumping the context
 
 ```console
 
@@ -506,7 +507,7 @@ $ kamidana --dump-context --data=examples/readme/src/10/data.yaml
 
 ```
 
-and be able to merge two files.
+multiple data files merge in order — the later one wins.
 
 ```console
 
@@ -550,7 +551,7 @@ age: 21
 ```
 
 
-## available info (extensions and additional modules)
+## available extensions and modules
 
 ```
 $ kamidana --list-info
@@ -574,22 +575,6 @@ extensions are used by `-e`, additional modules are used by `-a`.
 
 ```
 
-## with other packages
+## using with other packages
 
-- use kamidana's additional modules with [cookiecutter](https://pypi.org/project/cookiecutter/) . (see [examples/extensions/src/02with-cookiecutter](https://github.com/podhmo/kamidana/blob/master/examples/extensions/src/02with-cookiecutter))
-
-## development
-
-- tests: `pytest`; examples regression: `make ci`
-- lint: `flake8`; typecheck: `make typecheck` (mypy --strict)
-- README.md is generated from `misc/readme.md.jinja2` (kamidana renders itself). edit the template and run `make readme`
-
-### release
-
-the version lives in `VERSION`, and the changelog is `CHANGES.txt` (it is also part of the package readme on PyPI). to cut a release, update both, tag the commit, then build and upload.
-
-```console
-$ git tag "$(cat VERSION)"   # e.g. 0.11.0
-$ make build                 # python -m build -> dist/
-$ make upload                # twine check + twine upload
-```
+- kamidana's additionals modules can be used from [cookiecutter](https://pypi.org/project/cookiecutter/) (see [examples/extensions/src/02with-cookiecutter](https://github.com/podhmo/kamidana/blob/master/examples/extensions/src/02with-cookiecutter))
