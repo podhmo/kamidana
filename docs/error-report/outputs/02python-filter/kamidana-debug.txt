@@ -1,0 +1,34 @@
+$ kamidana --logging=WARNING --debug ./main.jinja2 -a additionals.py
+Traceback (most recent call last):
+  File "~/.pyenv/versions/3.12.13/bin/kamidana", line 6, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "~/repos/kamidana/src/kamidana/commands/onefile.py", line 66, in main
+    driver.run(args.template, args.dst)
+  File "~/repos/kamidana/src/kamidana/driver.py", line 83, in run
+    return self.dump(self.transform(self.load(src)), dst)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/repos/kamidana/src/kamidana/driver.py", line 88, in transform
+    return _render_with_newline(tmpl, self.loader.data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/repos/kamidana/src/kamidana/driver.py", line 27, in _render_with_newline
+    r = tmpl.render(**data)
+        ^^^^^^^^^^^^^^^^^^^
+  File "<site-packages>/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "<site-packages>/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "./main.jinja2", line 3, in top-level template code
+    - apple: {{ 100|money }}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "additionals.py", line 7, in money
+    return helpers.format_money(amount, "JPY")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/02python-filter/helpers.py", line 11, in format_money
+    rate = lookup_rate(currency)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/02python-filter/helpers.py", line 7, in lookup_rate
+    return _RATES[currency]
+           ~~~~~~^^^^^^^^^^
+KeyError: 'JPY'
+[exit 1]

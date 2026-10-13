@@ -1,0 +1,17 @@
+$ kamidana --logging=WARNING ./hello-ok.html -a pkg_broken/additionals.py
+------------------------------------------------------------
+exception: builtins.ImportError
+message: cannot import name 'nonexistent_module' from 'pkg_broken' (HERE/cases/12import-additionals/pkg_broken/__init__.py)
+where: pkg_broken/additionals.py:2
+------------------------------------------------------------
+pkg_broken/additionals.py:
+      1: from kamidana import as_filter
+  ->  2: from . import nonexistent_module
+      3: 
+      4: 
+      5: @as_filter
+
+Traceback:
+  File "pkg_broken/additionals.py", line 2, in <module>
+    from . import nonexistent_module
+[exit 1]

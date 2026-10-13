@@ -1,0 +1,21 @@
+$ kamidana --logging=WARNING -d ./missing.json ./hello.html
+------------------------------------------------------------
+exception: builtins.FileNotFoundError
+message: [Errno 2] No such file or directory: './missing.json'
+------------------------------------------------------------
+Traceback:
+  File "~/repos/kamidana/src/kamidana/debug/__init__.py", line 18, in error_handler
+    yield
+  File "~/repos/kamidana/src/kamidana/commands/onefile.py", line 66, in main
+    driver.run(args.template, args.dst)
+  File "~/repos/kamidana/src/kamidana/driver.py", line 83, in run
+    return self.dump(self.transform(self.load(src)), dst)
+  File "~/repos/kamidana/src/kamidana/driver.py", line 88, in transform
+    return _render_with_newline(tmpl, self.loader.data)
+  File "~/.pyenv/versions/3.12.13/lib/python3.12/functools.py", line 998, in __get__
+    val = self.func(instance)
+  File "~/repos/kamidana/src/kamidana/loader.py", line 90, in data
+    *[loading.loadfile(d) for d in self.data_path_list], override=True
+  File "<site-packages>/dictknife/loading/__init__.py", line 126, in loadfile
+    with actual_opener(filename, encoding=encoding, errors=errors) as rf:
+[exit 1]

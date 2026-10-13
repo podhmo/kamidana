@@ -1,0 +1,23 @@
+$ kamidana --logging=WARNING -a missing.py ./hello.html
+------------------------------------------------------------
+exception: builtins.ImportError
+message: module not found: missing.py (also tried kamidana.additionals.missing)
+------------------------------------------------------------
+Traceback:
+  File "~/repos/kamidana/src/kamidana/debug/__init__.py", line 18, in error_handler
+    yield
+  File "~/repos/kamidana/src/kamidana/commands/onefile.py", line 66, in main
+    driver.run(args.template, args.dst)
+  File "~/repos/kamidana/src/kamidana/driver.py", line 83, in run
+    return self.dump(self.transform(self.load(src)), dst)
+  File "~/repos/kamidana/src/kamidana/driver.py", line 94, in load
+    return self.environment.get_or_select_template(template_file)
+  File "~/.pyenv/versions/3.12.13/lib/python3.12/functools.py", line 998, in __get__
+    val = self.func(instance)
+  File "~/repos/kamidana/src/kamidana/driver.py", line 74, in environment
+    self.loader.additionals,
+  File "~/.pyenv/versions/3.12.13/lib/python3.12/functools.py", line 998, in __get__
+    val = self.func(instance)
+  File "~/repos/kamidana/src/kamidana/loader.py", line 115, in additionals
+    raise ImportError(
+[exit 1]

@@ -1,0 +1,4 @@
+{% macro head() %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>{{ caller() }} - My Webpage</title>
+{% endmacro %}

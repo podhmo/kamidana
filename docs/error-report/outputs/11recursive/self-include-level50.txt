@@ -1,0 +1,17 @@
+$ python ../../level.py ./loop.html 50
+------------------------------------------------------------
+exception: builtins.RecursionError
+message: maximum recursion depth exceeded
+where: loop.html
+------------------------------------------------------------
+loop.html:
+      1: <div>
+  ->  2: {% include "./loop.html" %}
+      3: </div>
+
+Traceback:
+  File "~/repos/kamidana/src/kamidana/_path.py", line 73, in join_path
+    os.path.join(os.path.abspath(os.path.dirname(where)), path)
+  File "<frozen posixpath>", line 408, in abspath
+  File "<frozen posixpath>", line 63, in isabs
+[exit 1]

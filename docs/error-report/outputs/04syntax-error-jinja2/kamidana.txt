@@ -1,0 +1,11 @@
+$ kamidana --logging=WARNING ./main.jinja2
+------------------------------------------------------------
+exception: jinja2.exceptions.TemplateSyntaxError
+message: unexpected '}'
+where: main.jinja2
+------------------------------------------------------------
+main.jinja2:
+      1: # greeting
+      2: 
+  ->  3: hello {{ name }
+[exit 1]

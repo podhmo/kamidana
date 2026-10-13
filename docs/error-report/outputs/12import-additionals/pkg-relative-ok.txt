@@ -1,0 +1,3 @@
+$ kamidana --logging=WARNING ./hello-ok.html -a pkg/additionals.py
+hi: HELLO!
+[exit 0]

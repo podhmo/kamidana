@@ -1,0 +1,18 @@
+$ python ../../j2.py main.html
+Traceback (most recent call last):
+  File "HERE/cases/08include-chain/../../j2.py", line 42, in <module>
+    main()
+  File "HERE/cases/08include-chain/../../j2.py", line 37, in main
+    sys.stdout.write(t.render())
+                     ^^^^^^^^^^
+  File "<site-packages>/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "<site-packages>/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "main.html", line 3, in top-level template code
+    {% include "./part.html" %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "part.html", line 2, in top-level template code
+    hello {{ user_name }}
+jinja2.exceptions.UndefinedError: 'user_name' is undefined
+[exit 1]

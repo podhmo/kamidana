@@ -1,0 +1,13 @@
+$ kamidana --logging=WARNING ./main.html
+------------------------------------------------------------
+exception: jinja2.exceptions.TemplateSyntaxError
+message: unexpected '}'
+where: main.html
+------------------------------------------------------------
+main.html:
+      1: <html>
+      2: <body>
+  ->  3: hello {{ name }
+      4: </body>
+      5: </html>
+[exit 1]

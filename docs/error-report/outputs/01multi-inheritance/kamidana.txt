@@ -1,0 +1,30 @@
+$ kamidana --logging=WARNING ./child.html --strict-undefined
+------------------------------------------------------------
+exception: jinja2.exceptions.UndefinedError
+message: 'user_name' is undefined
+where: base.html
+------------------------------------------------------------
+child.html:
+  ->  1: {% extends "mid.html" %}
+      2: {% block greeting %}[child] {{ super() }}{% endblock %}
+
+mid.html:
+  ->  1: {% extends "base.html" %}
+      2: {% block greeting %}[mid] {{ super() }}{% endblock %}
+
+child.html:
+      1: {% extends "mid.html" %}
+  ->  2: {% block greeting %}[child] {{ super() }}{% endblock %}
+
+mid.html:
+      1: {% extends "base.html" %}
+  ->  2: {% block greeting %}[mid] {{ super() }}{% endblock %}
+
+base.html:
+      1: <html>
+      2: <body>
+  ->  3: {% block greeting %}Hello {{ user_name }}{% endblock %}
+      4: {% block body %}{% endblock %}
+      5: </body>
+      6: </html>
+[exit 1]

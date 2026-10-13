@@ -1,0 +1,29 @@
+$ python ../../j2.py child.html
+Traceback (most recent call last):
+  File "HERE/cases/01multi-inheritance/../../j2.py", line 42, in <module>
+    main()
+  File "HERE/cases/01multi-inheritance/../../j2.py", line 37, in main
+    sys.stdout.write(t.render())
+                     ^^^^^^^^^^
+  File "<site-packages>/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "<site-packages>/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "child.html", line 1, in top-level template code
+    {% extends "mid.html" %}
+  File "mid.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "base.html", line 3, in top-level template code
+    {% block greeting %}Hello {{ user_name }}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "child.html", line 2, in block 'greeting'
+    {% block greeting %}[child] {{ super() }}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "mid.html", line 2, in block 'greeting'
+    {% block greeting %}[mid] {{ super() }}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "base.html", line 3, in block 'greeting'
+    {% block greeting %}Hello {{ user_name }}{% endblock %}
+    ^^^^^^^^^^^^^^^^^^^^^^^^^
+jinja2.exceptions.UndefinedError: 'user_name' is undefined
+[exit 1]

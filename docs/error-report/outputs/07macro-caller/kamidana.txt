@@ -1,0 +1,18 @@
+$ kamidana --logging=WARNING ./child2.html
+------------------------------------------------------------
+exception: jinja2.exceptions.UndefinedError
+message: 'url_for' is undefined
+where: layout2.html
+------------------------------------------------------------
+child2.html:
+      1: {% import "layout2.html" as layout %}
+      2: <head>
+  ->  3: {% call layout.head() %}Index{% endcall %}
+      4: </head>
+
+layout2.html:
+      1: {% macro head() %}
+  ->  2:     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+      3:     <title>{{ caller() }} - My Webpage</title>
+      4: {% endmacro %}
+[exit 1]

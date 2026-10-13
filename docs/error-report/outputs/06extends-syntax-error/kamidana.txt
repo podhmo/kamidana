@@ -1,0 +1,18 @@
+$ kamidana --logging=WARNING ./child.html
+------------------------------------------------------------
+exception: jinja2.exceptions.TemplateSyntaxError
+message: Unexpected end of template. Jinja was looking for the following tags: 'endblock'. The innermost block that needs to be closed is 'block'.
+where: layout.html
+------------------------------------------------------------
+child.html:
+  ->  1: {% extends "layout.html" %}
+      2: {% block content %}hello{% endblock %}
+
+layout.html:
+      1: <html>
+      2: <body>
+      3: {% block content %}{% endblock %}
+  ->  4: {% block footr %}oops, typo in the tag name
+      5: </body>
+      6: </html>
+[exit 1]

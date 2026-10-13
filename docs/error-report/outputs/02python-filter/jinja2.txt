@@ -1,0 +1,24 @@
+$ python ../../j2.py main.jinja2
+Traceback (most recent call last):
+  File "HERE/cases/02python-filter/../../j2.py", line 42, in <module>
+    main()
+  File "HERE/cases/02python-filter/../../j2.py", line 37, in main
+    sys.stdout.write(t.render())
+                     ^^^^^^^^^^
+  File "<site-packages>/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "<site-packages>/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "main.jinja2", line 3, in top-level template code
+    - apple: {{ 100|money }}
+  File "HERE/cases/02python-filter/additionals.py", line 7, in money
+    return helpers.format_money(amount, "JPY")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/02python-filter/helpers.py", line 11, in format_money
+    rate = lookup_rate(currency)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/02python-filter/helpers.py", line 7, in lookup_rate
+    return _RATES[currency]
+           ~~~~~~^^^^^^^^^^
+KeyError: 'JPY'
+[exit 1]

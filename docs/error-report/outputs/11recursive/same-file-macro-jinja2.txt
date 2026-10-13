@@ -1,0 +1,29 @@
+$ python ../../j2.py samemacro.html
+Traceback (most recent call last):
+  File "HERE/cases/11recursive/../../j2.py", line 42, in <module>
+    main()
+  File "HERE/cases/11recursive/../../j2.py", line 37, in main
+    sys.stdout.write(t.render())
+                     ^^^^^^^^^^
+  File "<site-packages>/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "<site-packages>/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "samemacro.html", line 4, in top-level template code
+    {{ price() }}
+  File "<site-packages>/jinja2/runtime.py", line 784, in _invoke
+    rv = self._func(*arguments)
+         ^^^^^^^^^^^^^^^^^^^^^^
+  File "samemacro.html", line 2, in template
+    price: {{ 100|money }}
+  File "HERE/cases/11recursive/additionals.py", line 7, in money
+    return helpers.format_money(amount, "JPY")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/11recursive/helpers.py", line 9, in format_money
+    rate = lookup_rate(currency)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "HERE/cases/11recursive/helpers.py", line 5, in lookup_rate
+    return _RATES[currency]
+           ~~~~~~^^^^^^^^^^
+KeyError: 'JPY'
+[exit 1]
