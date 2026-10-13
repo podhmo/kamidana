@@ -1,5 +1,9 @@
 # kamidana
 
+[![PyPI](https://img.shields.io/pypi/v/kamidana.svg)](https://pypi.org/project/kamidana/)
+[![Python package](https://github.com/podhmo/kamidana/actions/workflows/python-package.yml/badge.svg)](https://github.com/podhmo/kamidana/actions/workflows/python-package.yml)
+[![License](https://img.shields.io/github/license/podhmo/kamidana.svg)](https://github.com/podhmo/kamidana/blob/master/LICENSE)
+
 kamidana is yet another jinja2 cli wrapper (cf. [j2cli](https://github.com/kolypto/j2cli)).
 
 features
